@@ -1,4 +1,8 @@
+# lbgfs2024 0.0.5
+
 # lbgfs2024 0.0.4
+
+* Implemented new package structure
 
 # lbgfs2024 0.0.3
 
