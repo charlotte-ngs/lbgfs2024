@@ -1,5 +1,7 @@
 # lbgfs2024 0.0.5
 
+* Refactored quarto render script for the website to make it possible to be called from any directory in the main course repo
+
 # lbgfs2024 0.0.4
 
 * Implemented new package structure

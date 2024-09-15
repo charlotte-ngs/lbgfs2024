@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+inst/doc
+inst/website/lbgfs2024/_site
+inst/website/lbgfs2024/.quarto
+

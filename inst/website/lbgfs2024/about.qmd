@@ -1,0 +1,28 @@
+---
+title: "About the Course"
+---
+
+The following content was taken from the course catalogue
+
+# Abstract	
+Swiss routine breeding value estimation/genetic evaluation systems of cattle, pig, sheep and goats are presented with methods and evaluated traits. Examples will be demonstrated using the statistical software R.
+
+
+# Learning objective	
+The students know the theoretical and practical application of breeding value estimation in Switzerland for cattle, pig, sheep and goats. The students are able to interpret estimated breeding values.
+
+
+# Content	
+* Basic principles of genetic evaluations
+* Applied genetic evaluation in cattle (data, methods, traits, national and international genetic evaluations)
+* Applied genetic evaluation in pigs (data, methods, traits)
+* Applied genetic evaluation in sheep and goats (data, methods, traits)
+
+
+```{r}
+#| echo: false
+#| results: asis
+if (is.element("rmdhelp", installed.packages()))
+  cat(paste0(rmdhelp::get_latest_change()))
+```
+

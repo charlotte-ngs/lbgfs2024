@@ -1,0 +1,111 @@
+---
+title: "Livestock Breeding and Genomics"
+---
+
+```{r}
+#| label: versionextractor
+#| echo: false
+# constants
+s_quarto_yml_file <- "_quarto.yml"
+s_title_sep <- " | "
+# extract version from DESC
+s_cur_version <- desc::desc_get_version()
+l_quarto_yml <- yaml::read_yaml(s_quarto_yml_file)
+s_title <- l_quarto_yml$website$title
+vec_title_comp <- unlist(strsplit(s_title, split = s_title_sep, fixed = T))
+l_quarto_yml$website$title <- paste0(vec_title_comp[1], s_title_sep, s_cur_version, collapse = "")
+# fix problem with toc
+l_quarto_yml$format$html$toc <- 'true'
+yaml::write_yaml(l_quarto_yml, file = s_quarto_yml_file)
+# remove quote
+vec_yml <- readLines(file(s_quarto_yml_file))
+writeLines(gsub("'", "", vec_yml, fixed = T), file(s_quarto_yml_file))
+# news file
+s_news_md <- here::here("News.md")
+s_news_qmd <- "weekly_news.qmd"
+vec_news_md <- readLines(con = file(s_news_md))
+vec_header_lines <- grep("^#", vec_news_md)
+if (length(vec_header_lines) > 0){
+  # loop over header lines and add week numbering
+  for (l in vec_header_lines){
+    s_version <- unlist(strsplit(vec_news_md[l], " "))[3]
+    s_week <- unlist(strsplit(s_version, ".", fixed = T))[2]
+    vec_news_md[l] <- paste0("# Week ", s_week, ":", gsub("#", "", vec_news_md[l], fixed = T), collapse = "")
+  }
+} else {
+  cat(" *** CANNOT FIND header lines in: ", s_news_md)
+}
+writeLines(vec_news_md, con = file(s_news_qmd))
+# add footer
+
+```
+
+
+## Course Catalogue
+The link to the course catalogue: [751-6305-00L  Livestock Breeding and Genomics](https://www.vvz.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lerneinheitId=182596&semkez=2024W&ansicht=LEHRVERANSTALTUNGEN&lang=en)
+
+
+## Topics for Master Theses
+Topics for Master Theses at Qualitas AG together with ETH will follow here ...
+
+
+## Information
+- Lecturer: Peter von Rohr
+- Date: Friday 9-12
+- Room: LFW C11 
+
+
+### Exercise Platform
+Three options are available
+
+1. Webr: [https://webr.r-wasm.org/latest](https://webr.r-wasm.org/latest)
+2. Posit cloud: [https://posit.cloud](https://posit.cloud)
+3. Run your own platform: Follow steps on [https://posit.co/download/rstudio-desktop](https://posit.co/download/rstudio-desktop)
+
+
+### Exam
+- Written exam
+- Date: 20.12.2024 - 09:15 - 11:15
+- Room: LFW C 11
+
+
+## Questions
+Questions can be asked during the lecture and during the exercise hour or via e-mail: 
+
+- Peter von Rohr (peter.vonrohr `at` usys.ethz.ch)
+
+
+## Lecture Program
+```{r}
+#| echo: false
+### # header names of tables
+vecTableHeaders <- c("Week", "Date", "Topic")
+# define course start date
+dCourseStart <- as.Date("2024/09/20")
+# set number of weeks in semester
+nNrSemesterWeeks <- 14
+# define columns for weaks, dates, and subjects
+Week <- 1:nNrSemesterWeeks
+Date <- format(seq(dCourseStart, by = "week", length.out = nNrSemesterWeeks), "%d.%m")
+Topic <- vector(mode = "character", length = nNrSemesterWeeks)
+# subjects per week
+Topic[1] <- "Introduction to Livestock Breeding and Genomics"
+Topic[2] <- "Review of Quantitative Genetics/Single Locus"
+Topic[3] <- "Genetic Evaluation with Different Sources of Information"
+Topic[4] <- "Genetic Covariance Between Relatives"
+Topic[5] <- "Best Linear Unbiased Prediction (BLUP) - Univariate Analysis"
+Topic[6] <- "BLUP - Additional Aspects"
+Topic[7] <- "BLUP - Multiple Traits"
+Topic[8] <- "Variance and Inbreeding"
+Topic[9] <- "Variance Components Estimation"
+Topic[10] <- "Genomic Selection"
+Topic[11] <- "Genom-Wide Association Studies"
+Topic[12] <- "Review on Selection Index Theory"
+Topic[13] <- "Test-Exam and Questions"
+Topic[14] <- "Exam"
+
+dfCnTable <- data.frame(Week, Date, Topic, stringsAsFactors = FALSE)
+colnames(dfCnTable) <- vecTableHeaders
+knitr::kable(dfCnTable)
+```
+

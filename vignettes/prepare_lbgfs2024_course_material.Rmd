@@ -1,0 +1,59 @@
+---
+title: "Protocol of Preparing Course Material for LBGFS 2024"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Protocol of Preparing Course Material for LBGFS 2024}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Disclaimer
+This documents the creation of the material of the course lbgfs2024.
+
+
+# Protocol
+
+```bash
+cd ~/Data/Projects/Github/charlotte-ngs/
+qrspm create lbgfs2024
+cd lbgfs2024
+# create subdirectories
+for d in bash course_notes exercises website;do
+  echo " * Create directory:  $d ..."
+  mkdir -p inst/$d
+  sleep 2
+done
+mkdir -p docs
+```
+
+Create quarto-projects for each of the different material categories
+
+* website
+
+```bash
+cd inst/website
+quarto create project website lbgfs2024 --no-open 
+```
+
+Copy the already existing material
+
+```bash
+cd lbgfs2024
+cp ../../../../lbgfs2024_proj_root/website/lbgfs2024/*.qmd .
+mkdir bash
+cp ../../../../lbgfs2024_proj_root/website/lbgfs2024/*.sh bash
+```
+
+Test rendering website
+
+```bash
+./bash/quarto_render.sh
+```
+
