@@ -1,4 +1,10 @@
+# lbgfs2024 0.0.8
+
+* Started deployment to Github pages
+
 # lbgfs2024 0.0.7
+
+* Added stub-pages for exercises and solutions
 
 # lbgfs2024 0.0.6
 
