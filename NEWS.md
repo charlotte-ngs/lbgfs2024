@@ -1,3 +1,5 @@
+# lbgfs2024 0.0.7
+
 # lbgfs2024 0.0.6
 
 * Modified structure of weekly news
