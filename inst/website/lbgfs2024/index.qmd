@@ -27,16 +27,24 @@ vec_news_md <- readLines(con = file(s_news_md))
 vec_header_lines <- grep("^#", vec_news_md)
 if (length(vec_header_lines) > 0){
   # loop over header lines and add week numbering
+  s_prev_week <- ""
   for (l in vec_header_lines){
     s_version <- unlist(strsplit(vec_news_md[l], " "))[3]
-    s_week <- unlist(strsplit(s_version, ".", fixed = T))[2]
-    vec_news_md[l] <- paste0("# Week ", s_week, ":", gsub("#", "", vec_news_md[l], fixed = T), collapse = "")
+    s_current_week <- unlist(strsplit(s_version, ".", fixed = T))[2]
+    if (s_prev_week != s_current_week){
+      vec_news_md[l] <- paste0("# Week ", s_current_week, " \n", "#", vec_news_md[l], collapse = "")
+      s_prev_week <- s_current_week
+    } else {
+      vec_news_md[l] <- paste0("#", vec_news_md[l], collapse = "")
+    }
   }
 } else {
   cat(" *** CANNOT FIND header lines in: ", s_news_md)
 }
 writeLines(vec_news_md, con = file(s_news_qmd))
 # add footer
+if (is.element("rmdhelp", installed.packages()))
+  cat(paste0(rmdhelp::get_latest_change()), file = s_news_qmd, append = T)
 
 ```
 
@@ -107,5 +115,14 @@ Topic[14] <- "Exam"
 dfCnTable <- data.frame(Week, Date, Topic, stringsAsFactors = FALSE)
 colnames(dfCnTable) <- vecTableHeaders
 knitr::kable(dfCnTable)
+```
+
+
+
+```{r}
+#| echo: false
+#| results: asis
+if (is.element("rmdhelp", installed.packages()))
+  cat(paste0(rmdhelp::get_latest_change()))
 ```
 

@@ -1,0 +1,11 @@
+---
+title: "Solutions"
+---
+
+
+```{r}
+#| echo: false
+#| results: asis
+if (is.element("rmdhelp", installed.packages()))
+  cat(paste0(rmdhelp::get_latest_change()))
+```

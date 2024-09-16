@@ -1,15 +1,36 @@
-# Week 0: lbgfs2024 0.0.4
+# Week 0 
+## lbgfs2024 0.0.8
+
+* Started deployment to Github pages
+
+## lbgfs2024 0.0.7
+
+* Added stub-pages for exercises and solutions
+
+## lbgfs2024 0.0.6
+
+* Modified structure of weekly news
+
+## lbgfs2024 0.0.5
+
+* Refactored quarto render script for the website to make it possible to be called from any directory in the main course repo
+
+## lbgfs2024 0.0.4
 
 * Implemented new package structure
 
-# Week 0: lbgfs2024 0.0.3
+## lbgfs2024 0.0.3
 
 * Added about page
 
-# Week 0: lbgfs2024 0.0.2
+## lbgfs2024 0.0.2
 
 * Start to add weekly news
 
-# Week 0: lbgfs2024 0.0.1
+## lbgfs2024 0.0.1
 
 * Initial draft version of lecture material.
+
+---
+
+ _Latest Changes: 2024-09-16 16:13:28 CEST (pvr)_

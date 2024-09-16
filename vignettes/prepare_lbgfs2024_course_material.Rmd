@@ -57,3 +57,45 @@ Test rendering website
 ./bash/quarto_render.sh
 ```
 
+After refactoring, the website is rendered using 
+
+```bash
+./inst/website/lbgfs2024/bash/quarto_render.sh -z
+```
+
+Pages for exercises and solutions are added
+
+```bash
+# exercises
+EXPATH=inst/website/lbgfs2024/exercises.qmd
+echo '---' > $EXPATH
+echo 'title: "Exercises"' >> $EXPATH
+echo '---' >> $EXPATH
+echo >> $EXPATH
+echo >> $EXPATH
+echo '```{r}' >> $EXPATH
+echo '#| echo: false' >> $EXPATH
+echo '#| results: asis' >> $EXPATH
+echo 'if (is.element("rmdhelp", installed.packages()))' >> $EXPATH
+echo '  cat(paste0(rmdhelp::get_latest_change()))' >> $EXPATH
+echo '```' >> $EXPATH
+echo >> $EXPATH
+
+# solutions
+SOLPATH=inst/website/lbgfs2024/solutions.qmd
+echo '---' > $SOLPATH
+echo 'title: "Solutions"' >> $SOLPATH
+echo '---' >> $SOLPATH
+echo >> $SOLPATH
+echo >> $SOLPATH
+echo '```{r}' >> $SOLPATH
+echo '#| echo: false' >> $SOLPATH
+echo '#| results: asis' >> $SOLPATH
+echo 'if (is.element("rmdhelp", installed.packages()))' >> $SOLPATH
+echo '  cat(paste0(rmdhelp::get_latest_change()))' >> $SOLPATH
+echo '```' >> $SOLPATH
+echo >> $SOLPATH
+
+```
+
+```

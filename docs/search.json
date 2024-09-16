@@ -1,0 +1,135 @@
+[
+  {
+    "objectID": "course_notes.html",
+    "href": "course_notes.html",
+    "title": "Course Notes",
+    "section": "",
+    "text": "Latest Changes: 2024-09-16 16:13:05 CEST (pvr)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About the Course",
+    "section": "",
+    "text": "The following content was taken from the course catalogue\n\nAbstract\nSwiss routine breeding value estimation/genetic evaluation systems of cattle, pig, sheep and goats are presented with methods and evaluated traits. Examples will be demonstrated using the statistical software R.\n\n\nLearning objective\nThe students know the theoretical and practical application of breeding value estimation in Switzerland for cattle, pig, sheep and goats. The students are able to interpret estimated breeding values.\n\n\nContent\n\nBasic principles of genetic evaluations\nApplied genetic evaluation in cattle (data, methods, traits, national and international genetic evaluations)\nApplied genetic evaluation in pigs (data, methods, traits)\nApplied genetic evaluation in sheep and goats (data, methods, traits)\n\n\nLatest Changes: 2024-09-16 16:13:09 CEST (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html",
+    "href": "weekly_news.html",
+    "title": "Week 0",
+    "section": "",
+    "text": "Started deployment to Github pages\n\n\n\n\n\nAdded stub-pages for exercises and solutions\n\n\n\n\n\nModified structure of weekly news\n\n\n\n\n\nRefactored quarto render script for the website to make it possible to be called from any directory in the main course repo\n\n\n\n\n\nImplemented new package structure\n\n\n\n\n\nAdded about page\n\n\n\n\n\nStart to add weekly news\n\n\n\n\n\nInitial draft version of lecture material.\n\n\nLatest Changes: 2024-09-16 16:13:00 CEST (pvr)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Livestock Breeding and Genomics",
+    "section": "",
+    "text": "The link to the course catalogue: 751-6305-00L Livestock Breeding and Genomics"
+  },
+  {
+    "objectID": "index.html#course-catalogue",
+    "href": "index.html#course-catalogue",
+    "title": "Livestock Breeding and Genomics",
+    "section": "",
+    "text": "The link to the course catalogue: 751-6305-00L Livestock Breeding and Genomics"
+  },
+  {
+    "objectID": "index.html#topics-for-master-theses",
+    "href": "index.html#topics-for-master-theses",
+    "title": "Livestock Breeding and Genomics",
+    "section": "Topics for Master Theses",
+    "text": "Topics for Master Theses\nTopics for Master Theses at Qualitas AG together with ETH will follow here …"
+  },
+  {
+    "objectID": "index.html#information",
+    "href": "index.html#information",
+    "title": "Livestock Breeding and Genomics",
+    "section": "Information",
+    "text": "Information\n\nLecturer: Peter von Rohr\nDate: Friday 9-12\nRoom: LFW C11\n\n\nExercise Platform\nThree options are available\n\nWebr: https://webr.r-wasm.org/latest\nPosit cloud: https://posit.cloud\nRun your own platform: Follow steps on https://posit.co/download/rstudio-desktop\n\n\n\nExam\n\nWritten exam\nDate: 20.12.2024 - 09:15 - 11:15\nRoom: LFW C 11"
+  },
+  {
+    "objectID": "index.html#questions",
+    "href": "index.html#questions",
+    "title": "Livestock Breeding and Genomics",
+    "section": "Questions",
+    "text": "Questions\nQuestions can be asked during the lecture and during the exercise hour or via e-mail:\n\nPeter von Rohr (peter.vonrohr at usys.ethz.ch)"
+  },
+  {
+    "objectID": "index.html#lecture-program",
+    "href": "index.html#lecture-program",
+    "title": "Livestock Breeding and Genomics",
+    "section": "Lecture Program",
+    "text": "Lecture Program\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n20.09\nIntroduction to Livestock Breeding and Genomics\n\n\n2\n27.09\nReview of Quantitative Genetics/Single Locus\n\n\n3\n04.10\nGenetic Evaluation with Different Sources of Information\n\n\n4\n11.10\nGenetic Covariance Between Relatives\n\n\n5\n18.10\nBest Linear Unbiased Prediction (BLUP) - Univariate Analysis\n\n\n6\n25.10\nBLUP - Additional Aspects\n\n\n7\n01.11\nBLUP - Multiple Traits\n\n\n8\n08.11\nVariance and Inbreeding\n\n\n9\n15.11\nVariance Components Estimation\n\n\n10\n22.11\nGenomic Selection\n\n\n11\n29.11\nGenom-Wide Association Studies\n\n\n12\n06.12\nReview on Selection Index Theory\n\n\n13\n13.12\nTest-Exam and Questions\n\n\n14\n20.12\nExam\n\n\n\n\n\n\nLatest Changes: 2024-09-16 16:13:28 CEST (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.5",
+    "href": "weekly_news.html#lbgfs2024-0.0.5",
+    "title": "Week 0",
+    "section": "",
+    "text": "Refactored quarto render script for the website to make it possible to be called from any directory in the main course repo"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.4",
+    "href": "weekly_news.html#lbgfs2024-0.0.4",
+    "title": "Week 0",
+    "section": "",
+    "text": "Implemented new package structure"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.3",
+    "href": "weekly_news.html#lbgfs2024-0.0.3",
+    "title": "Week 0",
+    "section": "",
+    "text": "Added about page"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.2",
+    "href": "weekly_news.html#lbgfs2024-0.0.2",
+    "title": "Week 0",
+    "section": "",
+    "text": "Start to add weekly news"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.1",
+    "href": "weekly_news.html#lbgfs2024-0.0.1",
+    "title": "Week 0",
+    "section": "",
+    "text": "Initial draft version of lecture material.\n\n\nLatest Changes: 2024-09-16 16:13:00 CEST (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.6",
+    "href": "weekly_news.html#lbgfs2024-0.0.6",
+    "title": "Week 0",
+    "section": "",
+    "text": "Modified structure of weekly news"
+  },
+  {
+    "objectID": "exercises.html",
+    "href": "exercises.html",
+    "title": "Exercises",
+    "section": "",
+    "text": "Latest Changes: 2024-09-16 16:13:14 CEST (pvr)"
+  },
+  {
+    "objectID": "solutions.html",
+    "href": "solutions.html",
+    "title": "Solutions",
+    "section": "",
+    "text": "Latest Changes: 2024-09-16 16:13:19 CEST (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.7",
+    "href": "weekly_news.html#lbgfs2024-0.0.7",
+    "title": "Week 0",
+    "section": "",
+    "text": "Added stub-pages for exercises and solutions"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.8",
+    "href": "weekly_news.html#lbgfs2024-0.0.8",
+    "title": "Week 0",
+    "section": "",
+    "text": "Started deployment to Github pages"
+  }
+]
