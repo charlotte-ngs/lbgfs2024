@@ -1,0 +1,35 @@
+# Preface {-}
+
+Livestock Breeding and Genomics is a masters course taught in the Institute of Agricultural Sciences at ETH Zurich. The aim of this course is to introduce the basic concepts of livestock breeding and genomics to the students. 
+
+
+## Prerequisites {-}
+There are no explicit prerequisites for this course. All required concepts are explained during the course. Although basic knowledge in the following areas is definitely helpful for this course. 
+
+* __Linear Algebra__: Basic properties of and basic operations with vectors and matrices
+* __Statistics__: Simple linear models and least squares
+* __R__: Basics of how to work with data and how to do simple computations 
+
+
+## Goals {-}
+The following goals are taken from the teaching system at ETH. The students are able to set up design matrices, the additive genetic relationship matrix and its inverse as well as the mixed model equations to estimate BLUP breeding values. The concept of BLUP breeding values are also extended to genomic selection. All concepts introduced during this course are not only presented during the lecture, but students are expected to work with the concepts on small example problems.
+
+
+### Specific Learning Goals {-}
+The students ... 
+
+* ... understand the basic concepts of livestock breeding and genomics. 
+* ... can separate the concepts of breeding and genomics from the techniques that are important in a livestock production enterprise. 
+* ... are familiar with the basic tools used in livestock breeding and genomics. 
+* ... know for which problems these tools can be applied.
+* ... understand the genetic foundation behind the theory on which livestock breeding and genomics is based on. 
+* ... are able to extend the genetic theory into the statistical models used in livestock breeding and genomics.
+* ... can extract the practical meaning of the results of the statistical analyses.
+
+
+## Exam {-}
+There will be a written exam during the lecture of the last week of the semester. The exam is going to be an open-book exam. All material that seams helpful to students will be allowed. The students must solve the exams on their own. The exam is not designed to be solved in teams.
+
+
+## Lecture Notes {-}
+These lecture notes contain all the relevant material for the exam. The appendix of the course notes contains two chapters, which introduce the necessary tools to work through the material of this course. Those tools consist of linear algebra and R. These chapters are mostly left to students to work through by themselves. Different students have different levels of skills in the topics of linear algebra and R. Hence not every student needs to go through the presented material at the same depth. 

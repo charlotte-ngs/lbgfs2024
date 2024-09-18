@@ -1,0 +1,13 @@
+# Introduction To R and RStudio {#intro-rstats}
+```{r met-intro-rstats-reset, echo=FALSE}
+s_this_rmd_file <- rmdhelp::get_this_rmd_file()
+met$set_this_rmd_file(ps_this_rmd_file = s_this_rmd_file)
+```
+
+According to the website https://www.r-project.org/, R `r met$add('RCoreTeam2018')` is a free software environment for statistical computing and graphics. Because R is free and it is available for the most commonly used operating systems such as Windows, MacOsX and Linux, it has become very popular in statistics and in data science. Furthermore, R can be extended with user-contributed code and documentation (called R-packages) in a very easy and standardised way. The number of available R-packages is growing rapidly and has reached 
+
+RStudio (https://www.rstudio.com/) is a private company that among a large number of different products distributes the RStudio Integrated Development Environment (IDE) for R. A great number of different resources about R and RStudio IDE is available. Some of them are listed here.
+
+* __R__: From the R website, there is an introduction to R available at: https://cran.r-project.org/doc/manuals/r-release/R-intro.html. 
+* __RStudio IDE__: The link https://resources.rstudio.com/ points to a series of webinars introducing R and RStudio.
+

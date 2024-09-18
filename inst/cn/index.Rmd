@@ -1,0 +1,43 @@
+---
+title: Livestock Breeding and Genomics
+author: Peter von Rohr
+date: 2024-09-20
+url: https://charlotte-ngs.github.io/lbgfs2024
+github-repo: https://github.com/charlotte-ngs/lbgfs2024
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: bibliography.bib
+link-citations: true
+output: bookdown::gitbook
+---
+
+```{r setup, include=FALSE, echo=FALSE, results='hide'}
+### # required packages from CRAN
+vec_reqpkgs_cran <- c("knitr", "rmarkdown", "roxygen2", "bookdown", "caTools", "citr", "devtools", "kableExtra")
+vec_instpkgs <- installed.packages()
+for (p in vec_reqpkgs_cran){
+  if (!p %in% vec_instpkgs)
+    install.packages(pkgs = p, repos = "https://cran.rstudio.com")
+}
+
+### # required packages from github
+list_reqpkgs_github <- list(repo=c("charlotte-ngs"), package = c("rmdhelp"))
+for (idx in seq_along(1:length(list_reqpkgs_github$package))){
+  p <- list_reqpkgs_github$package[idx]
+  if (!p %in% vec_instpkgs)
+    devtools::install_github(paste(list_reqpkgs_github$repo[idx], p, sep = "/"))
+}
+# knitr options
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.pos = "!ht", out.extra = "")
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+```{r mrtminit, include=FALSE}
+met <- rmdhelp::MendeleyExportToolR6$new()
+met$set_this_rmd_file(ps_this_rmd_file = ifelse(rstudioapi::isAvailable(), 
+                                                 rstudioapi::getSourceEditorContext()$path, 
+                                                 whereami::thisfile()))
+```
+
+

@@ -1,0 +1,117 @@
+# Introduction {#intro-lbg}
+```{r met-intro-lbg-reset, echo=FALSE}
+s_this_rmd_file <- rmdhelp::get_this_rmd_file()
+met$set_this_rmd_file(ps_this_rmd_file = s_this_rmd_file)
+```
+
+## Terminology {#intro-lbg-terminology}
+The terms 
+
+* __Livestock Breeding__ and 
+* __Animal Breeding__ 
+
+are used interchangeably in this course. Although, the latter is a more general term, whereas the former focuses on livestock species, i.e. animals which are typically present on a farm such as cattle, pig, goat and sheep. Animal breeding in general could also include pets such as dogs or cats or even zoo animals. But the very interesting topic of breeding such species is outside of the scope of this course and is therefore not covered in this monograph. 
+
+The term _livestock breeding_ is sometimes understood ambiguously. In general, most people do not differentiate between livestock breeding and animal husbandry or animal production. From a scientific point of view a _Livestock Breeder_ is a person who owns a number of animals from which he or she selects parent animals and uses a designed mating scheme to achieve a certain goal with the offspring animals. Most commonly known are breeders of pet animals such as dogs, cats or birds which follow individual breeding goals which focus on specific phenotypic appearance or on special behavioral traits. Around the end of the $19^{th}$ century, livestock breeders have realized that they have to collaborate in breeding associations to be able to effectively select parent animals from a large breeding population. This allowed them to achieve more robust selection responses in shorter amounts of time, especially for livestock species with long generation intervals such as cattle and horse. This development is nicely documented by the archive of Swiss agricultural history available at https://www.histoirerurale.ch/afaahr/. In summary, livestock breeders are primarily interested in selecting parent animals with the best genetic potential to produce offspring animals that are closer to a breeding goal. From an economic point of view the sale of breeding animals to other farmers makes an important contribution to the economic result of the farm. 
+
+In contrast to livestock breeding, livestock production focuses on the aspects of keeping animals on farms to produce goods that can be sold. Nowadays, the goods produced by farm animals are mostly used in human nutrition. Due to the focus on the production aspects, the economic result of the production process is determined by the difference between monetary revenue for the products and the costs that are caused by the production of the goods. 
+
+Depending on the livestock species, the separation between breeding and production is more pronounced. In pigs, most farms are specialized into either breeding farms or production farms. Most cattle farms run as mixed operations which means that they are members of breeding organizations but they also run a production business. While the mixture of both operation types (breeding and production) on the same farm is not negative, it is conceptually important to separate breeding and production. 
+
+
+## History {#history}
+Livestock breeding and Genomics are two scientific areas which have experienced quite dramatic changes in the last few years. As already mentioned in the previous section, livestock breeding started over 100 years ago and is a much older discipline than Genomics. 
+
+### Livestock Breeding {#livestock-breeding}
+In principle, livestock breeding did exist for a very long time in a rather unsystematic form. Individual breeders always made choices about which animals they want to select as parents for the next generation of their livestock herds. Accounts that such early activities in livestock breeding happened as early as the Middle Ages are given in `r met$add('Duerst1931')` and `r met$add('Arndorfer2010')`. But to the best of my knowledge it was only in the second half of the 20th century that the area of livestock breeding made some ground-breaking progress which spread all over the world. This progress was initiated by the researcher [__Charles R. Henderson__](https://en.wikipedia.org/wiki/Charles_Roy_Henderson). He and his team developed a solid methodology that is still applied up to the current day. The main achievement of Henderson and his team was to find a class of statistical models that are consistent with the theory of quantitative genetics described in `r met$add('Falconer1996')` which is one reference among many other sources. Furthermore, the research groups lead by Henderson showed how to efficiently compute the results form the statistical models for large datasets.
+
+
+### Genomics {#genomics}
+Genomics started with the [Human Genome Project](https://en.wikipedia.org/wiki/Human_Genome_Project). The publication of the first draft of the complete Human genome `r met$add('Venter2001')` and a publication by `r met$add('Meuwissen2001')` that appeared in the same year made it possible to include information of complete genomes into statistical analyses. The process of including information from complete genomes into statistical analyses is what is understood by the term __genomics__. 
+
+The introduction of genomics methodologies in the area of livestock breeding caused a shift of paradigm. In large livestock breeding populations associations between certain genetic variants and the expression of desirable forms of phenotypic traits can be estimated using older breeding animals. The obtained estimation results can be used to assess the genetic potential of young animals which do not have any phenotypic observations available. This type of analysis is part of a procedure which is termed __genomic selection__ and it allows for selecting breeding animals at a much younger age which shortens the generation interval. 
+
+The basic principle of how animals are selected as parents of future generations did not change, but the availability of different types of information and the amount of information that can be used to assess the genetic potential of a selection candidate changed dramatically since the invention of genomic technologies. Despite these rapid developments of new technologies, livestock breeders are still facing the following two fundamental questions.
+
+
+## Fundamental Questions
+In livestock breeding and genomics, we are interested in addressing two fundamental questions that bothered breeders for a very long time. For this course, we put these two fundamental questions into the following form.
+
+> 1. What is the _best_ animal?
+> 2. What can breeders do to obtain the _best_ animal?
+
+The term `best` is relative, because there is no `best` animal for all situations and all environments. Animals that show high performances in one environment, may not be able to produce as much in a different environment. One example for that might be Holstein cows in Europe or North America are able to produce a lot of milk, but they have difficulties to survive in Africa. Knowing that the environment plays an important role for livestock animals, we will be assuming that the animals that we are selecting, are more or less adapted to their environment.
+
+Animals are usually described or characterized in terms of appearance or performance or a combination of both. In any case, we will be talking about __traits__ where any trait is an observable or measurable characteristic of an animal. Examples of _observable_ traits are 
+
+* coat color
+* size 
+* muscling
+* leg set
+* udder conformation and many more.
+
+Observable traits are mostly used to describe the appearance of an animal. In contrast to that, _measurable_ traits are mostly used to describe the performance of an animal. Examples of measurable traits are 
+
+* body weight
+* milk production
+* protein and fat yield.
+
+Note, it is important to distinguish between the observed or measured values of a trait which might be `red` coat color or $343$ kg of body weight and the traits themselves which are just coat color or body weight. The observed or measured values of a trait are also called __phenotypes__. 
+
+
+### Genotypes and Phenotypes {#geno-pheno}
+In livestock breeding we are mainly concerned with changing animal populations at the genetic level. The reason for this is because parents do not pass their phenotypes to their offspring. But parents pass a random sample of their genes or alleles to their offspring. For each offspring every parent does transmit a different sample of their genes. 
+
+For answering the fundamental questions of livestock breeding which aim at finding the best parents for future generations, we would have to know which animals would pass the most valuable genes or alleles to potential offspring when selecting these animals as parents. The value of genes or alleles with respect to a certain traits of interest cannot be measured or observed directly. Hence, we have to estimate those values. This can be done by using the effect that phenotypes measured or observed in an animal always have a genetic background. The genetic background for a given phenotype sources in the central dogma of molecular biology (https://en.wikipedia.org/wiki/Central_dogma_of_molecular_biology). This dogma describes the relationship between phenotypes ($Y$) and genotypes ($V$) by the following equation \@ref(eq:phengenenv)
+
+\begin{equation}
+Y = V + E
+(\#eq:phengenenv)
+\end{equation}
+
+where $E$ represents the __environmental effects__. How the value of alleles or genes passed from parents to offspring are estimated based on the model shown in equation \@ref(eq:phengenenv) is described in chapter \@ref(quan-gen). 
+
+
+## Improvement of Animal Populations {#improvementanimalpopulations}
+The purpose of livestock breeding is to improve animal populations. Once an animal is conceived, the genotype is fixed^[Here we do not take into account new technologies such as gene editing.] and cannot be improved anymore. Breeders can improve populations at the genetic level using the following two tools
+
+1. selection
+2. mating
+
+### Selection
+Selection is the process to determine which individuals of a current population become parents of the next generation. The application of selection in a certain population over a certain time changes the animals in that population at the genetic level. The most familiar form of selection is __natural selection__ which occurs in natural and wildlife populations. Natural selection is one of the great forces of evolution and it also affects domestic animals. All animals with lethal genetic defects are naturally selected against, i.e.,  they never become parents.  
+
+Although natural selection cannot be ignored for livestock species, what is most important for animal breeders is __artificial selection__. The idea behind artificial selection is simple. For a given trait all animals in a population are ranked according to their breeding value. From this list the animals ranking top are used as parents for the next generation. In most livestock populations, animal breeders are interested to improve their animals with respect to more than just one trait. When considering more than one trait, the question is how to come up with the ranking for the animals that are selected as potential parents. Several strategies to produce such a ranking based on a number of traits. It has been shown that using a weighted mean of the breeding values of all traits which is called __aggregate genotype__ to rank all animals is an optimal procedure to be used as selection criterion `r met$add('Hazel1943')`.
+
+### Mating
+The second tool we have available as animal breeders is __mating__. In a mating scheme, we decide which of the selected male animals are bred to which selected female animals. There are a number of different rules that can be followed. The application of a given set of rules are summarized as mating system. There are three reasons for using a mating system.
+
+1. producing offspring with extreme breeding values. When parents with extreme breeding values (high or low) are mated, offspring with extreme phenotypes can be expected. This is mostly used when a given trait is to be changed in one direction
+2. make use of complementarity in parental traits. When neither of the parents is optimal, a mix of traits can be desirable. In such a case parental genotypes can be quite different. When parents of different breeds are mated, then this is called __crossbreeding__. 
+3. obtain positive effects due to heterosis. Hybrid vigor or heterosis in crossbreeding occurs when offspring performance exceeds the performance of the pure-breds. 
+
+There might also be other aspects that influence a mating system, e.g. to restrict the level of inbreeding or to consider optimum genetic contribution theory `r met$add('Meuwissen1997')`. 
+
+
+## Statistics {#statistics}
+Several authors such as `r met$add('Schaeffer2013')` and `r met$add('Gianola2015')` have reviewed the development of statistical methods in the area of animal breeding. Both authors mention that statistical methodology plays an important role in animal breeding. Most animal breeders are concerned with estimating or predicting breeding values. This is still done using a set of methods resulted from the theory developed by Charles Henderson and his team (`r met$add('Henderson1953')` and `r met$add('Henderson1975')`). These methods are known under the name of __BLUP__. BLUP shows some important regularization properties. These properties allow us to estimate or to predict many more unknown parameters than we have observations. In animal breeding, breeding values of all animals in a population can be predicted also for those animals for which we do not have observations. This is particularly important for traits which can only be observed in animals of one sex.
+
+There are more methods with regularization properties. The so-called __Bayesian methods__ are one example. Bayesian methods use the so-called Bayes theorem (`r met$add('Bayes1763')` and https://en.wikipedia.org/wiki/Bayes%27_theorem)  to come up with parameter estimates. Although Bayesian methods are much older than other methods such as BLUP, they were only introduced into practical animals breeding in the early 1990's. Important pioneering papers for the use of Bayesian methods in animal breeding are `r met$add('Gianola1982')` and `r met$add('Gianola1986')`. The reasons for the late adoption of Bayesian methods are certainly related to development of cheap computing infrastructure. This is described in more detail in subsection \@ref(computerscience).
+
+
+## Computer Science {#computerscience}
+The development of computing power is often summarized by the so-called __Moore's Law__ (`r met$add('Moore1965')` and https://en.wikipedia.org/wiki/Moore%27s_law). Moore's law is not a law in the sense of mathematics or physics, but it is a prediction that Gordon Moore^[One of the co-founders and a director of Intel] made as early as 1965. He predicted that the number of components that could be placed on a certain integrated circuit would double roughly every 18 months between 1959 and 1975. This prediction was generalized into a statement that the general computing performance could be doubled every 18 months. In retro-spect this was more or less true for the last 50 years. This considerable increase in computing performance had also a dramatic impact in the costs of a certain computation. 
+
+When comparing the development of computing performance with the performance of livestock animals, there is an obvious relation between the two. This means the performance increase of livestock animals was in part facilitated by the development of cheap computing power. The two figures \@ref(fig:milkcompperf) and \@ref(fig:moorelaw) compare the two developments. The first diagram shows the annual milk production per cow. 
+
+```{r milkcompperf, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", fig.cap="Yearly Milk Yield per Cow in the USA", out.width="100%"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/milkcompperf.odg")
+knitr::include_graphics(path = "odg/milkcompperf.png")
+```
+
+The Figure \@ref(fig:moorelaw) below shows the development of computing power according to Moore's law.
+
+```{r moorelaw, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", fig.cap="Computing Performance According To Moore's Law"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/moorelaw.odg")
+knitr::include_graphics(path = "odg/moorelaw.png")
+```
