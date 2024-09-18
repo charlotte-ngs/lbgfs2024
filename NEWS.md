@@ -1,3 +1,11 @@
+# lbgfs2024 0.1.1
+
+Adding links to the material of week 1
+
+* Course Notes: [Introduction](https://charlotte-ngs.github.io/lbgfs2024/course_notes/01_intro.pdf)
+* Course Notes: [Basics of Quantitative Genetics](https://charlotte-ngs.github.io/lbgfs2024/course_notes/02_basic_qg.pdf)
+* Appendix: [Linear Algebra](https://charlotte-ngs.github.io/lbgfs2024/course_notes/A1_lin_alg.pdf)
+
 # lbgfs2024 0.1.0
 
 * First release of website for week 1
