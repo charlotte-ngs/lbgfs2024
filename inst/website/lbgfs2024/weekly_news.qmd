@@ -1,3 +1,8 @@
+# Week 1 
+## lbgfs2024 0.1.0
+
+* First release of website for week 1
+
 # Week 0 
 ## lbgfs2024 0.0.9
 
@@ -35,4 +40,4 @@
 
 ---
 
- _Latest Changes: 2024-09-18 11:56:07 CEST (pvr)_
+ _Latest Changes: 2024-09-18 11:59:52 CEST (pvr)_
