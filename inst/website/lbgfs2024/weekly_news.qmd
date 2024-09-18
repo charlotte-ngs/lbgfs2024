@@ -1,4 +1,6 @@
 # Week 0 
+## lbgfs2024 0.0.9
+
 ## lbgfs2024 0.0.8
 
 * Started deployment to Github pages
@@ -33,4 +35,4 @@
 
 ---
 
- _Latest Changes: 2024-09-16 16:13:28 CEST (pvr)_
+ _Latest Changes: 2024-09-18 11:03:38 CEST (pvr)_

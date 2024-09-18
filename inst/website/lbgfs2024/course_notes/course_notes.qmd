@@ -1,0 +1,53 @@
+---
+title: "Course Notes"
+---
+
+```{r}
+#| echo: false
+s_course_notes_url <- "https://charlotte-ngs.github.io/lbgfs2024/course_notes/"
+```
+
+## Chapters of Course Notes
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+s_cn_path <- "course_notes.dat"
+tbl_cn <- readr::read_delim(file = s_cn_path, delim = ";")
+tbl_cn$Nr <- 1:nrow(tbl_cn)
+# create topic from text and filename
+tbl_cn <- dplyr::mutate(tbl_cn, Topic = paste0("[", Text, "](", s_course_notes_url, Filename,")"))
+# select relevant columns
+tbl_cn <- dplyr::select(tbl_cn,Nr,Date,Topic)
+# show knitr
+knitr::kable(tbl_cn)
+```
+
+
+## Appendix to Course Notes
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+s_ap_path <- "course_notes.dat"
+tbl_ap <- readr::read_delim(file = s_ap_path, delim = ";")
+tbl_ap$Nr <- 1:nrow(tbl_ap)
+# create topic from text and filename
+tbl_ap <- dplyr::mutate(tbl_ap, Topic = paste0("[", Text, "](", s_course_notes_url, Filename,")"))
+# select relevant columns
+tbl_ap <- dplyr::select(tbl_ap,Nr,Date,Topic)
+# show knitr
+knitr::kable(tbl_ap)
+
+```
+
+
+
+```{r}
+#| echo: false
+#| results: asis
+if (is.element("rmdhelp", installed.packages()))
+  cat(paste0(rmdhelp::get_latest_change()))
+```

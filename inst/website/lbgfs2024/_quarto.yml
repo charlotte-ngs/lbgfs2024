@@ -1,12 +1,12 @@
 project:
   type: website
 website:
-  title: LBG - FS 2024 | 0.0.8
+  title: LBG - FS 2024 | 0.0.9
   navbar:
     left:
     - href: index.qmd
       text: Home
-    - href: course_notes.qmd
+    - href: course_notes/course_notes.qmd
       text: Course Notes
     - href: exercises.qmd
       text: Exercises
