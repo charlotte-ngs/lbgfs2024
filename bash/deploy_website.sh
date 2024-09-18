@@ -1,7 +1,7 @@
 #!/bin/bash
 #' ---
-#' title: Render Quarto Source Files
-#' date:  20240915
+#' title: Deploy Website
+#' date:  20240918
 #' author: Peter von Rohr
 #' ---
 #' 
@@ -10,16 +10,16 @@
 #' -------------|----------|-----------------------------------
 #' 
 #' ## Purpose
-#' Seamless render of quarto source files
+#' Seamless deployment of new version of the website
 #'
 #' ## Description
-#' Render all quarto source files in a given evaluation directory
+#' Deploy a new version of the website
 #'
 #' ## Details
-#' The directory in which the quarto source files can be found is set within the script relative to where the script is stored
+#' This includes re-rendering of all quarto markdown pages plus copying the generated html-pages to the target directory
 #'
 #' ## Example
-#' ./quarto_render.sh
+#' ./deploy_website.sh
 #'
 #' ## Set Directives
 #' General behavior of the script is driven by the following settings
@@ -44,7 +44,6 @@ REAL_SCRIPT=$(readlink -f $SCRIPT_DIR/$SCRIPT)
 REAL_SCRIPT_DIR=$(dirname $REAL_SCRIPT)
 REAL_EVALREPO=$(dirname $REAL_SCRIPT_DIR)
 REAL_EVALROOT=$(dirname $REAL_EVALREPO)
-CURWD=$(pwd)
 
 
 #' ## Functions
@@ -56,20 +55,11 @@ CURWD=$(pwd)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -d <quarto_doc> -h -q <quarto_yml> -s <quarto_src_dir> -t <trg_dir> -v -z"
+  echo "Usage:   $SCRIPT -h -z"
   echo '  where '
-  echo '        -d <quarto_doc>     --  (optional) alternative path to specific qmd document ...'
-  echo '        -h                  --  (optional) show usage message ...'
-  echo '        -q <quarto_yml>     --  (optional) quarto yml parameter file ...'
-  echo '                                           > default: _quarto.yml ...'
-  echo '        -s <quarto_src_dir> --  (optional) alternative quarto source directory ...'
-  echo '                                           > default: dirname($SCRIPT_DIR) ...'
-  echo '        -t <trg_dir>        --  (optional) alternative output directory ...'
-  echo '                                           > default: dirname($SCRIPT_DIR)/_site'
-  echo '        -v                  --  (optional) run quarto preview ...'
-  echo '                                           > default: false ...'
-  echo '        -z                  --  (optional) produce verbose output'
-  echo '                                           > default: false ...'
+  echo '        -h  --  (optional) show usage message ...'
+  echo '        -z  --  (optional) produce verbose output'
+  echo '                           > default: false'
   echo 
   exit 1
 }
@@ -106,62 +96,19 @@ log_msg () {
   echo "[${l_RIGHTNOW} -- ${l_CALLER}] $l_MSG"
 }
 
-#' ### Directory Existance Check
-#' Check whether directory exist, if not create it
-#+ check-exist-create-dir-fun
-check_exist_create_dir () {
-  local l_CHECK_DIR=$1
-  if [ ! -d "$l_CHECK_DIR" ]
-  then
-    log_msg check_exist_create_dir " * CANNOT FIND: $l_CHECK_DIR ==> create ..."
-    mkdir -p $l_CHECK_DIR
-  fi
-}
-
-
 
 #' ## Getopts for Commandline Argument Parsing
 #' If an option should be followed by an argument, it should be followed by a ":".
 #' Notice there is no ":" after "h". The leading ":" suppresses error messages from
 #' getopts. This is required to get my unrecognized option code to work.
 #+ getopts-parsing, eval=FALSE
-QUARTODOC=''
-QSRCDIR=''
-TRGDIR=''
-QYMLPAR=''
-QPREVIEW='false'
+QWEBPROJROOT=''
+PUBWEBDIR=''
 VERBOSE='false'
-while getopts ":d:hq:s:t:vz" FLAG; do
+while getopts ":hz" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
-      ;;
-    d)
-      if [[ -f $OPTARG ]];then
-        QUARTODOC=$OPTARG
-      else
-        usage " *** ERROR: CANNOT FIND quarto-document: $OPTARG ..."
-      fi
-      ;;
-    q)
-      if [[ -f $OPTARG ]];then
-        QYMLPAR=$OPTARG
-      else
-        usage " *** ERROR: CANNOT FIND quarto yml parfile: $OPTARG ..."
-      fi
-      ;;
-    s)
-      if [[ -d $OPTARG ]];then
-        QSRCDIR=$OPTARG
-      else
-        usage " *** ERROR: CANNOT FIND quarto source directory: $OPTARG ..."
-      fi
-      ;;
-    t)
-      TRGDIR=$OPTARG
-      ;;
-    v)
-      QPREVIEW='true'
       ;;
     z)
       VERBOSE='true'
@@ -190,47 +137,44 @@ start_msg
 #' meaningful default value
 #+ argument-test, eval=FALSE
 log_msg $SCRIPT " * Check arguments and set defaults ..."
-if [[ $QSRCDIR == '' ]];then
-  QSRCDIR=$EVALREPO
+if [[ $QWEBPROJROOT == '' ]];then
+  QWEBPROJROOT=$EVALREPO/inst/website/lbgfs2024
 fi
-if [[ $TRGDIR == '' ]];then
-  TRGDIR=$QSRCDIR/_site
-fi
-check_exist_create_dir $TRGDIR
-if [[ $QYMLPAR == '' ]];then
-  QYMLPAR=$QSRCDIR/_quarto.yml
+if [[ $PUBWEBDIR == '' ]];then
+  PUBWEBDIR=$EVALREPO/docs
 fi
 if [[ $VERBOSE == 'true' ]];then
-  log_msg $SCRIPT " * Checked values and defaults ..."
-  log_msg $SCRIPT " * *** QSRCDIR: $QSRCDIR ..."
-  log_msg $SCRIPT " * *** TRGDIR:  $TRGDIR ..."
-  log_msg $SCRIPT " * *** QYMLPAR: $QYMLPAR ..."
+  log_msg $SCRIPT " * Check and set parameter values ..."
+  log_msg $SCRIPT " * *** QWEBPROJROOT: $QWEBPROJROOT ..."
+  log_msg $SCRIPT " * *** PUBWEBDIR:    $PUBWEBDIR ..."
 fi
 
 
-#' ## Render Quarto Documents
-#' Render quarto documents
-#+ render-quarto-docs
-log_msg $SCRIPT " * Render quarto documents ..."
-if [[ $QUARTODOC == '' ]];then
-  # change to source directory
-  cd $QSRCDIR
-  for f in $(find . -type f -name "*.qmd");do 
-    if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Render $f ...";fi
-    quarto render $f --execute-params $QYMLPAR --output-dir $TRGDIR
-    sleep 2
-  done
-  # preview page
-  if [[ $QPREVIEW == 'true' ]];then
-    if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Preview output of target: $TRGDIR ...";fi
-    quarto preview index.qmd --to html --no-watch-inputs --no-browse
-  fi
-  # back to working directory from before
-  cd $CURWD
-else
-  if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Render $QUARTODOC ...";fi
-  quarto render $QUARTODOC --execute-params $QYMLPAR --output-dir $TRGDIR
+#' ## Render Quarto Markdown
+#' Render qmd files
+#+ render-qmd-files
+log_msg $SCRIPT " * Render qmd ..."
+cd $QWEBPROJROOT
+QRENDOPT=''
+if [[ $VERBOSE == 'true' ]];then
+  QRENDOPT="${QRENDOPT} -z"
 fi
+./bash/quarto_render.sh "$QRENDOPT"
+cd $EVALREPO
+
+
+#' ## Deployment of Rendering Results
+#' The results of the rendering are copied to the directory from where the 
+#' website is served
+#+ deploy-website
+log_msg $SCRIPT " * Deploy website ..."
+for f in $(find $QWEBPROJROOT/_site -type f -name '*.html');do
+  TRGWEBPATH=$(echo $f | sed -e "s|$QWEBPROJROOT/_site|$PUBWEBDIR|")
+  if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Copy $f to $TRGWEBPATH ...";fi
+  cp $f $TRGWEBPATH
+  sleep 2
+done
+
 
 
 #' ## End of Script
