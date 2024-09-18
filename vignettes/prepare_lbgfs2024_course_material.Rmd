@@ -138,6 +138,9 @@ cp ../../../lbgfs2024.bck.20240918072153/inst/cn/*.bib .
 Migrate figures in odg as they are needed
 
 ```bash
+cd inst/cn
+mkdir odg
+
 for f in $(grep 'knitr::include_graphics' *.Rmd | cut -d '"' -f2 | cut -d '.' -f1 | sed -e "s|odg/||");do
   echo " * Figure: $f ..."
   sleep 2
