@@ -9,3 +9,6 @@
 The goal of lbgfs2024 is to provide a source for the course material of
 Livestock Breeding and Genomics - Fall Semester 2024 (LBGFS2024) at ETH
 Zurich.
+
+The course website is available from:
+<https://charlotte-ngs.github.io/lbgfs2024/>
