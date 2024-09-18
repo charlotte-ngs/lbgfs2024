@@ -95,7 +95,51 @@ echo 'if (is.element("rmdhelp", installed.packages()))' >> $SOLPATH
 echo '  cat(paste0(rmdhelp::get_latest_change()))' >> $SOLPATH
 echo '```' >> $SOLPATH
 echo >> $SOLPATH
+```
+
+* course notes
+
+```bash
+cd inst/course_notes
+quarto create project book lbgfs2024 --no-open 
+```
+
+Conversion of un-numbered titles
+
+```r
+convert_rmd_to_qmd("inst/course_notes/lbgfs2024/index_raw.qmd", "inst/course_notes/lbgfs2024/index.qmd")
+```
+
+Go back to the Rmarkdown version of the course notes.
+
+```bash
+cd ~/Data/Projects/Github/charlotte-ngs/lbgfs2024
+cp -r ../lbgfs2023_gh-root/main/lbgfs2023/cn inst/
+mv 03_gen_eval.Rmd 04-blup.Rmd 05-gencov.Rmd 06-variance-inbreeding.Rmd 07-add-asp-blup.Rmd 08-genomic-selection.Rmd attic/
 
 ```
 
+## Setting Up New Repo
+If changes to be pushed to Github get too big, the push does not work. Hence, smaller pieces are pushed. This leads to the requiredment of re-building the repo from a given state.
+
+```bash
+cd ..
+mv lbgfs2024 lbgfs2024.bck.$(date +"%Y%m%d%H%M%S")
+git clone https://github.com/charlotte-ngs/lbgfs2024.git
+cd lbgfs2024
+cp ../../../lbgfs2024.bck.20240918072153/inst/cn/*.Rmd .
+rm A3_decomp_num_rel_mat.Rmd 
+cp ../../../lbgfs2024.bck.20240918072153/inst/cn/*.yml .
+cp ../../../lbgfs2024.bck.20240918072153/inst/cn/*.tex .
+cp ../../../lbgfs2024.bck.20240918072153/inst/cn/*.css .
+cp ../../../lbgfs2024.bck.20240918072153/inst/cn/*.bib .
+```
+
+Migrate figures in odg as they are needed
+
+```bash
+for f in $(grep 'knitr::include_graphics' *.Rmd | cut -d '"' -f2 | cut -d '.' -f1 | sed -e "s|odg/||");do
+  echo " * Figure: $f ..."
+  sleep 2
+done
 ```
