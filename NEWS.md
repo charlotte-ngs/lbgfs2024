@@ -1,3 +1,7 @@
+# lbgfs2024 0.1.0
+
+* First release of website for week 1
+
 # lbgfs2024 0.0.9
 
 # lbgfs2024 0.0.8
