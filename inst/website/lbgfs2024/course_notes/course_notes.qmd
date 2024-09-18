@@ -7,7 +7,8 @@ title: "Course Notes"
 s_course_notes_url <- "https://charlotte-ngs.github.io/lbgfs2024/course_notes/"
 ```
 
-## Chapters of Course Notes
+
+Chapters of course notes
 
 ```{r}
 #| echo: false
@@ -25,7 +26,7 @@ knitr::kable(tbl_cn)
 ```
 
 
-## Appendix to Course Notes
+Appendix to course notes
 
 ```{r}
 #| echo: false
