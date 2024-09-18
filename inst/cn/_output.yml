@@ -1,0 +1,16 @@
+bookdown::pdf_book:
+  template: null
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">Lifestock Breeding and Genomics FS 2023</a></li>
+      after: |
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    edit: https://github.com/charlotte-ngs/lbgfs2023/edit/main/%s 

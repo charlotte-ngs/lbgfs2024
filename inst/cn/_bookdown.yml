@@ -1,0 +1,5 @@
+book_filename: lbgfs2023-cn
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: TRUE 
