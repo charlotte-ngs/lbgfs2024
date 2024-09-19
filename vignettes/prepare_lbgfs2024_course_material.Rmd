@@ -186,8 +186,15 @@ SLIPATHDAT=inst/website/lbgfs2024/slides/slides.dat
 echo 'Date;Text;Filename' > $SLIPATHDAT
 echo '2024-09-20;Introduction;l01_intro_lbg.pdf' >> $SLIPATHDAT
 
-
 ```
+
+Slides source
+
+```bash
+mkdir -p inst/slides
+cp -r ../lbgfs2023_gh-root/main/lbgfs2023/sl/l01_intro_lbg inst/slides
+```
+
 
 Web dir
 
