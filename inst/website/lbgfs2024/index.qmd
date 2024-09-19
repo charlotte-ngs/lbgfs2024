@@ -61,6 +61,7 @@ Topics for Master Theses at Qualitas AG together with ETH will follow here ...
 - Lecturer: Peter von Rohr
 - Date: Friday 9-12
 - Room: LFW C11 
+- Moodle: https://moodle-app2.let.ethz.ch/course/view.php?id=23928
 
 
 ### Exercise Platform
