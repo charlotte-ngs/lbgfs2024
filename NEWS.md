@@ -1,3 +1,7 @@
+# lbgfs2024 0.1.2
+
+* Link to moodle page
+
 # lbgfs2024 0.1.1
 
 Adding links to the material of week 1
