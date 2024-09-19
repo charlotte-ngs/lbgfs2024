@@ -1,5 +1,7 @@
 # lbgfs2024 0.1.3
 
+* Start preparation of slides l01_intro
+
 # lbgfs2024 0.1.2
 
 * Link to moodle page
