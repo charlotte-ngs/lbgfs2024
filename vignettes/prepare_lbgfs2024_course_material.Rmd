@@ -150,3 +150,47 @@ for f in $(grep 'knitr::include_graphics' *.Rmd | cut -d '"' -f2 | cut -d '.' -f
   sleep 2
 done
 ```
+
+
+## Slides
+The slides are produced in a separate subdirectory
+
+```bash
+cd ~/Data/Projects/Github/charlotte-ngs/lbgfs2024
+mkdir -p inst/slides/
+cp -r ../lbgfs2023_gh-root/main/lbgfs2023/sl/l01_intro_lbg/ inst/slides/
+```
+
+
+Deploy slides
+
+```bash
+mkdir -p inst/website/lbgfs2024/slides
+# slides qmd
+SLIPATH=inst/website/lbgfs2024/slides/slides.qmd
+echo '---' > $SLIPATH
+echo 'title: "Slides"' >> $SLIPATH
+echo '---' >> $SLIPATH
+echo >> $SLIPATH
+echo >> $SLIPATH
+echo '```{r}' >> $SLIPATH
+echo '#| echo: false' >> $SLIPATH
+echo '#| results: asis' >> $SLIPATH
+echo 'if (is.element("rmdhelp", installed.packages()))' >> $SLIPATH
+echo '  cat(paste0(rmdhelp::get_latest_change()))' >> $SLIPATH
+echo '```' >> $SLIPATH
+echo >> $SLIPATH
+
+# table data
+echo 'Date;Text;Filename' > inst/website/lbgfs2024/slides/slides.dat
+echo '2024-09-20;Introduction;l01_intro_lbg.pdf' >> inst/website/lbgfs2024/slides/slides.dat
+
+
+```
+
+Web dir
+
+```bash
+mkdir -p docs/slides
+
+```
