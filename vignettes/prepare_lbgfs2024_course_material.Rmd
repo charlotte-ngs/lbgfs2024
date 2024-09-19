@@ -167,23 +167,24 @@ Deploy slides
 ```bash
 mkdir -p inst/website/lbgfs2024/slides
 # slides qmd
-SLIPATH=inst/website/lbgfs2024/slides/slides.qmd
-echo '---' > $SLIPATH
-echo 'title: "Slides"' >> $SLIPATH
-echo '---' >> $SLIPATH
-echo >> $SLIPATH
-echo >> $SLIPATH
-echo '```{r}' >> $SLIPATH
-echo '#| echo: false' >> $SLIPATH
-echo '#| results: asis' >> $SLIPATH
-echo 'if (is.element("rmdhelp", installed.packages()))' >> $SLIPATH
-echo '  cat(paste0(rmdhelp::get_latest_change()))' >> $SLIPATH
-echo '```' >> $SLIPATH
-echo >> $SLIPATH
+SLIPATHQMD=inst/website/lbgfs2024/slides/slides.qmd
+echo '---' > $SLIPATHQMD
+echo 'title: "Slides"' >> $SLIPATHQMD
+echo '---' >> $SLIPATHQMD
+echo >> $SLIPATHQMD
+echo >> $SLIPATHQMD
+echo '```{r}' >> $SLIPATHQMD
+echo '#| echo: false' >> $SLIPATHQMD
+echo '#| results: asis' >> $SLIPATHQMD
+echo 'if (is.element("rmdhelp", installed.packages()))' >> $SLIPATHQMD
+echo '  cat(paste0(rmdhelp::get_latest_change()))' >> $SLIPATHQMD
+echo '```' >> $SLIPATHQMD
+echo >> $SLIPATHQMD
 
 # table data
-echo 'Date;Text;Filename' > inst/website/lbgfs2024/slides/slides.dat
-echo '2024-09-20;Introduction;l01_intro_lbg.pdf' >> inst/website/lbgfs2024/slides/slides.dat
+SLIPATHDAT=inst/website/lbgfs2024/slides/slides.dat
+echo 'Date;Text;Filename' > $SLIPATHDAT
+echo '2024-09-20;Introduction;l01_intro_lbg.pdf' >> $SLIPATHDAT
 
 
 ```
