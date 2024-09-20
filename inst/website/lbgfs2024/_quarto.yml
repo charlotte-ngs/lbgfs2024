@@ -12,6 +12,8 @@ website:
       text: Exercises
     - href: solutions.qmd
       text: Solutions
+    - href: slides/slides.qmd
+      text: Slides
     - href: weekly_news.qmd
       text: Weekly News
     - href: about.qmd
