@@ -1,4 +1,8 @@
 # Week 1 
+## lbgfs2024 0.1.6
+
+* Topics for MSC and internships
+
 ## lbgfs2024 0.1.5
 
 * Added slides for l02
@@ -64,4 +68,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-09-20 07:36:36 CEST (pvr)_
+ _Latest Changes: 2024-09-20 07:59:39 CEST (pvr)_
