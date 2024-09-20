@@ -1,4 +1,16 @@
 # Week 1 
+## lbgfs2024 0.1.4
+
+* Stepwise migration of slides
+
+## lbgfs2024 0.1.3
+
+* Start preparation of slides l01_intro
+
+## lbgfs2024 0.1.2
+
+* Link to moodle page
+
 ## lbgfs2024 0.1.1
 
 Adding links to the material of week 1
@@ -48,4 +60,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-09-18 13:53:16 CEST (pvr)_
+ _Latest Changes: 2024-09-20 06:30:23 CEST (pvr)_
