@@ -1,3 +1,13 @@
+# lbgfs2024 0.1.7
+
+Links to available material for week 1: 
+
+* Course Notes: [Introduction](https://charlotte-ngs.github.io/lbgfs2024/course_notes/01_intro.pdf)
+* Course Notes: [Basics of Quantitative Genetics](https://charlotte-ngs.github.io/lbgfs2024/course_notes/02_basic_qg.pdf)
+* Appendix: [Linear Algebra](https://charlotte-ngs.github.io/lbgfs2024/course_notes/A1_lin_alg.pdf)
+* Slides l01: [Introduction](https://charlotte-ngs.github.io/lbgfs2024/slides/l01_intro_lbg.pdf)
+* Slides l02: [Basics of Quantitative Genetics](https://charlotte-ngs.github.io/lbgfs2024/slides/l02_basics_qg.pdf)
+
 # lbgfs2024 0.1.6
 
 * Topics for MSC and internships
