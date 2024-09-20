@@ -1,3 +1,7 @@
+# lbgfs2024 0.1.5
+
+* Added slides for l02
+
 # lbgfs2024 0.1.4
 
 * Stepwise migration of slides
