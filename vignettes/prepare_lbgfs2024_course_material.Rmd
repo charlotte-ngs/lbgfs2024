@@ -214,8 +214,21 @@ Migration of l02
 mkdir -p inst/slides/l02_basics_qg
 cp ../lbgfs2023_gh-root/main/lbgfs2023/sl/l02_qg_basics/lbgfs2023_slides_l02_basics_qg.Rmd inst/slides/l02_basics_qg/l02_basics_qg.Rmd
 # migration of odg graphics
-for f in $(grep 'include_graphics' inst/slides/l02_basics_qg/l02_basics_qg.Rmd);do
+mkdir -p inst/slides/l02_basics_qg/odg
+for f in $(grep 'include_graphics' inst/slides/l02_basics_qg/l02_basics_qg.Rmd  | cut -d '"' -f2 | cut -d '.' -f1 | sed -e "s|odg/||");do
   echo " * Migrate $f ..."
+  cp ../lbgfs2023_gh-root/main/lbgfs2023/sl/l02_qg_basics/odg/$f.odg inst/slides/l02_basics_qg/odg
+  git add .
+  git commit -m"Migration of $f"
+  git push origin main
   sleep 2
 done
+```
+
+After rendering slides Rmd, output is put to .gitignore
+
+```bash
+echo '*.log' >> inst/slides/l02_basics_qg/.gitignore
+echo '*.pdf' >> inst/slides/l02_basics_qg/.gitignore
+
 ```
