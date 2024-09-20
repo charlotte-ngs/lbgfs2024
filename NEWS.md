@@ -1,3 +1,7 @@
+# lbgfs2024 0.2.0
+
+* Started overhead pictures
+
 # lbgfs2024 0.1.7
 
 Links to available material for week 1: 
