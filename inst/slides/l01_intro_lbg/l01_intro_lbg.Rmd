@@ -1,0 +1,400 @@
+---
+title: "Livestock Breeding and Genomics"
+author: "Peter von Rohr"
+date: "2023-09-22"
+output:   
+  beamer_presentation:   
+     theme: "default"   
+     includes:  
+        in_header: header_hide_notes.tex  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## Content
+
+- Course administration
+- Linear Algebra
+- R/RStudio
+- Introduction to Livestock Breeding and Genomics
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item Good morning, welcome to the course of Livestock Breeding and Genomics
+\item Today, we want to cover the following four points
+
+\end{itemize}
+}
+
+## Who Is Who
+
+- Your name
+- Study Major
+- Why this course
+- Previous experiences in animal breeding / R / statistics / ...
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item Before getting into the material of this course, I want to present myself
+\item Then I would like to get to know you a little
+\item I am interested in the following points about you
+\end{itemize}
+}
+
+
+## Goals
+
+- Official goals from Vorlesungsverzeichnis
+- Understanding basic concepts such as 
+    + selection
+    + breeding value
+    + selection response
+    + difference between production and breeding
+- Be able to explain certain phenomena (see next slide)
+- Better understanding of statistics
+- Exercises in R
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item Official goals can be taken from the course website
+\item These goals are fine, but I want to have a few additional goals listed here. 
+\end{itemize}
+}
+
+
+
+## Information
+
+- Website: https://charlotte-ngs.github.io/lbgfs2023
+- Moodle: https://moodle-app2.let.ethz.ch/course/view.php?id=20077
+- Credit points: Written exam on 22.12.2023
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item All important information is available from the website. 
+\item All the material for the course consisting of course notes, exercises and solutions can be downloaded from the website
+\item The website is structured into different sections corresponding to the different types of material that will be available to you
+\item At the very end there is the section on additional material. There are two sections of course notes that explain some of the 
+prerequisites. But we will come to that in a moment. 
+\item For those of you who want to get credit points for this course, the only requirement is the written exam at the end of the semester.
+\end{itemize}
+}
+
+
+## Lecture plan
+
+- Type G
+- Plan from next week on: mix lecture and exercises
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item My plan is to mix lecture and exercises as we go. 
+\end{itemize}
+}
+
+
+## Course program
+
+```{r CourseProgram, echo=FALSE, results='asis'}
+vecTableHeaders <- c("Week", "Date", "Topic")
+# define course start date
+dCourseStart <- as.Date("2023/09/22")
+# set number of weeks in semester
+nNrSemesterWeeks <- 14
+# define columns for weaks, dates, and subjects
+Week <- 1:nNrSemesterWeeks
+Date <- format(seq(dCourseStart, by = "week", length.out = nNrSemesterWeeks), "%d.%m")
+Topic <- vector(mode = "character", length = nNrSemesterWeeks)
+# subjects per week
+Topic[1] <- "Introduction to Livestock Breeding and Genomics"
+Topic[2] <- "Review of Quantitative Genetics/Single Locus"
+Topic[3] <- "Genetic Evaluation with Different Sources of Information"
+Topic[4] <- "Genetic Covariance Between Relatives"
+Topic[5] <- "Best Linear Unbiased Prediction (BLUP) - Univariate Analysis"
+Topic[6] <- "BLUP - Additional Aspects"
+Topic[7] <- "BLUP - Multiple Traits"
+Topic[8] <- "Variance and Inbreeding"
+Topic[9] <- "Variance Components Estimation"
+Topic[10] <- "Genomic Selection"
+Topic[11] <- "Genom-Wide Association Studies"
+Topic[12] <- "Review on Selection Index Theory"
+Topic[13] <- "Test-Exam and Questions"
+Topic[14] <- "Exam"
+
+dfCnTable <- data.frame(Week, Date, Topic, stringsAsFactors = FALSE)
+colnames(dfCnTable) <- vecTableHeaders
+knitr::kable(dfCnTable)
+```
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item This table shows the different topics that are planned to be presented to you. Usually, we cannot cover all of them. 
+\item After the introduction, we start with a brief review of quantitative genetics where a single genetic locus influences a quantitative trait.
+\item With the topic of genetic evaluation, we start to look at multiple loci influencing a given trait. 
+\item The most important topics will be Best Linear Unbiased Prediction (BLUP)
+\item Towards the end of the semester, variance components estimation and genomic selection are introduced
+\item The goal and the center of all these topics will always be how to predict the genetic potential of livestock animals in a given population
+\end{itemize}
+}
+
+
+## Exercises
+
+- Topics of each lecture are repeated in exercise
+- Exercise hours can be used to work on problems
+- Solutions are presented one week later
+- Exercise platform: (will be available soon)
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item 
+\end{itemize}
+}
+
+
+## Your experiences
+
+- ... in quantitative genetics, statistics, linear algebra
+- Do you know any programming languages, if yes which one?
+- What tools are you using when you work with data (projects, BSc thesis, MSc thesis)
+- Were there any lectures in which you got in contact with programming languages, which ones?
+- Are you interested in learning how to program?
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item In previous years, students who have taken this course had different levels of experience
+\item To get a better idea, what you already know, I prepared a few questions which I would ask you to answer now.
+\end{itemize}
+}
+
+
+## Prerequisites
+
+- None
+- all concepts will be explained
+- Helpful are 
+    + quantitative genetics
+    + statistics
+    + linear algebra
+    + R
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item Hard pre-requisites for the course are none
+\item I explain all concepts from scratch such that also people without any prior knowledge are able to understand
+\item It is helpful, if you have heard something about the following topics that were already part of the questionnaire. 
+\item These topics are 
+  \begin{itemize}
+  \item quantitative genetics. We will get to a short overview, either at the end of this week or at the beginning of next week
+  \item statistics
+  \item linear algebra
+  \item R
+  \end{itemize}
+\item If you were not able to answer the questions about these topics, I recommend that you got to the website and have look at the first two chapters of the course notes which are available under the last section called More Material.
+\end{itemize}
+}
+    
+
+
+## Introduction to Livestock Breeding
+- Terminology
+     + Livestock breeding
+     + Animal breeding
+     + Ambiguous use
+     
+- History
+    + Traditional breeding
+    + Genomics
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item In this course I use the terms animal breeding and livestock breeding interchangably, although, in principle the latter is more specific and applies only to farm animals which are kept for their performance to produce a product that is used for human consumption. Animal breeding might also apply for pet animals, but in pets the focus is not so much on performance and production, but mostly on avoiding diseases. 
+\item The German language often does not differentiate well between rearing a young animal and breeding in a population. Furthermore, especially in cattle there is no clear separation between production and breeding. In the Swiss cattle industry, most farmers would call themselves as breeders, but most of their activity is really centered around livestock production. 
+\item In this course, we are using a science based definition of livestock breeding. At the center of this definition is the breeding goal for a certain population. 
+\item The breeding goal is formulated in terms of an aggregate genotype $H$. $H$ contains all traits of economic interest. 
+\item $H$ is estimated using an index $I$ which is a linear combination of different sources of information based on measured traits.
+\item The goal of livestock breeding is to select from a current population those animals as parents that produce offspring that are closer to the breeding goal than their parents.
+\item This leads to the two fundamental questions of livestock breeding 
+\end{itemize}
+}
+    
+
+## Comments from farmers
+
+- "Deep cow families" (Schweizer Bauer - https://www.schweizerbauer.ch/tiere/milchvieh/eine-komplette-kuh-zuechten-17854.html)
+- "I have not met anybody who can explain the concept of a breeding value. My cow has a breeding value of $-900$ and still gives milk." (Leserbrief im Schweizer Bauer)
+- "Cows must give a lot of milk, and have good conformation scores"
+
+$\rightarrow$ Aim: Know how to deal with different opinions
+
+\note{
+\noindent\textbf{Notes}:
+
+\verb+TODO+: Work on this to better explain what this means
+
+\begin{itemize}
+\item Depending on where you will get a job later, you might get in contact with farmers and they sometimes have special opinons about different concepts in animal breeding
+\item After this course you will be able to explain the relevant concepts related to selection and breeding.
+\item If this is not the case, please come to me and let me know.
+\end{itemize}
+}
+
+
+## What happens if ...
+
+- ... selection is based on phenotypic observations of only a few traits
+- how is selection response affected by such a strategy
+
+
+## Distribution of Phenotypes
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+x_lim_low <- -3
+x_lim_up <- 3
+p2 <- ggplot(data.frame(x = c(x_lim_low, x_lim_up)), aes(x)) +
+  stat_function(
+    fun = dnorm,
+    geom = "line") +
+  xlab("") +
+  ylab("") +
+  scale_x_continuous(breaks = NULL) +
+  scale_y_continuous(breaks = NULL)
+p2
+```
+
+
+## Selection Response 
+
+- Selection response $R$ is given by the breeders equation
+
+$$R = i * r * \sigma_g$$
+with $i = z/p$, in R: `dnorm(qnorm(1-p)) / p`
+
+- Selection response per year: $R / L$ where $L$ is the generation interval
+
+
+
+## Fundamental Questions
+- What is the best animal?
+- How to find it?
+
+```{r bestanimal, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="90%"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/bestanimal.odg")
+knitr::include_graphics(path = "odg/bestanimal.png")
+```
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item 
+\end{itemize}
+}
+
+     
+## Phenotypes and Genotypes
+
+$$
+Y = V + E
+$$
+
+where $Y$ is observed and $E$ can partially be observed and $V$ is unknown
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item 
+\end{itemize}
+}
+
+
+## Improving Animal Populations
+- Improvement via breeding $\rightarrow$ long-term
+- Two tools
+
+1. selection
+    + process to determine parents of next generation
+    + natural selection in wildlife and livestock
+    + artificial selection in livestock: fix a goal and rank
+2. mating
+    + which animal is bred to which
+    + extreme
+    + complementary
+    + heterosis - crossbreeding
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item 
+\end{itemize}
+}
+
+
+## Statistics
+
+- BLUP
+- Bayesian methods
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item 
+\end{itemize}
+}
+
+
+## Computer Science
+
+- Methods have been developed in 1940's - 1950's
+- Progress occured later
+- Development of cheap computing power
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item 
+\end{itemize}
+}
+
+
+## Milk Yield
+
+```{r milkcompperf, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", fig.cap="Yearly Milk Yield per Cow in the USA", out.width="90%"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/milkcompperf.odg")
+knitr::include_graphics(path = "odg/milkcompperf.png")
+```
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item 
+\end{itemize}
+}
+
+
+## Computer Performance
+```{r moorelaw, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", fig.cap="Computing Performance According To Moore's Law", out.width="90%"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/moorelaw.odg")
+knitr::include_graphics(path = "odg/moorelaw.png")
+```
+
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item 
+\end{itemize}
+}
