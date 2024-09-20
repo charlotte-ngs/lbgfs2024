@@ -195,7 +195,6 @@ mkdir -p inst/slides
 cp -r ../lbgfs2023_gh-root/main/lbgfs2023/sl/l01_intro_lbg inst/slides
 ```
 
-
 Web dir
 
 ```bash
