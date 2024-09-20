@@ -1,3 +1,7 @@
+# lbgfs2024 0.1.4
+
+* Stepwise migration of slides
+
 # lbgfs2024 0.1.3
 
 * Start preparation of slides l01_intro
