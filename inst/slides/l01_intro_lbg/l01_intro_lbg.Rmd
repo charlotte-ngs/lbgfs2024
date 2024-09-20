@@ -1,7 +1,7 @@
 ---
 title: "Livestock Breeding and Genomics"
 author: "Peter von Rohr"
-date: "2023-09-22"
+date: "2024-09-20"
 output:   
   beamer_presentation:   
      theme: "default"   
@@ -30,50 +30,12 @@ knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
 \end{itemize}
 }
 
-## Who Is Who
-
-- Your name
-- Study Major
-- Why this course
-- Previous experiences in animal breeding / R / statistics / ...
-
-\note{
-\noindent\textbf{Notes}:
-\begin{itemize}
-\item Before getting into the material of this course, I want to present myself
-\item Then I would like to get to know you a little
-\item I am interested in the following points about you
-\end{itemize}
-}
-
-
-## Goals
-
-- Official goals from Vorlesungsverzeichnis
-- Understanding basic concepts such as 
-    + selection
-    + breeding value
-    + selection response
-    + difference between production and breeding
-- Be able to explain certain phenomena (see next slide)
-- Better understanding of statistics
-- Exercises in R
-
-\note{
-\noindent\textbf{Notes}:
-\begin{itemize}
-\item Official goals can be taken from the course website
-\item These goals are fine, but I want to have a few additional goals listed here. 
-\end{itemize}
-}
-
-
 
 ## Information
 
-- Website: https://charlotte-ngs.github.io/lbgfs2023
-- Moodle: https://moodle-app2.let.ethz.ch/course/view.php?id=20077
-- Credit points: Written exam on 22.12.2023
+- Website: https://charlotte-ngs.github.io/lbgfs2024
+- Moodle: https://moodle-app2.let.ethz.ch/course/view.php?id=23928
+- Credit points: Written exam on 20.12.2024
 
 \note{
 \noindent\textbf{Notes}:
@@ -88,25 +50,57 @@ prerequisites. But we will come to that in a moment.
 }
 
 
-## Lecture plan
+## Your Input
 
-- Type G
-- Plan from next week on: mix lecture and exercises
+* ... is always welcome
+* due to special status of course, instant input
+* course evaluation might not be helpful
+* other information you want to tell us
+    + Your name
+    + Study Major
+    + Why this course
+    + Previous experiences in animal breeding / R / statistics / ...
+    + Your expectation
 
 \note{
 \noindent\textbf{Notes}:
 \begin{itemize}
-\item My plan is to mix lecture and exercises as we go. 
+\item Your input is always welcome and due to the special status of this course, we have to handle that differently. 
+\item It is important that you give input or feedback instantly and course evaluation is probably not helpful
+\item Also, if you have some more information to pass on, please do that
 \end{itemize}
 }
+
+
+## Goals
+
+- Official goals from Vorlesungsverzeichnis
+- Understanding basic concepts such as 
+    + selection
+    + breeding value
+    + selection response
+    + difference between production and breeding
+- Be able to explain certain phenomena
+- Better understanding of statistics
+- Exercises in R
+
+\note{
+\noindent\textbf{Notes}:
+\begin{itemize}
+\item Official goals can be taken from the course website
+\item These goals are fine, but I want to have a few additional goals listed here. 
+\end{itemize}
+}
+
 
 
 ## Course program
 
 ```{r CourseProgram, echo=FALSE, results='asis'}
+### # header names of tables
 vecTableHeaders <- c("Week", "Date", "Topic")
 # define course start date
-dCourseStart <- as.Date("2023/09/22")
+dCourseStart <- as.Date("2024/09/20")
 # set number of weeks in semester
 nNrSemesterWeeks <- 14
 # define columns for weaks, dates, and subjects
@@ -129,9 +123,12 @@ Topic[12] <- "Review on Selection Index Theory"
 Topic[13] <- "Test-Exam and Questions"
 Topic[14] <- "Exam"
 
-dfCnTable <- data.frame(Week, Date, Topic, stringsAsFactors = FALSE)
-colnames(dfCnTable) <- vecTableHeaders
-knitr::kable(dfCnTable)
+# dfCnTable <- data.frame(Week, Date, Topic, stringsAsFactors = FALSE)
+# colnames(dfCnTable) <- vecTableHeaders
+# knitr::kable(dfCnTable)
+
+tbl_time_table <- tibble::tibble(Week = Week, Date = Date, Topic = Topic)
+knitr::kable(tbl_time_table)
 ```
 
 \note{
@@ -152,7 +149,7 @@ knitr::kable(dfCnTable)
 - Topics of each lecture are repeated in exercise
 - Exercise hours can be used to work on problems
 - Solutions are presented one week later
-- Exercise platform: (will be available soon)
+- Exercise platform: (next slide)
 
 \note{
 \noindent\textbf{Notes}:
@@ -162,21 +159,13 @@ knitr::kable(dfCnTable)
 }
 
 
-## Your experiences
+## Exercise Platform
 
-- ... in quantitative genetics, statistics, linear algebra
-- Do you know any programming languages, if yes which one?
-- What tools are you using when you work with data (projects, BSc thesis, MSc thesis)
-- Were there any lectures in which you got in contact with programming languages, which ones?
-- Are you interested in learning how to program?
+Three different options are available (see course website)
 
-\note{
-\noindent\textbf{Notes}:
-\begin{itemize}
-\item In previous years, students who have taken this course had different levels of experience
-\item To get a better idea, what you already know, I prepared a few questions which I would ask you to answer now.
-\end{itemize}
-}
+1. Webr: [https://webr.r-wasm.org/latest](https://webr.r-wasm.org/latest)
+2. Posit cloud: [https://posit.cloud](https://posit.cloud)
+3. Run your own platform: Follow steps on [https://posit.co/download/rstudio-desktop](https://posit.co/download/rstudio-desktop)
 
 
 ## Prerequisites
@@ -232,31 +221,12 @@ knitr::kable(dfCnTable)
 }
     
 
-## Comments from farmers
-
-- "Deep cow families" (Schweizer Bauer - https://www.schweizerbauer.ch/tiere/milchvieh/eine-komplette-kuh-zuechten-17854.html)
-- "I have not met anybody who can explain the concept of a breeding value. My cow has a breeding value of $-900$ and still gives milk." (Leserbrief im Schweizer Bauer)
-- "Cows must give a lot of milk, and have good conformation scores"
-
-$\rightarrow$ Aim: Know how to deal with different opinions
-
-\note{
-\noindent\textbf{Notes}:
-
-\verb+TODO+: Work on this to better explain what this means
-
-\begin{itemize}
-\item Depending on where you will get a job later, you might get in contact with farmers and they sometimes have special opinons about different concepts in animal breeding
-\item After this course you will be able to explain the relevant concepts related to selection and breeding.
-\item If this is not the case, please come to me and let me know.
-\end{itemize}
-}
-
-
 ## What happens if ...
 
 - ... selection is based on phenotypic observations of only a few traits
 - how is selection response affected by such a strategy
+- not phenotypes are passed from parents to offspring
+- double role of genotype/genetic background of animals
 
 
 ## Distribution of Phenotypes
