@@ -2,6 +2,29 @@
 title: "Overhead Pictures"
 ---
 
+```{r}
+#| echo: false
+s_ohp_url <- "https://charlotte-ngs.github.io/lbgfs2024/ohp/"
+```
+
+List of overhead picture documents
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+s_sl_path <- "ohp.dat"
+tbl_sl <- readr::read_delim(file = s_sl_path, delim = ";")
+tbl_sl$Nr <- 1:nrow(tbl_sl)
+# create topic from text and filename
+tbl_sl <- dplyr::mutate(tbl_sl, Topic = paste0("[", Text, "](", s_ohp_url, Filename,")"))
+# select relevant columns
+tbl_sl <- dplyr::select(tbl_sl,Nr,Date,Topic)
+# show knitr
+knitr::kable(tbl_sl)
+```
+
+
 
 ```{r}
 #| echo: false
