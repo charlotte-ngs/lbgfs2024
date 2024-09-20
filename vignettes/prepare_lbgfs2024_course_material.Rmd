@@ -159,6 +159,13 @@ The slides are produced in a separate subdirectory
 cd ~/Data/Projects/Github/charlotte-ngs/lbgfs2024
 mkdir -p inst/slides/
 cp -r ../lbgfs2023_gh-root/main/lbgfs2023/sl/l01_intro_lbg/ inst/slides/
+
+# each odg separately
+mkdir -p inst/slides/l01_intro_lbg/odg
+for f in $(ls -1 ../lbgfs2023_gh-root/main/lbgfs2023/sl/l01_intro_lbg/odg/*.odg);do
+  echo " * copy $f ..."
+  sleep 2
+done
 ```
 
 
