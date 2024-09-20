@@ -96,6 +96,19 @@ log_msg () {
   echo "[${l_RIGHTNOW} -- ${l_CALLER}] $l_MSG"
 }
 
+#' ### Directory Existance Check
+#' Check whether directory exist, if not create it
+#+ check-exist-create-dir-fun
+check_exist_create_dir () {
+  local l_CHECK_DIR=$1
+  if [ ! -d "$l_CHECK_DIR" ]
+  then
+    log_msg check_exist_create_dir " * CANNOT FIND: $l_CHECK_DIR ==> create ..."
+    mkdir -p $l_CHECK_DIR
+  fi
+}
+
+
 
 #' ## Getopts for Commandline Argument Parsing
 #' If an option should be followed by an argument, it should be followed by a ":".
@@ -170,6 +183,9 @@ cd $EVALREPO
 log_msg $SCRIPT " * Deploy website ..."
 for f in $(find $QWEBPROJROOT/_site -type f -name '*.html');do
   TRGWEBPATH=$(echo $f | sed -e "s|$QWEBPROJROOT/_site|$PUBWEBDIR|")
+  # target web directory must exist, otherwise create it
+  TRGWEBDIR=$(dirname $TRGWEBPATH)
+  check_exist_create_dir $TRGWEBDIR
   if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Copy $f to $TRGWEBPATH ...";fi
   cp $f $TRGWEBPATH
   sleep 2
