@@ -246,3 +246,34 @@ SLIPATHDAT=inst/website/lbgfs2024/slides/slides.dat
 echo '2024-09-27;Basics of Quantitative Genetics;l02_basics_qg.pdf' >> $SLIPATHDAT
 
 ```
+
+
+## Overhead Pictures
+The ohp-documents are produced in a separate directory
+
+```bash
+cd ~/Data/Projects/Github/charlotte-ngs/lbgfs2024
+mkdir -p inst/ohp/
+
+```
+
+The ohp website is created as 
+
+```bash
+mkdir -p inst/website/lbgfs2024/ohp
+# ohp qmd
+OHPPATHQMD=inst/website/lbgfs2024/ohp/ohp.qmd
+echo '---' > $OHPPATHQMD
+echo 'title: "Overhead Pictures"' >> $OHPPATHQMD
+echo '---' >> $OHPPATHQMD
+echo >> $OHPPATHQMD
+echo >> $OHPPATHQMD
+echo '```{r}' >> $OHPPATHQMD
+echo '#| echo: false' >> $OHPPATHQMD
+echo '#| results: asis' >> $OHPPATHQMD
+echo 'if (is.element("rmdhelp", installed.packages()))' >> $OHPPATHQMD
+echo '  cat(paste0(rmdhelp::get_latest_change()))' >> $OHPPATHQMD
+echo '```' >> $OHPPATHQMD
+echo >> $OHPPATHQMD
+
+```
