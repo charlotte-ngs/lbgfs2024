@@ -164,6 +164,10 @@ cp -r ../lbgfs2023_gh-root/main/lbgfs2023/sl/l01_intro_lbg/ inst/slides/
 mkdir -p inst/slides/l01_intro_lbg/odg
 for f in $(ls -1 ../lbgfs2023_gh-root/main/lbgfs2023/sl/l01_intro_lbg/odg/*.odg);do
   echo " * copy $f ..."
+  cp $f inst/slides/l01_intro_lbg/odg
+  git add .
+  git commit -m"Migration of $f ..."
+  git push origin main
   sleep 2
 done
 ```
