@@ -204,5 +204,5 @@ Web dir
 
 ```bash
 mkdir -p docs/slides
-
+mv inst/slides/l01_intro_lbg/l01_intro_lbg.pdf docs/slides/
 ```
