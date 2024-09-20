@@ -215,10 +215,13 @@ log_msg $SCRIPT " * Render quarto documents ..."
 if [[ $QUARTODOC == '' ]];then
   # change to source directory
   cd $QSRCDIR
-  for f in $(find . -type f -name "*.qmd");do 
-    if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Render $f ...";fi
-    quarto render $f --execute-params $QYMLPAR --output-dir $TRGDIR
-    sleep 2
+  for t in first second;do
+    if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Round $t ...";fi
+    for f in $(find . -type f -name "*.qmd");do 
+      if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Render $f ...";fi
+      quarto render $f --execute-params $QYMLPAR --output-dir $TRGDIR
+      sleep 2
+    done
   done
   # preview page
   if [[ $QPREVIEW == 'true' ]];then
