@@ -213,5 +213,9 @@ Migration of l02
 ```bash
 mkdir -p inst/slides/l02_basics_qg
 cp ../lbgfs2023_gh-root/main/lbgfs2023/sl/l02_qg_basics/lbgfs2023_slides_l02_basics_qg.Rmd inst/slides/l02_basics_qg/l02_basics_qg.Rmd
-
+# migration of odg graphics
+for f in $(grep 'include_graphics' inst/slides/l02_basics_qg/l02_basics_qg.Rmd);do
+  echo " * Migrate $f ..."
+  sleep 2
+done
 ```
