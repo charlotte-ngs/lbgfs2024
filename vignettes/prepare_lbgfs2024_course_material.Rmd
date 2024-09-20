@@ -230,5 +230,19 @@ After rendering slides Rmd, output is put to .gitignore
 ```bash
 echo '*.log' >> inst/slides/l02_basics_qg/.gitignore
 echo '*.pdf' >> inst/slides/l02_basics_qg/.gitignore
+echo 'odg/*.pdf' >> inst/slides/l02_basics_qg/.gitignore
+echo 'odg/*.png' >> inst/slides/l02_basics_qg/.gitignore
+
+```
+
+Deploy slides
+
+```bash
+# deploy slides pdf to webdir
+mv inst/slides/l02_basics_qg/l02_basics_qg.pdf docs/slides/
+
+# slides page data
+SLIPATHDAT=inst/website/lbgfs2024/slides/slides.dat
+echo '2024-09-27;Basics of Quantitative Genetics;l02_basics_qg.pdf' >> $SLIPATHDAT
 
 ```
