@@ -1,0 +1,59 @@
+---
+title: "Topics for Master Thesis and Internships with Qualitas AG"
+format: html
+---
+
+## First steps towards a genetic evaluation for conception rate
+An analysis comparable to https://doi.org/10.3168/jds.2018-15858 is to be developed.
+
+
+## Relationship between Myostatin-Status with Calving Traits
+Some beef cattle breeds (Charolais, Limousin, ...) are looking into the genetic basis of the myostatin-gene (double-muscle). Recent developments in genomic selection of beef cattle in Switzerland give the possibility to analyse the status of the myostatin-gene in the Swiss beef cattle breeds. A specific emphasis is to be put to the relationship with other important characteristics of the animals such as calving traits.
+
+
+## Early first calving evaluation
+This trait is associated with efficiency and with environmental footprint of animals. A number of publications already exist on this topic. Tasks would consist of 
+
+
+## PSB-Measures
+The Swiss Federal government has decided on measures to reduce the amount of phosphoros (P) and nitrogen (N) that is released to the environment due to livestock production. The possible impact of such measures is to be investigated. 
+
+
+## Feed Efficiency
+In the more recent past huge efforts are undertaken to improve feed efficiency of dairy cows. Thies is due to the fact that the economic pressure for dairy farms have dramatically increased during the past few years and also because of the higher awareness of the impact of livestock production on the environment. In this project the possibilities to improve feed efficiency at the genetic level are to be researched, discussed and if possible evaluated.
+
+
+## Methan - Swiss Initiative
+This project is still in its starting phase, but possibilities to work in this area should be available.
+
+
+## Index to Rank Beef Bulls for their Use on Dairy Cows
+* Swiss AI Industry has expressed a long standing interest for a tool that provides a solid ranking of beef bulls for use on dairy cows. The reason for this requirement is the strong interest of dairy farmers in beef bulls (Beef on Dairy)
+* Berry et al (2019) have proposed such an index for the dairy and beef industry in Ireland. 
+* The approach by Berry et al (2019) would need to be adapted to the Swiss context
+* After a literature search on the topic of using beef bulls on dairy cows from the same authors, a ranking index for the Swiss context is to be proposed
+
+
+## Factors Influencing Stability of Predicted Genomic Breeding Values
+* Example: BVCH
+* Reference: 
+
+Patry, C. and Ducrocq, V. (2011) ‘Evidence of biases in genetic evaluations due to genomic preselection in dairy cattle’, Journal of Dairy Science. Elsevier, 94(2), pp. 1011–1020. doi: 10.3168/jds.2010-3804.
+
+Patry, C. and Ducrocq, V. (2011) ‘Accounting for genomic pre-selection in national BLUP evaluations in dairy cattle’, Genetics Selection Evolution, 43(1), pp. 1–9. doi: 10.1186/1297-9686-43-30.
+
+Tyrisevä, A.-M. M. et al. (2018) ‘Detection of evaluation bias caused by genomic preselection’, Journal of Dairy Science. American Dairy Science Association, 101(4), pp. 3155–3163. doi: 10.3168/jds.2017-13527.
+
+Uemoto, Y., Osawa, T. and Saburi, J. (2017) ‘Effect of genotyped cows in the reference population on the genomic evaluation of Holstein cattle’, Animal, 11(3), pp. 382–393. doi: 10.1017/S1751731116001762.
+
+
+## Aspects in Single-Step Genomic BLUP
+Examples: 
+
+* reliabilities 
+* blending  
+* comparison of marker-effect models and breeding-value based models. 
+
+An important aspect of a change from a two-step marker-effect model to a single-step GBLUP-procedure is that the latter often assume that all SNP contribute a very small amount to the genetic variance. This violates the generic model of quantitative genetics which states that only a few QTL are responsible for the expression of a quantitative trait. The advantage of the single-step GBLUP-procedure is that it is stable across evaluations which is most likely due to  its shrinkage feature.
+
+Genetic variance of a trait of interest can usually not be explained completely by markers linked to QTL (cf. “missing heritability”). In single step genomic evaluations, where genomic and phenotypic information are combined in a single evaluation, this issue is commonly addressed by including a residual polygenic (RPG) term in the used models. This term is derived from pedigree information and included in the H-Matrix, the relationship matrix for single step evaluations. A weight is assigned to the RPG in comparison to the genetic part of the matrix. Commonly this term is set to a value between 0.1 and 0.3. A possible reference for this problem is Liu, Z., Goddard, M. E., Hayes, B. J., Reinhardt, F., & Reents, R. (2016). Technical note: Equivalent genomic models with a residual polygenic effect. Journal of Dairy Science, 99(3), 2016–2025. Technical note: Equivalent genomic models with a residual polygenic effect  (available in Mendeley). In order to implement single step genomic evaluation a definition of RPG is required. During the project the problem of RPG will be adressed. The central task of the project will be to investigate and understand the effect of different RPG on single step breeding values and their reliabilities. Different criteria such as validation reliabilities will be used in order to investigate this question.
