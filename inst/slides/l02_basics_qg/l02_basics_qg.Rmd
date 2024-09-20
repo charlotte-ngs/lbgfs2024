@@ -1,0 +1,297 @@
+---
+title: "Basics of Quantitative Genetics"
+author: "Peter von Rohr"
+date: "2024-09-27"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## Background
+
+- Central Dogma of Molecular Biology
+
+$\rightarrow$ Genotypes are the basis for phenotypic expression
+
+- Start with simple model
+
+$\rightarrow$ one locus that affects quantitative trait
+
+
+## Population
+
+```{r idealpopsingletrait, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="90%"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/idealpopsingletrait.odg")
+knitr::include_graphics(path = "odg/idealpopsingletrait.png")
+```
+
+
+## Terminology
+
+- __alleles__: variants occuring at a given genetic Locus
+- __bi-allelic__: only two alleles, e.g., $G_1$ and $G_2$ at a given locus $G$ in population
+- __genotype__: combination of two alleles at locus $G$ in an individual
+- __homozygous__: genotypes $G_1G_1$ and $G_2G_2$ where both alleles identical
+- __heterozygous__: genotype $G_1G_2$ different alleles 
+
+
+## Frequencies in Example Population
+
+- __genotype frequencies__
+\vspace{-2ex}
+\begin{align}
+f(G_1G_1) &= \frac{4}{10} = 0.4 \notag \\
+f(G_1G_2) &= \frac{3}{10} = 0.3 \notag \\
+f(G_2G_2) &= \frac{3}{10} = 0.3 \notag
+\end{align}
+
+- __allele frequencies__
+\vspace{-2ex}
+\begin{align}
+f(G_1) &= f(G_1G_1) + {1\over 2}*f(G_1G_2) = 0.55 \notag \\
+f(G_2) &= f(G_2G_2) + {1\over 2}*f(G_1G_2) = 0.45 \notag
+\end{align}
+
+
+## Hardy-Weinberg Equilibrium
+- __allele frequencies__
+\begin{equation}
+f(G_1) = p  \text{, } f(G_2) = q = 1-p \notag
+\end{equation}
+
+- __genotype frequencies__
+```{r tabgenfreq, echo=FALSE}
+df_genfreq <- data.frame(Alleles = c("$G_1$", "$G_2$"),
+                         G1 = c("$f(G_1G_1) = p^2$", "$f(G_1G_2) = p*q$"),
+                         G2 = c("$f(G_1G_2) = p*q$", "$f(G_2G_2) = q^2$")) 
+names(df_genfreq) <- c("Alleles", "$G_1$", "$G_2$")
+knitr::kable(df_genfreq,
+  booktabs = TRUE,
+  align = "c",
+  escape = FALSE
+)
+```
+
+\begin{equation}
+f(G_1G_1) = p^2 \text{, } f(G_1G_2) = 2pq  \text{, } f(G_2G_2) = q^2 \notag
+\end{equation}
+
+
+## Genotypic Values
+
+```{r genotypicvalue, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="90%"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/genotypicvalue.odg")
+knitr::include_graphics(path = "odg/genotypicvalue.png")
+```
+
+
+## Population Mean
+- Expected value of genotypic value $V$ as discrete random variable
+
+\begin{align}
+\mu &= V_{11} * f(G_1G_1) + V_{12} * f(G_1G_2) + V_{22} * f(G_2G_2) \notag \\
+    &= a * p^2 + d *2pq + (-a) * q^2 \notag \\
+    &= (p-q)a + 2pqd \notag
+\end{align}
+
+
+## Breeding Values Definition
+
+The breeding value of an animal $i$ is defined as two times the difference between the mean value of offsprings of animal $i$ and the population mean.
+
+
+## Derivation of Breeding value for $G_1G_1$
+
+\begin{center}
+   {\renewcommand{\arraystretch}{1.7}
+   \renewcommand{\tabcolsep}{0.2cm}
+   \begin{tabular}{|c|c|c|}
+\hline
+& \multicolumn{2}{|c|}{Mates of $S$} \\
+\hline
+& $f(G_1) = p$       &  $f(G_2) = q$   \\
+\hline
+Parent $S$       &                    &                 \\
+\hline
+$f(G_1) = 1$ &  $f(G_1G_1) = p$   &  $f(G_1G_2) = q$\\
+\hline
+\end{tabular}}
+\end{center}
+
+
+## Computation of Breeding value for $G_1G_1$
+\begin{equation}
+\mu_{11} = p*a + q*d \notag
+\end{equation}
+
+The breeding value $BV_{11}$ corresponds to
+
+\begin{align}
+BV_{11} &=  2*(\mu_{11} - \mu)  \notag \\
+        &=  2\left(pa + qd - \left[(p - q)a + 2pqd \right] \right) \notag\\
+        &=  2\left(pa + qd - (p - q)a - 2pqd \right) \notag\\
+        &=  2\left(qd + qa - 2pqd\right) \notag \\
+        &=  2\left(qa + qd(1 - 2p)\right) \notag \\
+        &=  2q\left(a + d(1 - 2p)\right) \notag \\
+        &=  2q\left(a + (q-p)d\right) \notag
+\end{align}
+
+## Computation of Breeding value for $G_2G_2$
+\begin{equation}
+\mu_{22} = pd - qa \notag
+\end{equation}
+
+The breeding value $BV_{22}$ corresponds to
+
+\begin{align}
+BV_{22} &=   2*(\mu_{22} - \mu)  \notag \\
+        &=   2\left(pd - qa - \left[(p - q)a + 2pqd \right] \right) \notag \\
+        &=   2\left(pd - qa - (p - q)a - 2pqd \right) \notag \\
+        &=   2\left(pd - pa - 2pqd\right) \notag \\
+        &=   2\left(-pa + p(1-2q)d\right) \notag \\
+        &=  -2p\left(a + (q - p)d\right) \notag
+\end{align}
+
+
+## Computation of Breeding value for $G_1G_2$
+\begin{equation}
+\mu_{12} = 0.5pa + 0.5d - 0.5qa = 0.5\left[(p-q)a + d \right] \notag
+\end{equation}
+
+The breeding value $BV_{12}$ corresponds to 
+
+\begin{align}
+BV_{12} &=   2*(\mu_{12} - \mu) \notag \\
+        &=   2\left(0.5(p-q)a + 0.5d - \left[(p - q)a + 2pqd \right] \right) \notag \\
+        &=   2\left(0.5pa - 0.5qa + 0.5d - pa + qa - 2pqd \right) \notag \\
+        &=   2\left(0.5(q-p)a + (0.5 - 2pq)d \right) \notag \\
+        &=   (q-p)a + (1-4pq)d  \notag \\
+        &=   (q-p)a + (p^2 + 2pq + q^2 -4pq)d  \notag \\
+        &=   (q-p)a + (p^2 - 2pq + q^2)d  \notag \\
+        &=   (q-p)a + (q - p)^2d   \notag \\
+        &=   (q-p)\left[a + (q-p)d \right] \notag
+\end{align}
+
+
+## Summary of Breeding Values
+
+```{r summary-breeding-values, echo=FALSE, message=FALSE, warning=FALSE}
+tbl_sum_bv <- tibble::tibble(Genotype = c("$G_1G_1$", "$G_1G_2$", "$G_2G_2$"),
+                             `Breeding Value` = c("$2q\\alpha$", "$(q-p)\\alpha$", "$-2p\\alpha$"))
+knitr::kable(tbl_sum_bv,
+             booktabs = TRUE,
+             align = "c",
+             escape = FALSE)
+```
+
+with $\alpha = a + (q-p)d$  
+
+
+## Allele Substitution
+\begin{align}
+    BV_{12} - BV_{22} &=   (q-p)\alpha - \left( -2p\alpha \right)  \notag \\
+                      &=   (q-p)\alpha + 2p\alpha \notag \\
+                      &=   (q-p+2p)\alpha \notag \\
+                      &=   (q+p)\alpha \notag \\
+                      &=   \alpha \notag
+\end{align}
+
+\begin{align}
+    BV_{11} - BV_{12} &=   2q\alpha - (q-p)\alpha \nonumber \\
+                      &=   \left(2q - (q-p)\right)\alpha \nonumber\\
+                      &=   \alpha \notag
+\end{align}
+
+
+## Dominance Deviation I
+  \begin{align}
+  V_{11} - BV_{11} &=   a - 2q \alpha \notag \\
+                   &=   a - 2q \left[ a + (q-p)d \right] \notag \\
+                   &=   a - 2qa -2q(q-p)d \notag \\
+                   &=   a(1-2q) - 2q^2d + 2pqd \notag \\
+                   &=   \left[(p - q)a + 2pqd\right] - 2q^2d \notag \\
+                   &=   \mu + D_{11} \notag
+  \end{align}
+
+## Dominance Deviation II
+  \begin{align}
+  V_{12} - BV_{12} &=   d - (q-p)\alpha \notag \\
+                   &=   d - (q-p)\left[ a + (q-p)d \right] \notag \\
+                   &=   \left[(p-q)a + 2pqd\right] + 2pqd \notag \\
+                   &=   \mu + D_{12} \notag
+  \end{align}
+
+  \begin{align}
+  V_{22} - BV_{22} &=   -a - (-2p\alpha) \notag \\
+                   &=   -a + 2p\left[ a + (q-p)d \right] \notag \\
+                   &=   \left[(p-q)a + 2pqd\right] - 2p^2d \notag \\
+                   &=   \mu + D_{22} \notag
+  \end{align}
+
+
+## Summary of Values
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+Genotype  &  genotypic value     &  Breeding Value    &  Dominance Deviation \\
+$G_iG_j$ &  $V_{ij}$            &  $BV_{ij}$         &  $D_{ij}$           \\
+\hline
+$G_1G_1$ &  $a$                 &  $2q\alpha$        &  $-2q^2d$          \\
+\hline
+$G_1G_2$ &  $d$                 &  $(q-p)\alpha$     & $2pqd$             \\
+\hline
+$G_2G_2$ &  $-a$                &  $-2p\alpha$       & $-2p^2d$           \\
+\hline
+\end{tabular}
+
+
+## Decomposition of Genotypic Values
+
+\begin{align}
+V_{ij} &=   \mu + BV_{ij} + D_{ij} \notag
+\end{align}
+
+## Variances 
+
+\begin{equation}
+Var\left[X\right] = \sum_{x_i \in \mathcal{X}} (x_i - \mu_X)^2 * f(x_i)  \notag
+\end{equation}
+
+ \vspace*{1ex}
+  \begin{tabular}{p{1cm}p{1cm}p{6cm}}
+  where & $\mathcal{X}$: &  set of all possible $x$-values\\
+        & $f(x_i)$       &  probability that $x$ assumes the value of $x_i$ \\
+        & $\mu_X $       &  expected value $E\left[X\right]$ of $X$
+  \end{tabular}
+  
+
+## Variance Computation
+
+\begin{align}
+\sigma_G^2 = Var\left[V\right] &=   (V_{11} - \mu)^2 * f(G_1G_1) \notag \\
+                               &  +\  (V_{12} - \mu)^2 * f(G_1G_2) \notag \\
+                               &  +\  (V_{22} - \mu)^2 * f(G_2G_2)  \notag
+\end{align}
+
+where $\mu = (p - q)a + 2pqd$ the population mean.
+
+
+## Simplification
+
+\begin{align}
+\sigma_G^2 = Var\left[V\right] &=   (BV_{11} + D_{11})^2 * f(G_1G_1) \notag \\
+                               &  +\  (BV_{12} + D_{12})^2 * f(G_1G_2) \notag \\
+                               &  +\  (BV_{22} + D_{22})^2 * f(G_2G_2)  \notag
+\end{align}
+
+
+## Result
+
+\begin{align}
+  \sigma_G^2 &=  2pq\alpha^2 + \left(2pqd \right)^2 \notag\\
+             &=  \sigma_A^2 + \sigma_D^2  \notag
+\end{align}
+
