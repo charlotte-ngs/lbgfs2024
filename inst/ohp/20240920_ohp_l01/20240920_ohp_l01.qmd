@@ -42,12 +42,60 @@ for (pidx in seq_along(vec_pics)){
    cur_pic <- vec_pics[pidx]
    cur_pic_nr <- as.integer(unlist(strsplit(fs::path_ext_remove(cur_pic), "_"))[2])
   cat("\n## OHP Picture ", pidx, "\n\n", sep = "", file = this_rmd_file, append = TRUE)
-  # cat("```{r ohp-picture", cur_pic_nr, "}\n", sep = "", file = this_rmd_file, append = TRUE)
-  cat("```{r}\n", sep = "", file = this_rmd_file, append = TRUE)
-  cat("#| label: ohp-picture", cur_pic_nr, sep = "", file = this_rmd_file, append = TRUE)
+  cat("```{r ohp-picture", cur_pic_nr, "}\n", sep = "", file = this_rmd_file, append = TRUE)
+  # cat("```{r}\n", sep = "", file = this_rmd_file, append = TRUE)
+  # cat("#| label: ohp-picture", cur_pic_nr, "\n", sep = "", file = this_rmd_file, append = TRUE)
   cat("rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page", cur_pic_nr, ".odg', ps_odg_template = 'odg_draw_a4_portrait')\n", sep = "", file = this_rmd_file, append = TRUE)
   cat("if (fs::file_exists('~/Desktop/", cur_pic, "')) fs::file_delete(path = '~/Desktop/", cur_pic, "')\n", sep = "", file = this_rmd_file, append = TRUE)
   cat("```\n\n", file = this_rmd_file, append = TRUE)
 }
+```
+
+
+## OHP Picture 1
+
+```{r ohp-picture4302}
+rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4302.odg', ps_odg_template = 'odg_draw_a4_portrait')
+if (fs::file_exists('~/Desktop/IMG_4302.jpg')) fs::file_delete(path = '~/Desktop/IMG_4302.jpg')
+```
+
+
+## OHP Picture 2
+
+```{r ohp-picture4303}
+rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4303.odg', ps_odg_template = 'odg_draw_a4_portrait')
+if (fs::file_exists('~/Desktop/IMG_4303.jpg')) fs::file_delete(path = '~/Desktop/IMG_4303.jpg')
+```
+
+
+## OHP Picture 3
+
+```{r ohp-picture4304}
+rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4304.odg', ps_odg_template = 'odg_draw_a4_portrait')
+if (fs::file_exists('~/Desktop/IMG_4304.jpg')) fs::file_delete(path = '~/Desktop/IMG_4304.jpg')
+```
+
+
+## OHP Picture 4
+
+```{r ohp-picture4305}
+rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4305.odg', ps_odg_template = 'odg_draw_a4_portrait')
+if (fs::file_exists('~/Desktop/IMG_4305.jpg')) fs::file_delete(path = '~/Desktop/IMG_4305.jpg')
+```
+
+
+## OHP Picture 5
+
+```{r ohp-picture4306}
+rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4306.odg', ps_odg_template = 'odg_draw_a4_portrait')
+if (fs::file_exists('~/Desktop/IMG_4306.jpg')) fs::file_delete(path = '~/Desktop/IMG_4306.jpg')
+```
+
+
+## OHP Picture 6
+
+```{r ohp-picture4307}
+rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4307.odg', ps_odg_template = 'odg_draw_a4_portrait')
+if (fs::file_exists('~/Desktop/IMG_4307.jpg')) fs::file_delete(path = '~/Desktop/IMG_4307.jpg')
 ```
 
