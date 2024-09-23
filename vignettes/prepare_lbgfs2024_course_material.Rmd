@@ -277,3 +277,17 @@ echo '```' >> $OHPPATHQMD
 echo >> $OHPPATHQMD
 
 ```
+
+Deploy ohp
+
+```bash
+# table data
+OHPPATHDAT=inst/website/lbgfs2024/ohp/ohp.dat
+echo 'Date;Text;Filename' > $OHPPATHDAT
+echo '2024-09-20;Introduction;20240920_ohp_l01.pdf' >> $OHPPATHDAT
+
+# create website dir
+mkdir docs/ohp
+# move rendered pdf
+mv inst/ohp/20240920_ohp_l01/20240920_ohp_l01.pdf docs/ohp
+```
