@@ -1,3 +1,12 @@
+# Week 2 
+## lbgfs2024 0.2.1
+
+* First version of ohp document
+
+## lbgfs2024 0.2.0
+
+* Started overhead pictures
+
 # Week 1 
 ## lbgfs2024 0.1.7
 
@@ -78,4 +87,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-09-20 08:12:03 CEST (pvr)_
+ _Latest Changes: 2024-09-24 10:18:37 CEST (pvr)_
