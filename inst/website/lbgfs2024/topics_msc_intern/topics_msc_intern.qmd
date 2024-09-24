@@ -27,13 +27,6 @@ In the more recent past huge efforts are undertaken to improve feed efficiency o
 This project is still in its starting phase, but possibilities to work in this area should be available.
 
 
-## Index to Rank Beef Bulls for their Use on Dairy Cows
-* Swiss AI Industry has expressed a long standing interest for a tool that provides a solid ranking of beef bulls for use on dairy cows. The reason for this requirement is the strong interest of dairy farmers in beef bulls (Beef on Dairy)
-* Berry et al (2019) have proposed such an index for the dairy and beef industry in Ireland. 
-* The approach by Berry et al (2019) would need to be adapted to the Swiss context
-* After a literature search on the topic of using beef bulls on dairy cows from the same authors, a ranking index for the Swiss context is to be proposed
-
-
 ## Factors Influencing Stability of Predicted Genomic Breeding Values
 * Example: BVCH
 * Reference: 
