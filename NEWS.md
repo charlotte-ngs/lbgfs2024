@@ -1,3 +1,7 @@
+# lbgfs2024 0.2.2
+
+* Outsource pdf-result of ohp document
+
 # lbgfs2024 0.2.1
 
 * First version of ohp document
