@@ -17,7 +17,7 @@ do
   echo " * Copy $p ..."
   cp "$p" ~/Desktop
   echo " * Convert ~/Desktop/$CURPICFN ..."
-  mogrify -resize 50% -format jpg ~/Desktop/$CURPICFN
+  mogrify -resize 30% -format jpg ~/Desktop/$CURPICFN
   echo " * Remove ~/Desktop/$CURPICFN ..."
   rm ~/Desktop/$CURPICFN
   sleep 2
