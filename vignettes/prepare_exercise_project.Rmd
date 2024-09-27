@@ -89,3 +89,25 @@ echo 'Date;Text;Filename' > $SOLPATHDAT
 echo '2024-09-27;Genotype Data;lbg_sol01' >> $SOLPATHDAT
 
 ```
+
+Commit
+
+```bash
+git add docs/solutions
+for f in $(git status | grep 'new file' | tr -s ' ' ';' | cut -d ';' -f3);do
+  echo " * File: $f ..."
+  git commit -m "Commit $f" $f
+  git push origin main
+  sleep 2
+done
+
+git add inst/website/lbgfs2024/solutions
+for f in $(git status | grep 'new file' | tr -s ' ' ';' | cut -d ';' -f3);do
+  echo " * File: $f ..."
+  git commit -m "Commit $f" $f
+  git push origin main
+  sleep 2
+done
+
+
+```
