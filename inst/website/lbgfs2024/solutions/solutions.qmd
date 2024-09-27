@@ -1,0 +1,33 @@
+---
+title: "Solutions"
+---
+
+```{r}
+#| echo: false
+s_sol_url <- "https://charlotte-ngs.github.io/lbgfs2024/solutions/"
+```
+
+List of Solutions
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+s_sol_path <- "solutions.dat"
+tbl_sol <- readr::read_delim(file = s_sol_path, delim = ";")
+tbl_sol$Nr <- 1:nrow(tbl_sol)
+# create topic from tsolt and filename
+tbl_sol <- dplyr::mutate(tbl_sol, Topic = paste0("[", Text, "](", s_sol_url, Filename, "/", Filename, ".html)"))
+# select relevant columns
+tbl_sol <- dplyr::select(tbl_sol,Nr,Date,Topic)
+# show knitr
+knitr::kable(tbl_sol)
+```
+
+
+```{r}
+#| echo: false
+#| results: asis
+if (is.element("rmdhelp", installed.packages()))
+  cat(paste0(rmdhelp::get_latest_change()))
+```
