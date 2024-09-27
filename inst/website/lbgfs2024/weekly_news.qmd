@@ -1,4 +1,10 @@
 # Week 2 
+## lbgfs2024 0.2.3
+
+Links to available material for week 1: 
+
+* Overhead Pictures: [Introduction](https://charlotte-ngs.github.io/lbgfs2024/ohp/20240920_ohp_l01.pdf)
+
 ## lbgfs2024 0.2.2
 
 * Outsource pdf-result of ohp document
@@ -91,4 +97,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-09-26 17:16:22 CEST (pvr)_
+ _Latest Changes: 2024-09-27 07:30:57 CEST (pvr)_
