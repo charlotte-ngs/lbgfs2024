@@ -2,6 +2,29 @@
 title: "Exercises"
 ---
 
+```{r}
+#| echo: false
+s_ex_url <- "https://charlotte-ngs.github.io/lbgfs2024/exercises/"
+```
+
+List of exercises
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+s_ex_path <- "exercises.dat"
+tbl_ex <- readr::read_delim(file = s_ex_path, delim = ";")
+tbl_ex$Nr <- 1:nrow(tbl_ex)
+# create topic from text and filename
+tbl_ex <- dplyr::mutate(tbl_ex, Topic = paste0("[", Text, "](", s_ex_url, Filename,")"))
+# select relevant columns
+tbl_ex <- dplyr::select(tbl_ex,Nr,Date,Topic)
+# show knitr
+knitr::kable(tbl_ex)
+```
+
+
 
 ```{r}
 #| echo: false

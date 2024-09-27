@@ -8,7 +8,7 @@ website:
       text: Home
     - href: course_notes/course_notes.qmd
       text: Course Notes
-    - href: exercises.qmd
+    - href: exercises/exercises.qmd
       text: Exercises
     - href: solutions.qmd
       text: Solutions
