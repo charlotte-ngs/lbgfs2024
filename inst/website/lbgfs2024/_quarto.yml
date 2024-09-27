@@ -10,7 +10,7 @@ website:
       text: Course Notes
     - href: exercises/exercises.qmd
       text: Exercises
-    - href: solutions.qmd
+    - href: solutions/solutions.qmd
       text: Solutions
     - href: slides/slides.qmd
       text: Slides
