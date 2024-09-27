@@ -1,0 +1,9 @@
+---
+title: "lbgfs2024"
+---
+
+## Disclaimer
+
+This is the main page for the lbgfs2024 exercises quarto-live project. Each exercise will be come an own document with solutions and exercises.
+
+
