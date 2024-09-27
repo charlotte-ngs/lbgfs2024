@@ -40,7 +40,7 @@ mv inst/website/lbgfs2024/exercises.qmd inst/website/lbgfs2024/exercises
 # table data
 EXPATHDAT=inst/website/lbgfs2024/exercises/exercises.dat
 echo 'Date;Text;Filename' > $EXPATHDAT
-echo '2024-09-27;Genotype Data;lbg_ex01/lbg_ex01.html' >> $EXPATHDAT
+echo '2024-09-27;Genotype Data;lbg_ex01' >> $EXPATHDAT
 
 ```
 
@@ -56,3 +56,36 @@ for f in $(git status | grep 'new file' | tr -s ' ' ';' | cut -d ';' -f3);do
 done
 ```
 
+Commit and push exercise project
+
+```bash
+git add .
+echo inst/exercises/lbgfs2024/_extensions >> .gitignore
+for f in $(git status | grep 'new file' | tr -s ' ' ';' | cut -d ';' -f3);do
+  echo " * File: $f ..."
+  git commit -m "Commit $f" $f
+  git push origin main
+  sleep 2
+done
+```
+
+
+# Solutions
+
+Deployment to website
+
+```bash
+# copy
+mkdir -p docs/solutions
+cp -r inst/exercises/lbgfs2024/solutions/lbg_sol01 docs/solutions
+
+mkdir -p inst/website/lbgfs2024/solutions
+mv inst/website/lbgfs2024/solutions.qmd inst/website/lbgfs2024/solutions
+rm docs/solutions.html inst/website/lbgfs2024/_site/solutions.html
+
+# table data
+SOLPATHDAT=inst/website/lbgfs2024/solutions/solutions.dat
+echo 'Date;Text;Filename' > $SOLPATHDAT
+echo '2024-09-27;Genotype Data;lbg_sol01' >> $SOLPATHDAT
+
+```
