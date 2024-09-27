@@ -1,0 +1,45 @@
+---
+title: "Preparation of Quarto Project for Exercises"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Preparation of Quarto Project for Exercises}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Disclaimer
+The process of starting the development of exercises is documented.
+
+
+# Background
+Exercises are offered using __quarto-live__ as described at https://r-wasm.github.io/quarto-live/
+
+
+# Getting Started
+The starting point is a quarto project. This was created under `inst/exercises` and named lbgfs2024. Inside that project, we follow the steps given at: https://r-wasm.github.io/quarto-live
+
+
+# Deployment
+The exercise subdirectories containing all files are copied over to the `docs` subfolder.
+
+```bash
+# copy
+mkdir -p docs/exercises
+cp -r inst/exercises/lbgfs2024/exercises/lbg_ex01 docs/exercises
+
+mkdir -p inst/website/exercises
+mv inst/website/lbgfs2024/exercises.qmd inst/website/lbgfs2024/exercises
+# table data
+EXPATHDAT=inst/website/lbgfs2024/exercises/exercises.dat
+echo 'Date;Text;Filename' > $EXPATHDAT
+echo '2024-09-27;Genotype Data;lbg_ex01/lbg_ex01.html' >> $EXPATHDAT
+
+```
