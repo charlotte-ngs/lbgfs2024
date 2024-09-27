@@ -43,3 +43,16 @@ echo 'Date;Text;Filename' > $EXPATHDAT
 echo '2024-09-27;Genotype Data;lbg_ex01/lbg_ex01.html' >> $EXPATHDAT
 
 ```
+
+
+# Commit
+
+```bash
+for f in $(git status | grep 'new file' | tr -s ' ' ';' | cut -d ';' -f3);do
+  echo " * File: $f ..."
+  git commit -m"Commit $f " $f
+  git push origin main
+  sleep 2
+done
+```
+
