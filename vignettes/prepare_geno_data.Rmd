@@ -1,0 +1,74 @@
+---
+title: "Prepare Genotype Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Prepare Genotype Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Disclaimer
+Preparation of genotype data as taken from ssGTaBLUP evaluation input is documented.
+
+
+# Background
+
+
+# Prepare Data
+In its original format, the genotype data looks as follows
+
+```{r}
+s_geno_data_path <- here::here("docs", "data", "geno_first_100.dat")
+vec_geno_data <- readLines(file(s_geno_data_path))
+cat(paste0(vec_geno_data[1:5], collapse = "\n"), "\n")
+```
+
+Separating IDs and genotypes
+
+```{r}
+vec_ids <- sapply(vec_geno_data, function(x) unlist(strsplit(x, " "))[1], USE.NAMES = F)
+vec_genotypes <- sapply(vec_geno_data, function(x) unlist(strsplit(x, " "))[2], USE.NAMES = F)
+```
+
+
+Putting genotypes into a tibble
+
+```{r}
+tbl_geno <- NULL
+vec_geno_length <- sapply(vec_genotypes, function(x) nchar(x), USE.NAMES = F)
+n_nr_loci <- min(vec_geno_length)
+for (idx in 1:n_nr_loci){
+  cur_geno <- sapply(vec_genotypes, function(x) unlist(strsplit(x, ""))[idx], USE.NAMES = F)
+  cur_tbl <- tibble::tibble(cur_loc = cur_geno)
+  colnames(cur_tbl) <- paste0("Loc_", idx)
+  if (is.null(tbl_geno)){
+    tbl_geno <- cur_tbl
+  } else {
+    tbl_geno <- dplyr::bind_cols(tbl_geno, cur_tbl)
+  }
+}
+```
+
+Add ids of animals to genotypes
+
+```{r}
+tbl_data <- dplyr::bind_cols(tibble::tibble(Ids = vec_ids), tbl_geno)
+tbl_data
+```
+
+Write data to file
+
+```{r}
+s_csv_data_path <- here::here("docs", "data", "geno_first_100.csv")
+readr::write_delim(tbl_data, s_csv_data_path, delim = ",")
+```
+
+
+
