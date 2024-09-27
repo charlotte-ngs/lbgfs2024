@@ -1,3 +1,8 @@
+# lbgfs2024 0.3.0
+
+* First version of solutions of lbg_ex01
+* Re-designed exercise and solutions qmd documents
+
 # lbgfs2024 0.2.4
 
 Links to available material for week 1: 
