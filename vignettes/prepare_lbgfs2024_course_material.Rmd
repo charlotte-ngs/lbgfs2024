@@ -301,6 +301,10 @@ cp inst/ohp/20240920_ohp_l01/20240920_ohp_l01.Rmd inst/ohp/20240927_ohp_l02/2024
 # put odg to .gitignore
 echo 'inst/ohp/20240927_ohp_l02/odg' >> .gitignore
 # then render
+# deploy
+mv inst/ohp/20240927_ohp_l02/20240927_ohp_l02.pdf docs/ohp
+# add data to table
+echo '2024-09-27;Basics of Quantitative Genetics;20240927_ohp_l02.pdf' >> inst/website/lbgfs2024/ohp/ohp.dat
 
 ```
 

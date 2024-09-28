@@ -1,6 +1,11 @@
+# lbgfs2024 0.3.1
+
+* OHP l02
+
+
 # lbgfs2024 0.3.0
 
-* First version of solutions of lbg_ex01
+* First version of solutions lbg_sol01
 * Re-designed exercise and solutions qmd documents
 
 # lbgfs2024 0.2.4
