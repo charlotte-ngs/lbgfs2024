@@ -291,3 +291,16 @@ mkdir docs/ohp
 # move rendered pdf
 mv inst/ohp/20240920_ohp_l01/20240920_ohp_l01.pdf docs/ohp
 ```
+
+OHP for second week
+
+```bash
+mkdir -p inst/ohp/20240927_ohp_l02
+cp inst/ohp/20240920_ohp_l01/20240920_ohp_l01.Rmd inst/ohp/20240927_ohp_l02/20240927_ohp_l02.Rmd
+# modify 20240927_ohp_l02.Rmd and insert images
+# put odg to .gitignore
+echo 'inst/ohp/20240927_ohp_l02/odg' >> .gitignore
+# then render
+
+```
+
