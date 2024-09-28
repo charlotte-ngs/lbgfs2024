@@ -17,7 +17,7 @@ s_sl_path <- "ohp.dat"
 tbl_sl <- readr::read_delim(file = s_sl_path, delim = ";")
 tbl_sl$Nr <- 1:nrow(tbl_sl)
 # create topic from text and filename
-tbl_sl <- dplyr::mutate(tbl_sl, Topic = paste0("[", Text, "](", s_ohp_url, Filename,")"))
+tbl_sl <- dplyr::mutate(tbl_sl, Topic = paste0("[", Text, "](",Filename,")"))
 # select relevant columns
 tbl_sl <- dplyr::select(tbl_sl,Nr,Date,Topic)
 # show knitr
