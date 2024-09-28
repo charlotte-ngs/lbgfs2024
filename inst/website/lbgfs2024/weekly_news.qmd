@@ -1,7 +1,12 @@
 # Week 3 
+## lbgfs2024 0.3.1
+
+* OHP l02
+
+
 ## lbgfs2024 0.3.0
 
-* First version of solutions of lbg_ex01
+* First version of solutions lbg_sol01
 * Re-designed exercise and solutions qmd documents
 
 # Week 2 
@@ -109,4 +114,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-09-27 17:35:53 CEST (pvr)_
+ _Latest Changes: 2024-09-28 07:56:15 CEST (pvr)_
