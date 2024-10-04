@@ -186,5 +186,6 @@ for f in $(git status | grep 'modified' | tr -s ' ' ';' | cut -d ';' -f2);do
   git push origin main
   sleep 2
 done
-
 ```
+
+The scripted commit/push does not seam to update the version
