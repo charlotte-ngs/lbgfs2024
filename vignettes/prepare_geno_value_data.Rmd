@@ -97,6 +97,13 @@ tbl_geno_val <- tbl_geno_val %>% rename(Loc_G = Loc_3)
 tbl_geno_val
 ```
 
+Round observation values
+
+```{r}
+tbl_geno_val$y <- round(tbl_geno_val$y, digits = 4)
+```
+
+
 Write results to file
 
 ```{r}
