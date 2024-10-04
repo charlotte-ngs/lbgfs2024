@@ -1,0 +1,44 @@
+---
+title: "LBG - FS2024 -- Solution 2"
+author: "Peter von Rohr"
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+    - dplyr
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+
+## Problem 1: Single Locus Genotypic Values
+Use the dataset with genotypes of a single locus `G` and with phenotypic observations of a quantitative trait (`y`) to get estimates of the parameters $a$ and $d$ used for genotypic values for locus `G`. The dataset is available at: 
+
+https://charlotte-ngs.github.io/lbgfs2024/data/geno_val_single_loc.csv
+
+```{webr}
+#| label: Read Data
+s_geno_val_path <- "https://charlotte-ngs.github.io/lbgfs2024/data/geno_val_single_loc.csv"
+tbl_geno_val <- readr::read_delim(s_geno_val_path, delim = ",")
+```
+
+* Filter homozygous genotypes from dataset
+
+```{webr}
+#| label: Filter homozygous genotypes
+library(dplyr)
+tbl_hom_geno <- tbl_geno_val %>% filter(Loc_G != 1)
+```
+
+* Fit regression model on homozygous genotypes
+
+```{webr}
+#| label: Fit regression
+lm_hom <- lm(y ~ Loc_G, data = tbl_hom_geno)
+smry_lm_hom <- summary(lm_hom)
+smry_lm_hom
+```
+
+
+
