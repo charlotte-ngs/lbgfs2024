@@ -1,3 +1,7 @@
+# lbgfs2024 0.4.0
+
+* OHP l03
+
 # lbgfs2024 0.3.3
 
 Material for week 3:
@@ -20,7 +24,7 @@ Material for week 3:
 
 # lbgfs2024 0.2.4
 
-Links to available material for week 1: 
+Links to available material for week 2: 
 
 * Exercise [Genotype Data](https://charlotte-ngs.github.io/lbgfs2024/exercises/lbg_ex01/lbg_ex01.html)
 * Overhead Pictures: [Introduction](https://charlotte-ngs.github.io/lbgfs2024/ohp/20240920_ohp_l01.pdf)
