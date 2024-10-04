@@ -1,0 +1,38 @@
+---
+title: "Prepare Genotypic Value Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Prepare Genotypic Value Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# Disclaimer
+Dataset to estimate genotypic values from data is prepared. This dataset will be used in lbg_ex02.
+
+
+# Genotype Data
+Genotypes are taken from the dataset of lbg_ex01 described in `prepare_geno_data.Rmd`.
+
+```{r}
+s_csv_data_path <- here::here("docs", "data", "geno_first_100.csv")
+tbl_geno <- readr::read_delim(s_csv_data_path, delim = ",")
+tbl_geno
+```
+
+The genotype data is reduced to only contain the columns with the IDs and the column of Locus 3, as this was found to be the first locus having all genotypes.
+
+```{r}
+library(dplyr)
+tbl_geno_val <- tbl_geno %>% select(Ids,Loc_3)
+tbl_geno_val
+```
+
