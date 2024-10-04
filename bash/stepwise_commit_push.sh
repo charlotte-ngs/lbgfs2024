@@ -55,10 +55,8 @@ REAL_EVALROOT=$(dirname $REAL_EVALREPO)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -c <commit_path> -h -s <status_tag>  -z"
+  echo "Usage:   $SCRIPT -h -s <status_tag>  -z"
   echo '  where '
-  echo '        -c <source_path>  --  (optional) alternative path which should be added as commit ...'
-  echo '                                         > default: . '
   echo '        -h                --  (optional) show usage message ...'
   echo '        -s <status_tag>   --  (optional) alternative status tag ...'
   echo '                                         > default: new file '
@@ -106,20 +104,12 @@ log_msg () {
 #' Notice there is no ":" after "h". The leading ":" suppresses error messages from
 #' getopts. This is required to get my unrecognized option code to work.
 #+ getopts-parsing, eval=FALSE
-COMMIT_PATH=''
 STATUS_TAG=''
 VERBOSE='false'
-while getopts ":c:hs:z" FLAG; do
+while getopts ":hs:z" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
-      ;;
-    c)
-      if [[ ! -d $OPTARG ]] || [[ ! -f $OPTARG ]];then
-        COMMIT_PATH=$OPTARG
-      else
-        usage " * CANNOT FIND source path: $OPTARG ..."
-      fi
       ;;
     s)
       STATUS_TAG=$OPTARG
@@ -151,14 +141,10 @@ start_msg
 #' meaningful default value
 #+ argument-test, eval=FALSE
 log_msg $SCRIPT " * Check arguments and set defaults ..."
-if [[ $COMMIT_PATH == '' ]];then
-  COMMIT_PATH='.'
-fi
 if [[ $STATUS_TAG == '' ]];then
   STATUS_TAG='new file'
 fi
 if [[ $VERBOSE == 'true' ]];then
-  log_msg $SCRIPT " * *** COMMIT_PATH: $COMMIT_PATH ..."
   log_msg $SCRIPT " * *** STATUS_TAG:  $STATUS_TAG ..."
 fi
 
@@ -166,10 +152,10 @@ fi
 #' 
 #+ your-code-here
 log_msg $SCRIPT " * Add changes and commit and push stepwise ..."
-git add $COMMIT_PATH
 FILE_COL=$(git status | grep "$STATUS_TAG" | head -1 | tr -s ' ' '\n' | wc -l)
 for f in $(git status | grep "$STATUS_TAG" | tr -s ' ' ';' | cut -d ';' -f${FILE_COL});do
   if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * File: $f ...";fi
+  git add $f
   git commit -m "Commit $f" $f
   git push origin main
   sleep 2
