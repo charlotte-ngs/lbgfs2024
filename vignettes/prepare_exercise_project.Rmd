@@ -135,6 +135,35 @@ rm inst/exercises/lbgfs2024/solutions/lbg_sol02/lbg_sol02.html
 mkdir -p inst/exercises/lbgfs2024/exercises/lbg_ex02
 # copy lbg_sol02 to lbg_ex02, then remove the solutions
 cp -r inst/exercises/lbgfs2024/solutions/lbg_sol02/lbg_sol02.qmd inst/exercises/lbgfs2024/exercises/lbg_ex02/lbg_ex02.qmd
+# after rendering, move output to web-directory
+cp -r inst/exercises/lbgfs2024/exercises/lbg_ex02 docs/exercises
+rm docs/exercises/lbg_ex02/lbg_ex02.qmd
 
+# clean up sources
+rm -rf inst/exercises/lbgfs2024/exercises/lbg_ex02/lbg_ex02_files
+rm inst/exercises/lbgfs2024/exercises/lbg_ex02/lbg_ex02.html
+```
 
+Commit exercise lbg_ex02
+
+```bash
+git add docs/exercises/lbg_ex02
+for f in $(git status | grep 'new file' | tr -s ' ' ';' | cut -d ';' -f3);do
+  echo " * File: $f ..."
+  git commit -m "Commit $f" $f
+  git push origin main
+  sleep 2
+done
+```
+
+Commit solution lbg_sol02
+
+```bash
+git add docs/solutions/lbg_sol02
+for f in $(git status | grep 'new file' | tr -s ' ' ';' | cut -d ';' -f3);do
+  echo " * File: $f ..."
+  git commit -m "Commit $f" $f
+  git push origin main
+  sleep 2
+done
 ```
