@@ -167,3 +167,23 @@ for f in $(git status | grep 'new file' | tr -s ' ' ';' | cut -d ';' -f3);do
   sleep 2
 done
 ```
+
+Add entry to exercises data-table
+
+```bash
+echo "2024-10-04;Genotypic Values;lbg_ex02" >> inst/website/lbgfs2024/exercises/exercises.dat
+```
+
+Deploy website
+
+```bash
+./bash/deploy_website.sh -z
+# commit /push
+for f in $(git status | grep 'modified' | tr -s ' ' ';' | cut -d ';' -f3);do
+  echo " * File: $f ..."
+  git commit -m "Commit $f" $f
+  git push origin main
+  sleep 2
+done
+
+```
