@@ -1,3 +1,10 @@
+# lbgfs2024 0.3.3
+
+Material for week 3:
+
+* [Exercise lbg_ex02](https://charlotte-ngs.github.io/lbgfs2024/exercises/lbg_ex02/lbg_ex02.html)
+* [OHP l02](https://drive.google.com/file/d/12eV76mtz5nKxTJ1dvbfrq7vNb18D69Kf/view?usp=sharing)
+
 # lbgfs2024 0.3.2
 
 * Exercise lbg_ex02
