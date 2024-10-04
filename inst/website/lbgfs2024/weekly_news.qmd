@@ -1,8 +1,11 @@
 # Week 3 
+## lbgfs2024 0.3.2
+
+* Exercise lbg_ex02
+
 ## lbgfs2024 0.3.1
 
 * OHP l02
-
 
 ## lbgfs2024 0.3.0
 
@@ -114,4 +117,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-09-28 07:56:15 CEST (pvr)_
+ _Latest Changes: 2024-10-04 08:31:42 CEST (pvr)_
