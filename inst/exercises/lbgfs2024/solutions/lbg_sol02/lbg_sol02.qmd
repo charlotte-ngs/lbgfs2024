@@ -40,5 +40,20 @@ smry_lm_hom <- summary(lm_hom)
 smry_lm_hom
 ```
 
+* The parameter $a$ is the mean of the absolute values of the estimates for Intercept and for the regression slope.
+
+```{webr}
+n_par_a_est <- mean(abs(smry_lm_hom$coefficients[,"Estimate"]))
+cat(" * The estimate for parameter a is: ", n_par_a_est, "\n")
+```
+
+* The estimate for parameter $d$ is the mean if the heterozygous genotypes corrected for the sum of the intercept and the slope. 
+
+```{webr}
+tbl_het_geno <- tbl_geno_val %>% filter(Loc_G == 1)
+n_par_d_est <- mean(tbl_het_geno$y) - sum(smry_lm_hom$coefficients[,"Estimate"])
+cat(" * The estimate for parameter d is: ", n_par_d_est, "\n")
+```
+
 
 
