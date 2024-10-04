@@ -112,3 +112,29 @@ done
 ```
 
 
+# Solution lbg_sol02
+Start with lbg_sol01 and copy it as lbg_sol02. Then complete lbg_sol02 and commit/push only the qmd-file. All the render-output is removed or ignored in order not to put it in the repo.
+
+```bash
+mkdir -p inst/exercises/lbgfs2024/solutions/lbg_sol02
+# copy over lbg_sol01.qmd and modify it
+cp inst/exercises/lbgfs2024/solutions/lbg_sol01/lbg_sol01.qmd inst/exercises/lbgfs2024/solutions/lbg_sol02/lbg_sol02.qmd
+# once the final version is done, render it and then copy the result after render to the website section
+cp -r inst/exercises/lbgfs2024/solutions/lbg_sol02 docs/solutions
+rm docs/solutions/lbg_sol02/lbg_sol02.qmd
+
+# then clean up
+rm -rf inst/exercises/lbgfs2024/solutions/lbg_sol02/lbg_sol02_files
+rm inst/exercises/lbgfs2024/solutions/lbg_sol02/lbg_sol02.html
+```
+
+
+# Exercise lbg_ex01
+
+```bash
+mkdir -p inst/exercises/lbgfs2024/exercises/lbg_ex02
+# copy lbg_sol02 to lbg_ex02, then remove the solutions
+cp -r inst/exercises/lbgfs2024/solutions/lbg_sol02/lbg_sol02.qmd inst/exercises/lbgfs2024/exercises/lbg_ex02/lbg_ex02.qmd
+
+
+```
