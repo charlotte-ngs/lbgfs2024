@@ -26,7 +26,8 @@ done
 # mv inst/ohp/20241004_ohp_l03/20241004_ohp_l03.pdf "/Users/${USER}/ngs.charlotte@gmail.com - Google Drive/My Drive/Vorlesung/LBG/FS2024/OHP-L03"
 # odg to .gitignore
 # echo inst/ohp/20241004_ohp_l03/odg >> .gitignore
-
+# add entry to ohp data table
+# echo "2024-10-04;Genotypic Values;https://drive.google.com/file/d/1TP2xgk0tPzpcmIFZeY2ft4Oud5Yqy3cL/view?usp=sharing" >> inst/website/lbgfs2024/ohp/ohp.dat
 ```
 
 ```{r, echo=FALSE, eval=FALSE}
