@@ -1,0 +1,56 @@
+---
+title: "LBG - FS2024 -- Exercise 2"
+author: "Peter von Rohr"
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+    - dplyr
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+
+## Problem 1: Single Locus Genotypic Values
+Use the dataset with genotypes of a single locus `G` and with phenotypic observations of a quantitative trait (`y`) to get estimates of the parameters $a$ and $d$ used for genotypic values for locus `G`. The dataset is available at: 
+
+https://charlotte-ngs.github.io/lbgfs2024/data/geno_val_single_loc.csv
+
+```{webr}
+#| label: Read Data
+#| min-lines: 3
+
+```
+
+* Filter homozygous genotypes from dataset
+
+```{webr}
+#| label: Filter homozygous genotypes
+#| min-lines: 3
+
+```
+
+* Fit regression model on homozygous genotypes
+
+```{webr}
+#| label: Fit regression
+#| min-lines: 3
+
+```
+
+* The parameter $a$ is the mean of the absolute values of the estimates for Intercept and for the regression slope.
+
+```{webr}
+#| min-lines: 2
+
+```
+
+* The estimate for parameter $d$ is the mean if the heterozygous genotypes corrected for the sum of the intercept and the slope. 
+
+```{webr}
+#| min-lines: 3
+
+```
+
+
