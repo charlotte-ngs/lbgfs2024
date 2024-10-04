@@ -179,8 +179,9 @@ Deploy website
 ```bash
 ./bash/deploy_website.sh -z
 # commit /push
-for f in $(git status | grep 'modified' | tr -s ' ' ';' | cut -d ';' -f3);do
+for f in $(git status | grep 'modified' | tr -s ' ' ';' | cut -d ';' -f2);do
   echo " * File: $f ..."
+  git add $f
   git commit -m "Commit $f" $f
   git push origin main
   sleep 2
