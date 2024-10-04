@@ -1,7 +1,10 @@
+# lbgfs2024 0.3.2
+
+* Exercise lbg_ex02
+
 # lbgfs2024 0.3.1
 
 * OHP l02
-
 
 # lbgfs2024 0.3.0
 
