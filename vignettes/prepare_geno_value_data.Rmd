@@ -36,3 +36,72 @@ tbl_geno_val <- tbl_geno %>% select(Ids,Loc_3)
 tbl_geno_val
 ```
 
+
+# Simulation of Values
+Initialise values to be only residuals
+
+```{r}
+set.seed(1004)
+n_mean_res <- 0
+n_sd_res <- 1.5
+tbl_geno_val$y <- rnorm(nrow(tbl_geno_val), mean = n_mean_res, sd = n_sd_res)
+tbl_geno_val
+```
+
+Generate genotypic values
+
+```{r}
+# vector of values
+n_par_a <- 13.3
+n_par_d <- 4.9
+vec_geno_val <- c(-n_par_a, n_par_d, n_par_a)
+# genotype matrix
+mat_geno_X <- model.matrix(y ~ 0 + as.factor(Loc_3), data = tbl_geno_val)
+attr(mat_geno_X, "assign") <- NULL
+attr(mat_geno_X, "contrasts") <- NULL
+colnames(mat_geno_X) <- NULL
+mat_geno_val <- crossprod(t(mat_geno_X), vec_geno_val)
+mat_geno_val
+```
+
+Add genotypic values to residuals
+
+```{r}
+tbl_geno_val$y <- tbl_geno_val$y + mat_geno_val[,1]
+tbl_geno_val
+```
+
+
+# Plot
+Plot values against genotypes
+
+```{r}
+plot(tbl_geno_val$Loc_3, tbl_geno_val$y)
+```
+
+The same plot with `ggplot2`
+
+```{r}
+library(ggplot2)
+p_geno <- ggplot(data = tbl_geno_val, aes(x = Loc_3, y = y)) + 
+  geom_point()
+p_geno
+```
+
+
+# Writing Data To File
+Rename column with genotypes from `Loc_3` to `Loc_G`.
+
+```{r}
+tbl_geno_val <- tbl_geno_val %>% rename(Loc_G = Loc_3)
+tbl_geno_val
+```
+
+Write results to file
+
+```{r}
+s_geno_val_path <- here::here("docs", "data", "geno_val_single_loc.csv")
+readr::write_delim(tbl_geno_val, s_geno_val_path, delim = ",")
+```
+
+
