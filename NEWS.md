@@ -1,3 +1,7 @@
+# lbgfs2024 0.4.1
+
+* Slides sl_l03
+
 # lbgfs2024 0.4.0
 
 * OHP l03
