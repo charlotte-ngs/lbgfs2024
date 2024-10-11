@@ -263,6 +263,34 @@ $G_2G_2$ &  $-a$                &  $-2p\alpha$       & $-2p^2d$           \\
 V_{ij} &=   \mu + BV_{ij} + D_{ij} \notag
 \end{align}
 
+
+## Breeding Values of Parents and Offspring
+
+Breeding value of parent $d$ meansures value of alleles passed to offspring $o$
+
+```{r bv-parent-offspring, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/bv-parent-offspring.odg")
+knitr::include_graphics(path = "odg/bv-parent-offspring.png")
+```
+
+
+
+
+## Breeding Values of Parents and Offspring II
+
+* Alternative notation
+
+$$BV_{o} = a * BV_{s} + b * BV_{d} + m_o$$
+
+* Part of alleles from parent to offspring: $50%$
+
+$\rightarrow$ Regression factors $a = b = 0.5$ and $m_o$ is a random residual quantity with 
+
+* expected value $E(m_o) = 0$ and 
+* variance $var(m_o) = \sigma_m^2$
+
+
+
 ## Variances 
 
 \begin{equation}
@@ -303,4 +331,4 @@ where $\mu = (p - q)a + 2pqd$ the population mean.
   \sigma_G^2 &=  2pq\alpha^2 + \left(2pqd \right)^2 \notag\\
              &=  \sigma_A^2 + \sigma_D^2  \notag
 \end{align}
- 
+  
