@@ -1,0 +1,45 @@
+---
+title: "LBG - FS2024 -- Exercise 3"
+author: "Peter von Rohr"
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+    - dplyr
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Parent Offspring Breeding Values
+As shown in the course notes, the breeding value $u_i$ of animal $i$ can be decomposed into the average of the parent breeding values plus a mendelian sampling term ($m_i$). This means
+
+$$u_i = {1\over 2}u_s + {1\over 2}u_d + m_i$$
+
+where animal $i$ has parents $s$ and $d$. The mendelian sampling term $m_i$ is the deviation of the single breeding value $u_i$ from the parent average breeding value. Because $m_i$ is modelled as a deviation, it follows that for a large number ($N$) of offspring from parents $s$ and $d$, the average over all mendelian sampling terms must be $0$. 
+
+### Your Task
+Show that the average mendelian sampling term over a large number of offspring is $0$ using a single locus model for the following cases.
+
+#### Case 1: Homozygous and Heterozygous Parents
+Parent $s$ with genotype $G_1G_1$ and parent $d$ with genotype $G_1G_2$
+
+
+#### Case 2: Homozygous and Heterozygous Parents
+Parent $s$ with genotype $G_2G_2$ and parent $d$ with genotype $G_1G_2$
+
+
+#### Case 3: Heterozygous Parents
+Both parents $s$ and $d$ have genotype $G_1G_2$
+
+### Your Solution
+* For each of the following cases compute the parent average of breeding values. 
+* Compute the difference between the breeding values of every possible offspring and the parent average
+* Compute the average over all mendelian sampling terms
+
+#### Case 1: Homozygous and Heterozygous Parents
+
+#### Case 2: Homozygous and Heterozygous Parents
+
+#### Case 3: Heterozygous Parents
+
