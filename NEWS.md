@@ -1,3 +1,11 @@
+# lbgfs2024 0.4.3
+
+Material for week 4:
+
+* [Exercise lbg_ex03](https://charlotte-ngs.github.io/lbgfs2024/exercises/lbg_ex03/lbg_ex03.html)
+* [Slides sl_l03](https://charlotte-ngs.github.io/lbgfs2024/slides/l03_qg_multiple_loci.pdf)
+* [OHP ohp_l03](https://drive.google.com/file/d/1TP2xgk0tPzpcmIFZeY2ft4Oud5Yqy3cL/view)
+
 # lbgfs2024 0.4.2
 
 * Exercise lbg_ex03
