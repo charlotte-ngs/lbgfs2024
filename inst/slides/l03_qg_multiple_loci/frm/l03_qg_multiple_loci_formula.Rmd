@@ -1,0 +1,38 @@
+---
+title: "Formula for l03qg_multiple_loci"
+author: "Peter von Rohr"
+date: "2023-10-06"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For an animal with genotype 
+
+$$A_{i}A_{j}B_{k}B_{l}$$
+
+total genotypic value
+
+$$V_{ijkl} = {1\over N}\sum_{m=1}^NY_{ijklm}$$
+
+Interaction between loci $A$ and $B$
+
+$$I_{AB} = V_{ijkl} - V_A - V_B$$
+
+$$I_{BC}$$
+
+$$V_C$$
+$$I_{AC}$$
+
+$$I_{ABC}$$
+
+
+$$V = V_A + V_B + V_C + ... + I_{A \cdot B \cdot C \cdot ...} $$
+
+
+$$I_{A \cdot B \cdot C} = I_{AB} + I_{AC} + I_{BC} + I_{ABC}$$
+
+
+
