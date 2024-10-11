@@ -1,3 +1,7 @@
+# lbgfs2024 0.4.2
+
+* Exercise lbg_ex03
+
 # lbgfs2024 0.4.1
 
 * Slides sl_l03
