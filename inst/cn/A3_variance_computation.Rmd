@@ -1,0 +1,7 @@
+# Computation with Variances {#compu-vars}
+```{r met-compu-vars-reset, echo=FALSE}
+s_this_rmd_file <- rmdhelp::get_this_rmd_file()
+met$set_this_rmd_file(ps_this_rmd_file = s_this_rmd_file)
+```
+
+The summary shown below is based on the article `r met$add("enwiki:1241819322")`. 

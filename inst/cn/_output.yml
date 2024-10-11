@@ -10,7 +10,7 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Lifestock Breeding and Genomics FS 2023</a></li>
+        <li><a href="./">Lifestock Breeding and Genomics FS 2024</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/charlotte-ngs/lbgfs2023/edit/main/%s 
+    edit: https://github.com/charlotte-ngs/lbgfs2024/edit/main/%s 
