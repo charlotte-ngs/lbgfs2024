@@ -84,5 +84,38 @@ with $E^* = D + I_{A \cdot B \cdot C \cdot ...} + E$
 
 Non-genetic environment is split into
 
-* known part, corresponding to additional information on animal, like herd, age, sex, ...
-* unknown part
+* known part, corresponding to additional information on animal, like herd, age, sex, ... leads to vector of fixed effects and regression coefficients $\ \rightarrow b$
+* unknown part leads to random resiudal part $\ \rightarrow e$
+
+
+## Model of Phenotypic Observation
+
+Phenotypic observation ($y_i$) of an animal $i$ can be modelled as 
+
+$$y_i = x_i^T \cdot b + u_i + e_i$$
+
+\begin{tabular}{llp{8cm}}
+where  &  &  \\
+       &  $y_{i}$   &  phenotypic observation of animal $i$ \\
+       &  $x_i$     &  vector of regression covariates or indicator values for fixed effects \\
+       &  $b$       &  vector of unknown fixed effects and unknown regression coefficients \\
+       &  $u_{i}$   &  random breeding value of animal $i$ \\
+       &  $e_{i}$   &  random environmental effects of animal $i$
+\end{tabular}
+
+
+## Aggregation over Population
+
+Take all observations from all animals in a given population
+
+$$y = X \cdot b + Z \cdot u + e$$
+
+\begin{tabular}{llp{8cm}}
+where  &  &  \\
+       &  $y$       &  vector of phenotypic observations of all animals \\
+       &  $b$       &  vector of unknown fixed effects and unknown regression coefficients \\
+       &  $u$       &  vector of random breeding values of all animals \\
+       &  $e$       &  vector of random environmental effects \\
+       &  $X$       &  design matrix with regression covariates or indicator values for fixed effects \\
+       &  $Z$       &  design matrix relating breeding values to observations
+\end{tabular}
