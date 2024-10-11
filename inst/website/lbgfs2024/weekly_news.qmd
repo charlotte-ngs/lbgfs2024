@@ -1,4 +1,8 @@
 # Week 4 
+## lbgfs2024 0.4.2
+
+* Exercise lbg_ex03
+
 ## lbgfs2024 0.4.1
 
 * Slides sl_l03
@@ -133,4 +137,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-10-11 08:07:43 CEST (pvr)_
+ _Latest Changes: 2024-10-11 08:26:02 CEST (pvr)_
