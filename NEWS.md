@@ -1,3 +1,7 @@
+# lbgfs2024 0.5.1
+
+* Solutions lbg_sol02
+
 # lbgfs2024 0.5.0
 
 * OHP l04
