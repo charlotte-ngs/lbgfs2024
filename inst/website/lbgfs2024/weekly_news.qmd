@@ -1,4 +1,8 @@
 # Week 4 
+## lbgfs2024 0.4.1
+
+* Slides sl_l03
+
 ## lbgfs2024 0.4.0
 
 * OHP l03
@@ -129,4 +133,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-10-04 17:21:29 CEST (pvr)_
+ _Latest Changes: 2024-10-11 08:07:43 CEST (pvr)_
