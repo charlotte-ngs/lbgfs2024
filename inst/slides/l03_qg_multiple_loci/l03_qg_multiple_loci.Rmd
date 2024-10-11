@@ -1,0 +1,88 @@
+---
+title: Quantitative Genetics - Multiple Loci
+author: Peter von Rohr
+date: "2024-10-11"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# rmdhelp::show_knit_hook_call()
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## Two and more Loci
+
+* Two loci $A$ and $B$ having an effect on the same quantitative trait.
+* Additional effect in genetic model: __Interaction__ effect (also known as epistasis)
+* Interaction occurs if effect of one locus can have an influence on the effect of the other locus
+* Interaction is quantified by 
+
+$$I_{AB} = V - V_A - V_B$$
+
+
+## Influence of Two Loci on Quantitative Trait
+
+```{r genetic-model-two-loci, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/genetic-model-two-loci.odg")
+knitr::include_graphics(path = "odg/genetic-model-two-loci.png")
+```
+
+
+## Quantify Interaction Effect
+
+```{r quantify-interaction, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/quantify-interaction.odg", ps_odg_template = "odg_draw_a4_landscape")
+knitr::include_graphics(path = "odg/quantify-interaction.png")
+```
+ 
+ 
+## More Than Two Loci
+
+```{r many-loci, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/many-loci.odg", ps_odg_template = "odg_draw_a4_landscape")
+knitr::include_graphics(path = "odg/many-loci.png")
+```
+ 
+ 
+## Summary Genetic Model
+
+* Given genetic model
+$$V = V_A + V_B + V_C + ... + I_{A \cdot B \cdot C \cdot ...}$$
+
+* Decomposition
+$$V = \mu_A + BV_A + D_A + \mu_B + BV_B + D_B + \mu_C + BV_C + D_C + ... + I_{A \cdot B \cdot C \cdot ...}$$
+
+* Re-group
+\begin{align}
+V &= \mu_A + \mu_B + \mu_C + ...+ BV_A + BV_B + BV_C + ...  \notag \\ 
+  & + D_A + D_B + D_C + ... + I_{A \cdot B \cdot C \cdot ...} \notag 
+\end{align}
+
+* Collect
+$$V = \mu + BV + D + I_{A \cdot B \cdot C \cdot ...}$$
+
+
+## Extend to Phenotypes
+
+* We know from earlier
+
+$$ Y = V + E$$
+
+* Insert decomposition of $V$
+
+$$ Y = \mu + BV + D + I_{A \cdot B \cdot C \cdot ...} + E$$
+
+* For breeding, only $BV$ is important
+
+$$ Y = \mu + BV + E^*$$
+
+with $E^* = D + I_{A \cdot B \cdot C \cdot ...} + E$
+
+
+## Split of Environment
+
+Non-genetic environment is split into
+
+* known part, corresponding to additional information on animal, like herd, age, sex, ...
+* unknown part
