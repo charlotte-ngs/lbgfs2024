@@ -1,6 +1,6 @@
 Package: lbgfs2024
 Title: Livestock Breeding and Genomics - Fall Semester 2024
-Version: 0.4.3
+Version: 0.5.0
 Authors@R: 
     person("Peter", "von Rohr", , "peter.vonrohr@usys.ethz.ch", role = c("aut", "cre"))
 Description: Platform for material on the course livestock breeding and genomics at ETH Zurich. 
