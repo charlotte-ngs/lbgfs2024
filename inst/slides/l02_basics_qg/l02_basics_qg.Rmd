@@ -206,6 +206,15 @@ with $\alpha = a + (q-p)d$
 \end{align}
 
 
+## Linearity of Breeding Values
+
+```{r linearity-breeding-values, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/linearity-breeding-values.odg", ps_odg_template = "odg_draw_a4_landscape")
+knitr::include_graphics(path = "odg/linearity-breeding-values.png")
+```
+
+
+
 ## Dominance Deviation I
   \begin{align}
   V_{11} - BV_{11} &=   a - 2q \alpha \notag \\
@@ -294,4 +303,4 @@ where $\mu = (p - q)a + 2pqd$ the population mean.
   \sigma_G^2 &=  2pq\alpha^2 + \left(2pqd \right)^2 \notag\\
              &=  \sigma_A^2 + \sigma_D^2  \notag
 \end{align}
-
+ 
