@@ -1,4 +1,8 @@
 # Week 5 
+## lbgfs2024 0.5.1
+
+* Solutions lbg_sol02
+
 ## lbgfs2024 0.5.0
 
 * OHP l04
@@ -150,4 +154,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-10-11 16:25:54 CEST (pvr)_
+ _Latest Changes: 2024-10-11 16:31:33 CEST (pvr)_
