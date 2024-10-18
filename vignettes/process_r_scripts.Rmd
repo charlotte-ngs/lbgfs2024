@@ -1,0 +1,27 @@
+---
+title: "Post-process R scripts"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Post-process R scripts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Disclaimer
+Post-processing of R scripts developed during the course are documented
+
+
+# Storage
+Scripts are stored in a separate folder
+
+```bash
+mkdir -p inst/R_scripts/geno_value
+mv ~/Downloads/geno_value* inst/R_scripts/geno_value
+```
