@@ -1,3 +1,7 @@
+# lbgfs2024 0.5.3
+
+* Solutions lbg_sol03
+
 # lbgfs2024 0.5.2
 
 * Appendix 3: Computing with Variances
