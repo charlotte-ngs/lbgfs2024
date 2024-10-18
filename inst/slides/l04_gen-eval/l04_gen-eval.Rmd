@@ -1,0 +1,333 @@
+---
+title: Genetic Evaluation
+author: Peter von Rohr
+date: "`r Sys.Date()`"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## Consequences of Definition of Breeding Value
+
+* Based on the average of a large number of offspring, because 
+    + offspring inherit a random sample of parental alleles
+    + average over a large number of offspring reduces sampling effect 
+* The breeding value is defined as a deviation from the population mean 
+    + population mean depends on allele frequencies which are specific for each population 
+    + hence breeding values can only be compared within one population.
+* Because the breeding value is defined as a deviation its expected value of the breeding value is $0$
+
+
+## The Basic Model
+
+\begin{align}
+y_{ij} &= v_i + e_{ij} \notag \\
+       &= \mu + u_i + d_i + i_i  + e_{ij} \notag 
+\end{align}
+
+\begin{tabular}{llp{8cm}}
+where  &  &  \\
+       &  $y_{ij}$  &  $j^{th}$ record of animal $i$ \\
+       &  $\mu$     &  population mean \\
+       &  $v_i$     &  genotypic value, corresponding to the sum of all additive ($u$), dominance ($d$) and epistatic ($i_i$) effects of the genotype of animal $i$ \\
+       &  $e_{ij}$  &  random environmental effects of animal $i$
+\end{tabular}
+
+
+## Re-arranging Terms
+
+```{r basicmodelrearrterm, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/basicmodelrearrterm.odg")
+knitr::include_graphics(path = "odg/basicmodelrearrterm.png")
+```
+
+
+## New Model
+\begin{equation}
+y_{ij} = \mu_i + u_i + e_{ij}^* \notag
+\end{equation}
+
+\begin{tabular}{llp{8.5cm}}
+where  &  &  \\
+       &  $y_{ij}$  &  $j^{th}$ record of animal $i$ \\
+       &  $\mu_i$   &  identifiable fixed environmental effect \\
+       &  $u_i$       &  sum of all additive ($u$) genetic effects of the genotype of animal $i$ \\
+       &  $e_{ij}^*$  &  dominance, epistatic and random environmental effects of animal $i$
+\end{tabular}
+
+
+## Infinitesimal Model
+
+* Central Limit Theorem for $u_i$ and $e_{ij}$ lead to __multivariate normal distributions__ with 
+    + $E(u) = 0$ and $E(e) = 0$ and 
+    + Known variances and co-variances
+    + No co-variances between $u_i$ and $e_{ij}$
+* $\mu$ is assumed to be constant for a given evaluation
+* Phenotypic observation $y_{ij}$ is the sum of two normally distributed random variables, therefore
+    + $y_{ij}$ also follows a multivariate normal distribution
+    + $E(y) = \mu$
+
+
+## Central Limit Theorem
+
+```{r hist-clt-setup, echo=FALSE}
+# fixing some constants
+set.seed(9876)
+n_nr_sample <- 10000
+n_nr_comp <- 10^(1:3)
+
+# define a function to compute sample means
+sample_comp_sum <- function(pn_nr_comp, pn_nr_sample){
+  return(sapply(1:pn_nr_comp, 
+                function(x, y) sum(runif(y))/y,
+                pn_nr_sample))
+}
+# vectors with component sums
+vec_sum_10 <- sample_comp_sum(pn_nr_comp = n_nr_comp[1], pn_nr_sample = n_nr_sample)
+vec_sum_100 <- sample_comp_sum(pn_nr_comp = n_nr_comp[2], pn_nr_sample = n_nr_sample)
+vec_sum_1000 <- sample_comp_sum(pn_nr_comp = n_nr_comp[3], pn_nr_sample = n_nr_sample)
+```
+
+```{r hist-clt, echo=FALSE, fig.cap="Distribution of Sums of Different Numbers of Components"}
+# plots
+opar <- par()
+par(mfrow=c(1,3))
+hist(vec_sum_10)
+hist(vec_sum_100)
+hist(vec_sum_1000)
+```
+
+
+## Decomposition of Breeding Value
+
+```{r decompbreedingvalue, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/decompbreedingvalue.odg")
+knitr::include_graphics(path = "odg/decompbreedingvalue.png")
+```
+
+
+## Basic Principle of Predicting Breeding Values
+
+Breeding values are predicted according to the following two steps. 
+
+1. Observations corrected for the appropriate mean performance values of animals under the same conditions
+    + conditions are described by the effects captured in $\mu_i$. 
+2. The corrected observations are weighted by a certain factor 
+    + factor reflects the amount of information available for prediction
+    
+
+## Statistical Perspective
+
+From a statistical point of view: 
+
+* Given phenotypic observation $y$ as source of information
+* Use best linear predictor ($\hat{u}$) for breeding value $u$
+* Hence
+
+$$\hat{u} = E(u) + b(y - E(y))= E(u | y)$$
+
+* with $E(u) = 0 \rightarrow \hat{u} = b(y - E(y))$
+* $b$ depends on the relationship between $y$ and $u$
+* examples will follow ...
+
+
+## Animal's Own Performance - Single Record    
+ 
+* one phenotypic observation per animal
+* search for prediction $\hat{u_i}$ of the breeding value $u_i$ of animal $i$  
+* assume $u_i$ and $y_i$ known for a certain population
+
+$\rightarrow$ plot
+
+
+## Plot $u$ against $y$
+
+```{r regbreedingvaluesinglerecord, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/regbreedingvaluesinglerecord.odg")
+knitr::include_graphics(path = "odg/regbreedingvaluesinglerecord.png")
+```
+
+
+## Regression
+
+* red line denotes __regression line__ from $u_i$ onto $y_i$
+* because phenotypes have genetic basis $\rightarrow$ connection between $u_i$ and $y_i$
+* measure for slope: regression coefficient $b$
+* new genetic model can be interpreted as regression
+
+\begin{equation}
+u_i = y_{ij} - \mu_i - e_{ij}^* \notag
+\end{equation}
+
+* Allowing for different slopes in a statistical model, introduces $b$
+
+\begin{equation}
+u_i = b * (y_{ij} - \mu_i) + e_{ij}^{**} \notag
+\end{equation}
+
+
+## Regression Coefficient
+
+\vspace{-2ex}
+\begin{align}
+b &= \frac{cov(u,y)}{var(y)} \notag \\
+  &= \frac{cov(u,\mu + u + e)}{var(y)}  \notag \\
+  &= \frac{cov(u,u)}{var(y)}  \notag \\
+  &= \frac{var(u)}{var(y)} = h^2  \notag
+\end{align}
+
+where $h^2$ is called __heritability__
+
+
+## Prediction
+
+* Given a new $y_i$, what would be the predicted $u_i$?
+* Use regression line and compute $\hat{u_i}$
+
+\begin{align}
+\hat{u_i} &= b * (y_i - \mu) \notag \\
+          &= h^2 * (y_i - \mu) \notag
+\end{align}
+
+
+## Accuracy
+
+* Measured as correlation between true breeding value $u$ and selection criterion $y$
+
+\begin{align}
+r_{u,y} &= \frac{cov(u, y)}{\sigma_u \ \sigma_y} \notag \\
+        &= \frac{\sigma_u^2}{\sigma_u \ \sigma_y} \notag \\
+        &= \frac{\sigma_u}{\sigma_y} \notag \\
+        &= h \notag
+\end{align}
+
+
+## Response To Selection
+
+* Why is the accuracy important? 
+* Response to selection depends on it
+* Example of single record
+* Breeders equation, quantifying the selection response per generation
+
+\begin{equation}
+R = i * r_{u,y}^2 * \sigma_y = i * h^2 * \sigma_y \notag
+\end{equation}
+
+
+## Repeated Records
+
+* Additional component of variation
+
+\begin{equation}
+var(y) = var(u) + var(pe) + var(te) \notag
+\end{equation}
+
+\begin{equation}
+t = \frac{var(u) + var(pe)}{var(y)} = \frac{\sigma_u^2 + \sigma_{pe}^2}{\sigma_y^2}\notag
+\end{equation}
+
+* Predicted breeding value
+
+\begin{equation}
+\hat{u_i} = b(\tilde{y_i} - \mu) \notag
+\end{equation}
+
+
+## Regression Coefficient
+
+\begin{equation}
+b = \frac{cov(u,\tilde{y})}{var(\tilde{y})} \notag
+\end{equation}
+
+\begin{equation}
+cov(u,\tilde{y}) = cov(u, u + pe + {1\over n} \sum_{k=1}^n te_k) = var(u) = \sigma_u^2 \notag
+\end{equation}
+
+\begin{equation}
+var(\tilde{y}) = var(u) + var(pe) + {1\over n} var(te) \notag
+\end{equation}
+
+\begin{align}
+var(\tilde{y}) &= t * \sigma_y^2 + {1\over n} (1-t) * \sigma_y^2 \notag \\
+               &= {1\over n}\left( n*t + (1-t) \right) \sigma_y^2 \notag \\
+               &= \frac{1 + (n-1)t}{n} \sigma_y^2 \notag
+\end{align}
+
+
+## Putting Results together
+
+\begin{align}
+b &= \frac{cov(u,\tilde{y})}{var(\tilde{y})} \notag \\
+  &= \frac{n \sigma_u^2}{(1 + (n-1)t) \sigma_y^2} \notag \\
+  &= \frac{nh^2}{1 + (n-1)t} \notag
+\end{align}
+
+
+## Progeny Records
+
+\begin{equation}
+\hat{u_i} = b * (\bar{y_i} - \mu) \notag
+\end{equation}
+
+where 
+
+\begin{equation}
+b = \frac{cov(u_i, \bar{y_i})}{var(\bar{y_i})} \notag
+\end{equation}
+
+Note
+
+$$\bar{y_i} = {1\over n}\sum_{k=1}^n y_k$$
+where $y_k$ is the phenotypic record of progeny $k$ of parent $i$
+
+
+## Covariance and Variance
+
+\begin{align}
+cov(u_i, \bar{y_i}) &= cov(u_i, {1\over 2}u_i 
+                       + {1\over 2}{1\over n}\sum_{k=1}^n u_{d,k} 
+                       + {1\over n}\sum_{k=1}^n m_k 
+                       + {1\over n}\sum_{k=1}^n e_k) \notag \\
+                &= cov(u_i, {1\over 2}u_i) \notag \\
+                &= {1\over 2} cov(u_i, u_i) = {1\over 2} \sigma_u^2 \notag
+\end{align}
+
+\begin{equation}
+var(\bar{y_i}) = (t + (1-t)/n) \sigma_y^2 \notag
+\end{equation}
+
+with $t = h^2 / 4$
+
+## Intra-Class $t$
+
+* Progeny mean
+\begin{align}
+\bar{y_i} &= {1 \over n} \sum_{k=1}^ny_k = {1 \over n} \sum_{k=1}^n  \mu + {1 \over n} \sum_{k=1}^n u_k 
+                                         + {1 \over n} \sum_{k=1}^n e_k  \notag \\
+          &= \mu + {1 \over n} \sum_{k=1}^n (1/2 u_i + 1/2 u_{d,k} + m_k) 
+             + {1 \over n} \sum_{k=1}^n e_k  \notag \\
+          &= \mu + {1 \over 2} u_i + {1 \over n} \sum_{k=1}^n 1/2 u_{d,k} + {1 \over n} \sum_{k=1}^n m_k
+             + {1 \over n} \sum_{k=1}^n e_k  \notag
+\end{align}
+
+* Variance
+\begin{align}
+var(\bar{y_i}) &= var({1 \over 2} u_i) + var({1 \over n} \sum_{k=1}^n 1/2 u_{d,k}) + var({1 \over n} \sum_{k=1}^n e_k) \notag
+\end{align}
+
+with $cov(.) = 0$, $t = var({1 \over 2} u_i) / var(y) = h^2/4$
+
+## Results
+\begin{align}
+b &= \frac{1/2 \sigma_u^2}{(t + (1-t)/n) \sigma_y^2} \notag \\
+  &= \frac{1/2 h^2 \sigma_y^2}{({1\over 4}h^2 + (1 - {1\over 4}h^2)/n) \sigma_y^2} \notag \\
+  &= \frac{2nh^2}{nh^2 + (4-h^2)} \notag \\
+  &= \frac{2n}{n + (4-h^2)/h^2} \notag \\
+  &= \frac{2n}{n+k} \notag
+\end{align}
+
+with $k=\frac{4-h^2}{h^2}$. 
+
