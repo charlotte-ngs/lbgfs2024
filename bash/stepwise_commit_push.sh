@@ -155,7 +155,9 @@ log_msg $SCRIPT " * Add changes and commit and push stepwise ..."
 FILE_COL=$(git status | grep "$STATUS_TAG" | head -1 | tr -s ' ' '\n' | wc -l)
 for f in $(git status | grep "$STATUS_TAG" | tr -s ' ' ';' | cut -d ';' -f${FILE_COL});do
   if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * File: $f ...";fi
-  git add $f
+  if [[ $STATUS_TAG != 'deleted' ]];then
+    git add $f
+  fi
   git commit -m "Commit $f" $f
   git push origin main
   sleep 2
