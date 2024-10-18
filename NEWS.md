@@ -1,3 +1,7 @@
+# lbgfs2024 0.5.4
+
+* Slides l04
+
 # lbgfs2024 0.5.3
 
 * Solutions lbg_sol03
