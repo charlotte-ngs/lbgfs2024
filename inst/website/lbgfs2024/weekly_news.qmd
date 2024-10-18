@@ -1,4 +1,8 @@
 # Week 5 
+## lbgfs2024 0.5.3
+
+* Solutions lbg_sol03
+
 ## lbgfs2024 0.5.2
 
 * Appendix 3: Computing with Variances
@@ -158,4 +162,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-10-18 05:23:51 CEST (pvr)_
+ _Latest Changes: 2024-10-18 05:34:22 CEST (pvr)_
