@@ -55,9 +55,11 @@ REAL_EVALROOT=$(dirname $REAL_EVALREPO)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -d <deploy_date> -h -l <link_title> -s <cn_source_path> "
-  echo '                 -t <deploy_target_path> -z'
+  echo "Usage:   $SCRIPT -c <cn_table_dat> -d <deploy_date> -h -l <link_title>"
+  echo '                 -s <cn_source_path> -t <deploy_target_path> -z'
   echo '  where '
+  echo '        -c <cn_table_dat>    --  (optional) alternative path to course notes data table file ...'
+  echo '                                            > default: $EVALREPO/inst/website/lbgfs2024/course_notes/course_notes.dat ...'
   echo '        -d <deploy_date>     --  (optional) alternative deploy date ...'
   echo '                                            > default: $(date +"%Y-%m-%d") ...'
   echo '        -h                   --  (optional) show usage message ...'
@@ -129,10 +131,13 @@ DEPLOY_DATE=''
 LINK_TITLE=''
 CN_TABLE_DAT=''
 VERBOSE='false'
-while getopts ":d:hl:s:t:z" FLAG; do
+while getopts ":c:d:hl:s:t:z" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
+      ;;
+    c)
+      CN_TABLE_DAT=$OPTARG
       ;;
     d)
       DEPLOY_DATE=$OPTARG
@@ -219,7 +224,7 @@ open $TRG_PATH
 #' ## Entry To Data Table
 #' An entry to the data table of the website is written
 #+ entry-to-data-table
-log_msg $SCRIPT " * Edit deployed results ..."
+log_msg $SCRIPT " * Write data table entry ..."
 write_data_table_entry
 
 
