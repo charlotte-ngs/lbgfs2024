@@ -1,3 +1,7 @@
+# lbgfs2024 0.6.0
+
+* Zoom-link
+
 # lbgfs2024 0.5.4
 
 * Slides l04
