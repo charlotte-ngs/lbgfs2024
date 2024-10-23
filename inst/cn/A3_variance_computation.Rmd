@@ -144,3 +144,13 @@ Cov[X_N,X_1] & ... & ... & Var[X_N]
 \end{array}\right]$$
 
 
+## Continuous Random Variables
+All the material presented so far is valid for discrete random variables. But all relationships can also be adpated to continuous random variables. The only adaptations that we have to show here is the definition of the expected value. Hence for a continuous random variable $X$ and a function $g()$, the expected value is defined as 
+
+$$E[g(X)] = \int_{x \in \mathcal{X}} g(x)f(x)dx$$
+
+where $f(x)$ is the density function of the random variable $X$. 
+
+Compared to the discrete case, the summation was replaced by the integral and the probability function was replaced by the density. But apart from that all the above relations can also be used for continuous random variables.
+
+
