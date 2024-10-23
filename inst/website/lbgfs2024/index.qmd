@@ -62,6 +62,7 @@ Topics for Master Theses at Qualitas AG together with ETH are available [here](h
 - Date: Friday 9-12
 - Room: LFW C11 
 - Moodle: https://moodle-app2.let.ethz.ch/course/view.php?id=23928
+- Zoom: https://ethz.zoom.us/j/66360111190
 
 
 ### Exercise Platform
