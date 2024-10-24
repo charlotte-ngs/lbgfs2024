@@ -1,4 +1,12 @@
 # Week 6 
+## lbgfs2024 0.6.2
+
+* Course notes cn_04-blup
+
+## lbgfs2024 0.6.1
+
+* Slides l05
+
 ## lbgfs2024 0.6.0
 
 * Zoom-link
@@ -171,4 +179,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-10-24 07:40:56 CEST (pvr)_
+ _Latest Changes: 2024-10-24 17:36:24 CEST (pvr)_
