@@ -1,0 +1,316 @@
+# Best Linear Unbiased Prediction (BLUP) {#blup}
+```{r met-blup-reset, echo=FALSE}
+s_this_rmd_file <- rmdhelp::get_this_rmd_file()
+met$set_this_rmd_file(ps_this_rmd_file = s_this_rmd_file)
+```
+The prediction of breeding values requires to correct the information sources for an appropriate comparison value. So far we have referred to that comparison value as the population mean and we have assumed this correction value to be known. In reality, the computation of these comparison values is a difficult problem. This problem is one of the reasons that nowadays the predictions of all breeding values are based on a method that is called **BLUP**.  In this chapter, we first want to have a closer look at the problem of computing these correction factors with which the information sources must be adjusted. After that, the BLUP method will be introduced.
+
+
+## Problem of Correction 
+In theory, the population mean is the ideal correction value for all information sources. From our standard model we can derive
+
+\begin{equation}
+y = \mu + u + e  \qquad \rightarrow \qquad \bar{y} = \bar{\mu} + \bar{u} + \bar{e} = \mu
+(\#eq:standardmodelcorrectionvalue)
+\end{equation}
+
+Because, we defined the true breeding value $u$ and the non-identifiable environmental effects $e$ as deviations from a common mean, the average effect of all identifiable environmental components is captured by the population mean $\mu$. But this is only true in an idealized population where all selection candidates are kept in the same environment and where they deliver their performances at the same time. In real world scenarios, this is unrealistic, because e.g. own performance values and progeny performances cannot be delivered at the same time. Furthermore, selection candidates are kept in different herds in different environments. All these factors do have an influence on the performance of the recorded animals and hence on the predicted breeding values. But good methods for predicting breeding values should be able to correct for such environmental influences. If that is not the case, environmental factors will __bias__ the predicted breeding values. To avoid such biases, performance records were subdivided into environmental classes. In dairy cattle such classes were formed based on herds, calving year, calving season and age at first calving. In pigs, performance records might be divided into herds, years and fattening batches. From now on, we call the combination of these environmental effects on the performance records as __identifiable systematic fixed effects__. For the prediction of breeding values, we assume that these fixed effects in a given comparison class have all the same influence on the performance of the animals that are in the same class. Hence if we group all animals who show the same levels of all fixed effects into one comparison class, any biases from the identifiable environment can be avoided. 
+
+The more environmental factors can be considered in forming the comparison classes, the better we can correct our performance records for the environmental effects. But when the number of environmental factors increases the number of animals per comparison class decreases. From the statistical point of view, the small number of observations in comparison classes reduce the accuracy with which the environmental fixed effects can be estimated. With smaller comparison groups, the risk that the average breeding value of animals in such a comparison is not zero increases. In case the average breeding value in a comparison group is not zero, predicted breeding values show a deviation which is called __bias__. The occurrence of bias can be shown as follows. Let us assume the average performance of all animals in a comparison group (CG) to be $\bar{y}_{CG}$:
+
+\begin{equation}
+\bar{y}_{CG} = \mu + \bar{u}_{CG} + \bar{e}_{CG}
+(\#eq:meanphencontemporarygroup)
+\end{equation}
+
+In case the average breeding value $\bar{u}_{CG}$ is zero, the population mean $\mu$ measures the average identifiable environment effect. If $\bar{u}_{CG}$ is not zero, then the predicted breeding value $\hat{u}_i$ using an older method called selection index, the index value $I$ corresponds to
+
+\begin{align}
+I  &=  b(y_i - (\mu + \bar{u}_{CG})) \notag \\
+   &=  b(y_i - \mu) - b\bar{u}_{CG} \notag \\
+   &=  \hat{u}_i  - b\bar{u}_{CG}
+(\#eq:selectionindexbias)   
+\end{align}
+
+The first term in the result of \@ref(eq:selectionindexbias) corresponds to the predicted breeding value where the second term measures the __bias__. This depends on the average breeding values of the animals of the comparison group. If the average breeding value of all animals in the comparison group is zero, then the predicted breeding value from \@ref(eq:selectionindexbias) is unbiased. Because we have to know the breeding values of the animals in the comparison group to get an unbiased prediction of the breeding value for a given animal and the breeding values of the animals in the comparison group must also be predicted, this consists of a "chicken-and-egg" problem which cannot be solved. 
+
+The solution to this was presented by Charles R. Henderson in several publications (`r met$add('Henderson1973a')`) and [@Henderson1975]). The key idea behind the solution is to estimate the identifiable environmental factors as fixed effects and to predict the breeding values as random effects simultaneously in a linear mixed effects model. The properties of the methodology developed by Henderson are similar to those of the selection index method. But the main advantage of Henderson's methodologies is that phenotypic records do not need to be corrected before breeding values can be predicted. But the effects of the identifiable environmental factors are also a result which come out of the analysis. The methodology developed by Henderson is called __BLUP__ and the properties of this methodology are directly incorporated into the name where 
+
+* __B__ stands for __best__ which means that the correlation between the true ($u$) and the predicted breeding value ($\hat{u}$) is maximal or the prediction error variance ($var(u - \hat{u})$) is minimal.
+* __L__ stands for __linear__ which means the predicted breeding values are linear functions of the observations ($y$)
+* __U__ stands for __unbiased__ which means that the expected values of the predicted breeding values are equal to the true breeding values
+* __P__ stands for __prediction__ 
+
+BLUP based approaches have found widespread usage in genetic evaluations. They are used for both traditional predictions of breeding values and also for predicting genomic breeding values. The popularity of BLUP is not only due to the theoretical foundations behind BLUP, but Henderson has also developed efficient algorithms to be able to compute predicted breeding values for very large livestock breeding populations. The theoretic foundations, the development of efficient algorithms together with the availability of large computational resources at a very low price have made BLUP to become the de-facto standard methodology for predicting breeding values.
+
+
+## Numeric Example {#blupnumericexample}
+We want to use a concrete numeric example of a small population to explain how breeding values are predicted using the BLUP methodology. The phenotypic observations consist of measurements of the trait __weaning weight__ in beef cattle. Table \@ref(tab:TableBeefExample) gives an overview of the dataset.
+
+```{r TableBeefExample, echo=FALSE, results='asis', warning=FALSE, message=FALSE}
+### # fix the numbers parents and offspring
+n_nr_sire <- 3
+n_nr_dam <- 8
+n_nr_parents <- n_nr_sire + n_nr_dam
+n_nr_offspring <- 16
+n_nr_animals <- n_nr_parents + n_nr_offspring
+### # assign parents to offspring and herds to records
+vec_sire_id <- c(rep(1,8), rep(2,6), rep(3,2))
+vec_dam_id <- rep(4:11,2)
+vec_herd_codes <- c(rep(1,4), rep(2,4), rep(1,4), rep(2,4))
+### # vector of observations
+vec_weaning_weight <-  c(2.61,2.31,2.44,2.41,2.51,2.55,2.14,2.61,2.34,1.99,3.1,2.81,2.14,2.41,2.54,3.16)
+
+### # create a tibble from the data
+tbl_beef_data <- tibble::tibble( Animal = (n_nr_parents + 1):n_nr_animals,
+                                    Sire   = vec_sire_id,
+                                    Dam    = vec_dam_id[order(vec_dam_id)],
+                                    Herd   = vec_herd_codes,
+                                    `Weaning Weight` = vec_weaning_weight )
+### # count number of observations
+n_nr_observation <- nrow(tbl_beef_data)
+
+### # parameters
+h2 <- .25
+n_var_p <- round(var(tbl_beef_data$`Weaning Weight`), digits = 4)
+n_var_g <- round(h2 * n_var_p, digits = 4)
+n_pop_mean <- round(mean(tbl_beef_data$`Weaning Weight`), digits = 2)
+
+### # show the data frame
+knitr::kable( tbl_beef_data, 
+              format = "latex",
+              booktabs = TRUE, 
+              longtable = TRUE,
+              caption = "Example Data Set for Weaning Weight in Beef Cattle" )
+```
+
+We assume the phenotypic variance ($\sigma_p^2$) to be `r n_var_p` and the heritability $(h^2)$ corresponds to `r h2`. 
+
+
+## Linear Mixed Effects Model {#mixedlineareffectsmodel}
+A simple linear model contains fixed effects such as _herd_ or _sex_ of an animal and tries to explain the observations as linear functions of such effects. Because the effects considered in a model cannot account for all influences of a given set of observations, every model must have a random residual component. If a linear model contains besides the residuals any additional random effects, then this model is called a __mixed linear effects model__. 
+
+
+### Fixed Versus Random Effects {#fixedversusrandomeffects}
+Unfortunately, there is no unique and generally accepted definition of which effects should be fixed and which should be random. There are generally accepted guidelines of how to classify effects as fixed or as random. Table \@ref(tab:fixedversusrandom) lists a few criteria that might be helpful.
+
+\small
+
+```{r fixedversusrandom, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+tbl_fixed_versus_random <- tibble::data_frame(`fixed effect` = c("classes can be defined exactly",
+                                                                 "the value of a class does not have an apriori expected value",
+                                                                 "values are exactly estimable",
+                                                                 "the expected value of a class effect is of primary interest",
+                                                                 "fixed effects can be corrected for"),
+                                              `random effects` = c("realized value come from an underlying distribution",
+                                                                   "each realization is unique",
+                                                                   "observations are influenced by the variance of the random effect",
+                                                                   "main interest is on the variance not on the expected value", 
+                                                                   ""))
+suppressPackageStartupMessages( library(dplyr) ) 
+knitr::kable(tbl_fixed_versus_random, 
+             format = "latex",
+             booktabs = TRUE, 
+             longtable = TRUE,
+             caption = "Classification Factors of Fixed and Random Effects") %>%
+  kableExtra::kable_styling(full_width = F)  %>%
+  kableExtra::column_spec(1, width = "22em") %>%
+  kableExtra::column_spec(2, width = "22em")
+```
+
+\normalsize
+
+Certain factors such as herd, sex, breed or feeding regimes can be classified unambiguously as fixed effects. On the other hand breeding values are always random effects. Because, we know that breeding values have an expected value of $0$ and have a certain variance, they must be modeled as random effects where these properties can be integrated into the model. Furthermore, each animal has a different realization of a breeding value. Exceptions are mono-clonal twins and clones.
+
+From a practical point of view, the software program that is used to analyse the data has also an influence on whether a certain effect is treated as fixed or as random. If a certain effect has very many levels such as herds, then it is sometimes better for the analysis to treat such an effect as random. 
+
+
+### Model Specification {#lmemodelspecification}
+In a linear mixed effects model a single observation $y_{ijk}$ is decomposed according to equation \@ref(eq:linearmixedeffectmodelsingleobservation)
+
+\begin{equation}
+y_{ijk} = \beta_i + u_j + e_{ijk}
+(\#eq:linearmixedeffectmodelsingleobservation)
+\end{equation}
+
+where $\beta_i$ stands for the $i-^{th}$ level of a fixed effect, $u_j$ is the $j-{th}$ realization of the random effect $u$ and $e_{ijk}$  is the residual effect of the $k-^{th}$ observation}.  Because, we do not want to model just one observation, but we want to include all observations of a complete population, it is helpful to convert the model in \@ref(eq:linearmixedeffectmodelsingleobservation) into matrix-vector notation. This is shown in equation \@ref(eq:linearmixedeffectmodelmatrixvector)
+
+\begin{equation}
+y = X\beta + Zu + e
+(\#eq:linearmixedeffectmodelmatrixvector)
+\end{equation}
+
+\begin{tabular}{llp{10cm}}
+where  &  &  \\
+       &  $y$      &  vector of length $n$ of all observations \\
+       &  $\beta$  &  vector of length $p$ of all fixed effects  \\
+       &  $X$      &  $n \times p$ design matrix linking the fixed effects to the observations \\
+       &  $u$      &  vector of length $n_u$ of random effects \\
+       &  $Z$      &  $n \times n_u$ design matrix linking random effect to the observations \\
+       &  $e$      &  vector of length $n$ of random residual effects.  
+\end{tabular}
+
+Furthermore, we assume the following relations for the expected values and for the variances. As already mentioned the random effects are defined as deviations and hence their expected value is set to zero. 
+
+\begin{equation}
+E(u) = 0 \qquad \text{and} \qquad E(e) = 0
+(\#eq:expectedvaluerandomeffects)
+\end{equation}
+
+From this it follows that $E(y) = X\beta$. The variance-covariance matrices for the random effects are set to 
+
+\begin{equation}
+var(u) = G \qquad \text{and} \qquad var(e) = R
+(\#eq:variancerandomeffects)
+\end{equation}
+
+Under the assumption that $cov(u,e^T) = 0$, we can compute $var(y) = Z * var(u) * Z^T + var(e) = ZGZ^T + R = V$. 
+
+In model \@ref(eq:linearmixedeffectmodelmatrixvector) the vectors $\beta$ and $u$ are unknown. The solution of the model \@ref(eq:linearmixedeffectmodelmatrixvector) for the unknowns $\beta$ and $u$ leads to estimates $\hat{\beta}$ for the fixed effects $\beta$ and for predicted random effects $\hat{u}$. Unlike with the selection index, with BLUP, we do not have to correct the observations before predicting random effects.
+
+
+### The Solution
+An outline of how to derive the BLUP solutions for $\hat{\beta}$ and $\hat{u}$ will be given in an Appendix. The details of this derivation are not important. Therefore, we are presenting here directly the result which are
+
+\begin{equation}
+\hat{u} = GZ^TV^{-1}(y - X\hat{\beta})
+(\#eq:hatublup)
+\end{equation}
+
+We call $\hat{u}$ the best linear unbiased prediction of $u$ or shorter $\hat{u} = BLUP(u)$. For $\hat{\beta}$, we insert the generalized least squares estimator (GLS) which corresponds to 
+
+\begin{equation}
+\hat{\beta} = (X^T V^{-1} X)^- X^T V^{-1} y
+(\#eq:hatbetahatblue)
+\end{equation}
+
+The matrix $(X^T V^{-1} X)^-$ denotes the generalized inverse of the matrix $(X^T V^{-1} X)$. The generalized inverse $K^-$ can be replaced with the simple inverse $K^{-1}$, whenever the columns of matrix $K$ are linearly independent^[For our examples that are shown here, we can always use the simple inverse.]. Analogously to $\hat{u}$, $\hat{\beta}$ is called the best linear unbiased estimator of the fixed effects $\beta$. In short, we can state $\hat{\beta} = BLUE(\beta)$. 
+
+
+### Mixed Model Equations
+The solutions shown in \@ref(eq:hatublup) for $\hat{u}$ and in \@ref(eq:hatbetahatblue) for $\hat{\beta}$ are not suitable for practical purposes. Both solutions contain the inverse $V^{-1}$ of matrix $V$. The matrix $V$ corresponds to the variance-covariance matrix of all observations $y$. The inverse matrix $V^{-1}$ is not easy to compute and furthermore procedures to invert general matrices are computationally expensive and are prone to rounding errors. In one of his many papers, Henderson has shown that the results for $\hat{u}$ and $\hat{\beta}$ are the same when solving the following system of equations simultaneously.
+
+\begin{equation}
+\left[
+  \begin{array}{lr}
+  X^T R^{-1} X  &  X^T R^{-1} Z \\
+  Z^T R^{-1} X  &  Z^T R^{-1} Z + G^{-1}
+  \end{array}
+\right]
+\left[
+  \begin{array}{c}
+  \hat{\beta} \\
+  \hat{u}
+  \end{array}
+\right]
+=
+\left[
+  \begin{array}{c}
+  X^T R^{-1} y \\
+  Z^T R^{-1} y
+  \end{array}
+\right]
+(\#eq:mixedmodeleq)
+\end{equation}
+
+The above shown equations are called __mixed model equations__ (MME). They do no longer contain the inverse $V^{1}$ and hence these MME are much simpler to solve. The MME contain the inverses $R^{-1}$ and $G^{-1}$, but we will see with concrete examples that they are much easier to invert. As a consequence, whenever we have to predict breeding values using BLUP, we will use the mixed model equations shown in \@ref(eq:mixedmodeleq).
+
+
+## Sire Model
+The application of the linear mixed effects model from \@ref(eq:linearmixedeffectmodelmatrixvector) to the numerical example in table \@ref(tab:TableBeefExample). As random effects $u$ we are taking the father $s$ of each animal $i$ with an observation. As fixed effects $\beta$ we are using the herd effect. When fathers are modeled as random effects, then we call this model a __sire model__. Setting up a sire model for the data in table \@ref(tab:TableBeefExample) looks as follows
+
+```{r siremodelbeefexample, echo=FALSE, results='asis'}
+mat_x_sire <- matrix(data = c(1, 0,
+                              1, 0,
+                              1, 0,
+                              1, 0,
+                              0, 1,
+                              0, 1,
+                              0, 1,
+                              0, 1,
+                              1, 0,
+                              1, 0,
+                              1, 0,
+                              1, 0,
+                              0, 1,
+                              0, 1,
+                              0, 1,
+                              0, 1), ncol = 2, byrow = TRUE)
+vec_betahat_sire <- c("\\beta_1", "\\beta_2")
+mat_z_sire <- matrix(data = c(1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 0, 1,
+                              0, 0, 1), ncol = 3, byrow = TRUE)
+vec_sirehat_sire <- c("s_1", "s_2", "s_3")
+vec_res_sire <- c("e_1", "e_2", "e_3", "e_4", "e_5", "e_6", "e_7", "e_8", "e_9", "e_{10}", "e_{11}", "e_{12}", "e_{13}", "e_{14}", "e_{15}", "e_{16}")
+cat("\\begin{equation}\n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_weaning_weight), sep = "\n"),"\n")
+cat("= \n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_x_sire), sep = "\n"), "\n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_betahat_sire), sep = "\n"), "\n")
+cat("+ \n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_z_sire), sep = "\n"), "\n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_sirehat_sire), sep = "\n"), "\n")
+cat("+ \n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_res_sire), sep = "\n"), '\\notag \n')
+cat("\\end{equation}\n")
+```
+
+Besides the equation for the sire model we also have to specify the expected values and the variances of all random components. To be able to distinguish the sire model from the general linear mixed effects model, we usually call the random sire effect $s$ and no longer $u$. The expected values for the random variables were already stated when discussing the general linear mixed effects model in section \@ref(lmemodelspecification). Hence 
+
+\begin{equation}
+E(s) = 0 \qquad \text{and} \qquad E(e) = 0 \qquad \rightarrow \qquad E(y) = X\beta
+(\#eq:exvaluerandvarsire)
+\end{equation}
+
+For the variances there are a few simplifications that we can use in our sire model. The covariance between the random effects $s$ and $e$ are assumed to be $0$. The covariances among the single residual effects are also assumed to be $0$. Hence, the variance-covariance matrix of the residual effects are $var(e) = I * \sigma_e^2$. The variance of the sire effects $s$ is 
+
+$$
+var(s) = A_s * \sigma_s^2 = G
+$$
+
+where $A_s$ is the additive genetic relationship matrix between the sires. We will be deriving the matrix $A_s$ in a later chapter. Because our sires are not related, we can say that $A_s = I$ and hence
+
+$$
+G = I * {\sigma_u^2 \over 4}
+$$
+
+Now we are ready to set up the mixed model equations from \@ref(eq:mixedmodeleq) for the sire model. The computation of the numerical solutions from the mixed model equations will be the topic of an exercise.
+
+
+
+## Animal Model {#animalmodel}
+The mixed model equations are a universal tool to find BLUPs of random effects and BLUEs of fixed effect simultaneously. On the other hand it is not satisfactory that with the sire model only sires obtain predicted breeding values. All information that is known about the mothers was completely ignored when we specified the sire model. A better approach would be to combine all available information from a given population. This can be done by replacing in the sire model the random sire effects by random animals effects. As a result each animal in the dataset receives a random effect which models its breeding value. This type of model is called an __animal model__. Because the animal model has the breeding values of all animals as random effects, they are often referred to with the variable or the vector $a$^[This is not the same as the genotypic value in a single locus model.] and no longer $s$ as in the sire model. The variance-covariance matrix ($var(a)$) between all animal effects is proportional to the additive genetic relationship matrix $A$ among all animals. We will see in a later chapter how to compute the matrix $A$.
+
+
+<!--
+## Appendix: Derivation of BLUP {#appderivblup}
+Consider the mixed linear model
+
+$$y = Xb + Zu + e$$
+with $E(y) = Xb$, $E(a) = 0$ and $E(e) = 0$, $var(u) = G$ and $var(e) = R$, hence $var(y) = V = ZGZ^T + R$
+
+Suppose, we want to predict a linear function $k^Tb + a$, using a linear function $L^Ty$ of $y$. Predictor $L^Ty$ is chosen such that 
+
+$$E(L^Ty) = E(k^Tb + a)= E(k^Tb) + E(a) = k^Tb\rightarrow L^TXb = k^Tb \rightarrow k=X^TL$$
+
+and such that the prediction error variance (PEV) is minimal.
+
+-->
+
+
+
+
+
