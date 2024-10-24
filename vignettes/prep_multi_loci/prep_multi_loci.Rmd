@@ -1,0 +1,29 @@
+---
+title: "Prepare Multiple Loci Genetic Value"
+date: "Started: 2024-10-24 -- Last Compiled on: `r format(Sys.time(), '%Y-%m-%d')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Prepare Multiple Loci Genetic Value}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Disclaimer
+Genotypic value based on multiple loci including interaction.
+
+
+
+
+
+
+```{r, echo=FALSE, results='asis'}
+if (is.element("rmdhelp", installed.packages()))
+  cat(paste0(rmdhelp::get_latest_change()))
+```
