@@ -1,3 +1,7 @@
+# lbgfs2024 0.6.2
+
+* Course notes cn_04-blup
+
 # lbgfs2024 0.6.1
 
 * Slides l05
