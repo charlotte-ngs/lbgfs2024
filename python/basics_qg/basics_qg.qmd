@@ -1,0 +1,37 @@
+---
+title: "Basics of Quantitative Genetics"
+author: "Peter von Rohr"
+format: html
+jupyter: python3
+---
+
+# Disclaimer
+This is an experiment of how far we can get with developing the basic relationships in quantitative genetics. 
+
+
+# Population Mean
+Given a quantitative trait and a bi-allelic locus. Parameters for genotypic values are assumed to be $a$ and $d$ and genotype frequencies follow the Hardy-Weinberg equilibrium. Hence the population mean is given by
+
+```{python}
+import sympy as sp
+# symbols
+a, d, p = sp.symbols('a d p')
+# population mean
+mu = p**2 * a + 2*p*(1-p) * d + (1-p)**2 * (-a)
+simplified_mu = sp.simplify(mu)
+```
+
+Collect terms
+
+```{python}
+collected_mu = sp.collect(simplified_mu, [a, d])
+collected_mu
+```
+
+Factor out p
+
+```{python}
+factored_mu_p = sp.factor(collected_mu, p)
+factored_mu_p
+```
+
