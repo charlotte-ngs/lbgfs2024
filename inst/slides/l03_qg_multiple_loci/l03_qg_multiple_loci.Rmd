@@ -119,3 +119,25 @@ where  &  &  \\
        &  $X$       &  design matrix with regression covariates or indicator values for fixed effects \\
        &  $Z$       &  design matrix relating breeding values to observations
 \end{tabular}
+
+
+## Example Dataset I
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+s_data_lm <- "https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_bc.csv"
+tbl_lm <- readr::read_delim(s_data_lm, delim = ",")
+knitr::kable(tbl_lm)
+```
+
+
+## Example Dataset II
+
+* Weaning weight as response variable $y$
+* Breast circumference as regression variable 
+* Herd as fixed effect
+* Breeding values for
+    + animals with observations: own-performance
+    + sires: sire model
+    + all animals in pedigree: animal model
+
+
