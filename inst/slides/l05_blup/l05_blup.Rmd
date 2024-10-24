@@ -1,0 +1,315 @@
+---
+title: "BLUP"
+author: "Peter von Rohr"
+date: 2024-10-25
+output:
+  beamer_presentation:
+    includes:
+      in_header: header.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## Recap: Prediction of Breeding Values
+
+* Own Performance Records ($h^2$: Heritability)
+
+$$\hat{u}_i = h^2 * (y_i - \mu)$$
+
+
+* Repeated Measurements
+
+$$\hat{u}_i = \frac{nh^2}{1 + (n-1)t} * (\bar{y_i} - \mu) $$
+with $n$: number of records, $t$: repeatability
+
+* Progeny Records
+
+$$\hat{u}_i = \frac{2n}{n+k} * (\bar{y_i} - \mu)\ \text{ with } k=\frac{4-h^2}{h^2}$$
+with $n$: number of progeny
+
+
+## General Principle
+
+* All methods to predict breeding values follow the same principle
+
+1. Correct information sources for some population mean
+2. Multiply corrected information source by an appropriate factor
+
+* Regression Method
+$$\hat{u} = b (y - \mu)$$
+
+* Selection Index 
+    + uses all available information combined into an index
+    
+
+## Selection Index
+
+* will be presented later to estimate aggregate genotype
+* Idea: all available information about an animals breeding value is combined into an index of merit ($I$)
+* corresponds to multiple regression approach
+$$ \hat{u} = I = b_1*y_1^* + b_2*y_2^* + ... + b_k*y_k^* = b^T y^*$$
+
+where $b$ the regression coefficients are computed such that the variance ($var(u - \hat{u})$) of the error is minimal. 
+
+
+## Index Weights
+
+* Minimization of the variance of the errors means
+
+$$PEV = var(u - \hat{u}) = var(u - I) = var(u - b^Ty^*)$$
+
+$$= var(u) + var(b^Ty^*) - 2 cov(u, (y^*)^Tb) $$
+
+$$= \sigma_u^2 + b^T * var(y^*) * b - 2 * b^T * cov(u, (y^*)^T)$$
+
+$$= \sigma_u^2 + b^T * P * b - 2 * b^T * G $$
+
+
+## Solution
+
+* Compute $\frac{\partial PEV}{\partial b} = 0$
+
+$$ \frac{\partial PEV}{\partial b} = 2 * P * b - 2 * G = 0$$
+
+$$\rightarrow b = P^{-1} * G$$
+
+
+## Problem with Correction
+
+* Population mean is ideal as correction
+
+$$
+y = \mu + u + e  \qquad \rightarrow \qquad \bar{y} = \bar{\mu} + \bar{u} + \bar{e} = \mu
+$$
+
+* Because performances are observed in different
+    + environments and 
+    + time points
+    
+* Formation of comparison groups where animals are exposed to the same environments
+* The more groups, the better the correction of environmental effects
+* The more groups, the smaller the single groups
+
+
+## Bias
+
+* With small comparison groups, it is more likely that mean breeding value of animals in a single group is not $0$
+* Average performance of all animals in a comparison group
+
+$$\bar{y}_{CG} = \mu + \bar{u}_{CG} + \bar{e}_{CG}$$
+* If $\bar{u}_{CG}$ is not $0$, the predicted breeding value $\hat{u}_i$ of animal $i$ is
+
+\begin{align}
+\hat{u}_i = I  &=  b(y_i - (\mu + \bar{u}_{CG})) \notag \\
+   &=  b(y_i - \mu) - b\bar{u}_{CG} \notag \\
+   &=  \hat{u}_i  - b\bar{u}_{CG} \notag
+\end{align}
+
+where $b\bar{u}_{CG}$ is called bias. 
+
+
+## Solution - BLUP
+
+* Solution to correction problem in selection index: BLUP
+* Estimates environmental effects at the same time as breeding values are predicted
+* Linear mixed effects model
+* Meaning of BLUP
+    + __B__ stands for __best__ $\rightarrow$ correlation between true ($u$) and its prediction ($\hat{u}$) is maximal or the prediction error variance ($var(u - \hat{u})$) is minimal.
+    + __L__ stands for __linear__  $\rightarrow$ predicted breeding values are linear functions of the observations ($y$)
+    + __U__ stands for __unbiased__ $\rightarrow$ expected values of the predicted breeding values are equal to the true breeding values
+    + __P__ stands for __prediction__ 
+
+
+## Example
+```{r TableBeefExample, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+### # fix the numbers parents and offspring
+n_nr_sire <- 3
+n_nr_dam <- 8
+n_nr_parents <- n_nr_sire + n_nr_dam
+n_nr_offspring <- 16
+n_nr_animals <- n_nr_parents + n_nr_offspring
+### # assign parents to offspring and herds to records
+vec_sire_id <- c(rep(1,8), rep(2,6), rep(3,2))
+vec_dam_id <- rep(4:11,2)
+vec_herd_codes <- c(rep(1,4), rep(2,4), rep(1,4), rep(2,4))
+### # vector of observations
+vec_weaning_weight <-  c(2.61,2.31,2.44,2.41,2.51,2.55,2.14,2.61,2.34,1.99,3.1,2.81,2.14,2.41,2.54,3.16)
+
+### # create a tibble from the data
+tbl_beef_data <- dplyr::data_frame( Animal = (n_nr_parents + 1):n_nr_animals,
+                                    Sire   = vec_sire_id,
+                                    Dam    = vec_dam_id[order(vec_dam_id)],
+                                    Herd   = vec_herd_codes,
+                                    `Weaning Weight` = vec_weaning_weight )
+### # count number of observations
+n_nr_observation <- nrow(tbl_beef_data)
+
+### # parameters
+h2 <- .25
+n_var_p <- round(var(tbl_beef_data$`Weaning Weight`), digits = 4)
+n_var_g <- round(h2 * n_var_p, digits = 4)
+n_pop_mean <- round(mean(tbl_beef_data$`Weaning Weight`), digits = 2)
+
+# save data to file, if needed
+# s_data_path <- file.path(here::here(), "docs", "data", "beef_data_blup.csv")
+# readr::write_delim(tbl_beef_data, file = s_data_path, delim = ",")
+
+### # show the data frame
+knitr::kable( tbl_beef_data, 
+              booktabs = TRUE )
+```
+
+
+## Linear Models
+
+* Simple linear model
+
+$$y_{ij} = \mu + herd_j + e_{ij}$$
+
+* Result: Estimate of effect of herd j
+* Try with given dataset
+
+
+## Linear Mixed Effects Model
+
+* What about breeding value $u_i$ for animal $i$?
+    + Problem: breeding values have a variance $\sigma_u^2$
+    + Cannot be specified in simple linear model
+
+$\rightarrow$ __Linear Mixed Effects Model__ (LME)
+
+$$y_{ijk} = \mu + \beta_j + u_i + e_{ijk}$$
+
+
+## Matrix-Vector Notation
+
+* LME for all animals of a population
+
+$\rightarrow$ use matrix-vector notation
+
+$$y = X\beta + Zu + e$$
+
+\begin{tabular}{llp{8cm}}
+where  &  &  \\
+       &  $y$      &  vector of length $n$ of all observations \\
+       &  $\beta$  &  vector of length $p$ of all fixed effects  \\
+       &  $X$      &  $n \times p$ design matrix linking the fixed effects to the observations \\
+       &  $u$      &  vector of length $n_u$ of random effects \\
+       &  $Z$      &  $n \times n_u$ design matrix linking random effect to the observations \\
+       &  $e$      &  vector of length $n$ of random residual effects.  
+\end{tabular}
+
+
+## Expected Values and Variances
+
+* Expected values
+
+$$E(u) = 0 \text{  and  } E(e) = 0 \rightarrow E(y) = X\beta$$
+
+* Variances
+
+$$var(u) = G  \text{  and  } var(e) = R$$
+
+with $cov(u, e^T) = 0$, $$var(y) = Z * var(u) * Z^T + var(e) = ZGZ^T + R = V$$
+
+
+## Estimates of unknown Parameters
+
+$$\hat{u} = E(u|y) = GZ^TV^{-1}(y - X\hat{\beta})$$
+
+$$\hat{\beta} = (X^T V^{-1} X)^- X^T V^{-1} y$$
+
+
+## Mixed Model Equations
+
+* Problem: $V^{-1}$
+* Same solutions obtained with following set of equations
+
+$$\left[
+  \begin{array}{lr}
+  X^T R^{-1} X  &  X^T R^{-1} Z \\
+  Z^T R^{-1} X  &  Z^T R^{-1} Z + G^{-1}
+  \end{array}
+\right]
+\left[
+  \begin{array}{c}
+  \hat{\beta} \\
+  \hat{u}
+  \end{array}
+\right]
+=
+\left[
+  \begin{array}{c}
+  X^T R^{-1} y \\
+  Z^T R^{-1} y
+  \end{array}
+\right]$$
+
+
+## Sire Model
+
+* Breeding value of sire as random effect: 
+
+$$y = X\beta + Zs + e$$
+
+
+## Example
+```{r siremodelbeefexample, echo=FALSE, results='asis'}
+mat_x_sire <- matrix(data = c(1, 0,
+                              1, 0,
+                              1, 0,
+                              1, 0,
+                              0, 1,
+                              0, 1,
+                              0, 1,
+                              0, 1,
+                              1, 0,
+                              1, 0,
+                              1, 0,
+                              1, 0,
+                              0, 1,
+                              0, 1,
+                              0, 1,
+                              0, 1), ncol = 2, byrow = TRUE)
+vec_betahat_sire <- c("\\beta_1", "\\beta_2")
+mat_z_sire <- matrix(data = c(1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              1, 0, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 1, 0,
+                              0, 0, 1,
+                              0, 0, 1), ncol = 3, byrow = TRUE)
+vec_sirehat_sire <- c("s_1", "s_2", "s_3")
+vec_res_sire <- c("e_1", "e_2", "e_3", "e_4", "e_5", "e_6", "e_7", "e_8", "e_9", "e_{10}", "e_{11}", "e_{12}", "e_{13}", "e_{14}", "e_{15}", "e_{16}")
+cat("$$ \n")
+# cat(paste(rmdhelp::bcolumn_vector(pvec_avector = vec_weaning_weight), sep = "\n"),"\n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_weaning_weight), sep = "\n"), "\n")
+cat("= \n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_x_sire), sep = "\n"), "\n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_betahat_sire), sep = "\n"), "\n")
+cat("+ \n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_z_sire), sep = "\n"), "\n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_sirehat_sire), sep = "\n"), "\n")
+cat("+ \n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_res_sire), sep = "\n"), "\n")
+cat("$$ \n")
+```
+
+
+## Animal Model
+
+* Breeding value for all animals as random effects
+
+$$y = X\beta + Zu + e$$
