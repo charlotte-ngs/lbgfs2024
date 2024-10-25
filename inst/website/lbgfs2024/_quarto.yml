@@ -16,6 +16,8 @@ website:
       text: Slides
     - href: ohp/ohp.qmd
       text: OHP
+    - href: video/video.qmd
+      text: Video
     - href: weekly_news.qmd
       text: Weekly News
     - href: about.qmd

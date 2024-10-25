@@ -24,6 +24,24 @@ tbl_sl <- dplyr::select(tbl_sl,Nr,Date,Topic)
 knitr::kable(tbl_sl)
 ```
 
+Slides with annotations
+
+```{r}
+
+#| echo: false
+#| message: false
+#| warning: false
+s_swa_path <- "slides_with_annotation.dat"
+tbl_swa <- readr::read_delim(file = s_swa_path, delim = ";")
+tbl_swa$Nr <- 1:nrow(tbl_swa)
+# create topic from text and filename
+tbl_swa <- dplyr::mutate(tbl_swa, Topic = paste0("[", Text, "](", Filename,")"))
+# select relevant columns
+tbl_swa <- dplyr::select(tbl_swa,Nr,Date,Topic)
+# show knitr
+knitr::kable(tbl_swa)
+```
+
 
 ```{r}
 #| echo: false
