@@ -1,3 +1,11 @@
+# lbgfs2024 0.6.5
+
+Material for week 6:
+
+* [Course notes 04_blup](https://charlotte-ngs.github.io/lbgfs2024/course_notes/04_blup.pdf)
+* [Exercise lbg_ex04](https://charlotte-ngs.github.io/lbgfs2024/exercises/lbg_ex04/lbg_ex04.html)
+* [Slides l05_blup](https://charlotte-ngs.github.io/lbgfs2024/slides/l05_blup.pdf)
+
 # lbgfs2024 0.6.4
 
 * Exercise lbg_ex04
