@@ -1,4 +1,8 @@
 # Week 6 
+## lbgfs2024 0.6.4
+
+* Exercise lbg_ex04
+
 ## lbgfs2024 0.6.3
 
 * Slides l06
@@ -183,4 +187,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-10-25 06:06:01 CEST (pvr)_
+ _Latest Changes: 2024-10-25 06:45:47 CEST (pvr)_
