@@ -124,7 +124,7 @@ where  &  &  \\
 ## Example Dataset I
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-s_data_lm <- "https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_bc.csv"
+s_data_lm <- "https://charlotte-ngs.github.io/lbgfs2024/data/small_beef_data.csv"
 tbl_lm <- readr::read_delim(s_data_lm, delim = ",")
 knitr::kable(tbl_lm)
 ```
