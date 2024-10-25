@@ -1,0 +1,60 @@
+---
+title: "Prepare Small Beef Dataset"
+date: "Started: 2024-10-25 -- Last Compiled on: `r format(Sys.time(), '%Y-%m-%d')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Prepare Small Beef Dataset}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Disclaimer
+Smaller version of beef dataset is prepared
+
+
+# Preparation
+
+```{r}
+s_beef <- 'https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_bc.csv'
+tbl_beef <- readr::read_delim(s_beef, delim = ",")
+tbl_beef
+```
+
+Select only a few animals
+
+```{r}
+vec_sel_ani_id <- c(14,15,16,17,20,21)
+vec_sel_ani <- sapply(tbl_beef$Animal,
+  function(x) is.element(x, vec_sel_ani_id))
+vec_sel_ani
+```
+
+Get records
+
+```{r}
+tbl_small <- tbl_beef[vec_sel_ani,]
+tbl_small
+```
+
+
+# Write Data
+
+```{r}
+s_out_path <- here::here("docs", "data", "small_beef_data.csv")
+readr::write_delim(tbl_small, s_out_path, delim = ",")
+```
+
+
+
+
+```{r, echo=FALSE, results='asis'}
+if (is.element("rmdhelp", installed.packages()))
+  cat(paste0(rmdhelp::get_latest_change()))
+```
