@@ -1,3 +1,8 @@
+# lbgfs2024 0.7.0
+
+* Zoom-video of lecture
+* Slides with annotations
+
 # lbgfs2024 0.6.5
 
 Material for week 6:
