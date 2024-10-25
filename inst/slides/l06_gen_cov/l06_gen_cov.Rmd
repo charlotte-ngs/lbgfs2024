@@ -1,0 +1,280 @@
+---
+title: "Genetic Covariances Between Animals"
+author: "Peter von Rohr"
+date: "2024-11-01"
+output:
+  beamer_presentation:
+    includes:
+      in_header: header.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## BLUP Animal Model
+
+* Traditional prediction of breeding values
+    + i.e. no genomic information available
+    + de-facto standard method
+    
+* Model recap
+
+$$y = X\beta + Zu + e$$
+\begin{tabular}{lll}
+where  &       &     \\
+       &  $y$  &   vector of length $n$ of phenotypic information \\
+       &  $\beta$  &  vector of length $p$ of unknown fixed effects \\
+       &  $X$      &  $n \times p$ incidence matrix \\
+       &  $u$      &  vector of length $q$ of unknown random breeding values \\
+       &  $Z$      &  $n \times q$ incidence matrix \\
+       &  $e$      &  vector of length $n$ of unknown random residuals
+\end{tabular}  
+
+
+## Example I
+```{r numexblupanimalmodel, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+n_nr_ani_ped <- 6
+n_nr_parent <- 2
+tbl_ped <- tibble::tibble(Calf = c((n_nr_parent+1):n_nr_ani_ped),
+                             Sire = c(1, NA, 4, 5),
+                             Dam  = c(2, NA, 3, 2),
+                             Herd = c(1, 2, 2, 1),
+                             WWG  = c(4.5, 2.9, 3.9, 3.5))
+knitr::kable(tbl_ped, booktabs = TRUE)
+```
+
+
+## Example II
+
+```{r numexblupanimalmodel2, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
+n_nr_ani_ped <- 6
+n_nr_parent <- 2
+tbl_ped <- tibble::tibble(Calf = c((n_nr_parent+1):n_nr_ani_ped),
+                             Sire = c(1, 1, 4, 5),
+                             Dam  = c(2, NA, 3, 2),
+                             Herd = c(1, 2, 2, 1),
+                             WWG  = c(4.5, 2.9, 3.9, 3.5))
+knitr::kable(tbl_ped, booktabs = TRUE)
+```
+
+
+## Animal Model Setup
+
+* Convert information from data into model
+
+```{r numexanimodsetup, echo=FALSE, results='hide'}
+vec_y = as.vector(tbl_ped$WWG)
+fact_herd <- as.factor(tbl_ped$Herd)
+n_nr_obs <- length(vec_y)
+n_nr_herds <- nlevels(fact_herd)
+### # fixed effects
+mat_X <- matrix(c(1, 0,
+                  0, 1,
+                  0, 1,
+                  1, 0), ncol = n_nr_herds, byrow = TRUE)
+vec_beta <- rmdhelp::vecGetVecElem(psBaseElement = "\\beta", pnVecLen = n_nr_herds, psResult = "latex")
+### # random effects
+n_nr_ani <- 6
+mat_Z <- cbind(matrix(0, nrow = n_nr_obs, ncol = (n_nr_ani-n_nr_obs)), diag(1, nrow = n_nr_obs))
+vec_a <- rmdhelp::vecGetVecElem(psBaseElement = "u", pnVecLen = n_nr_ani, psResult = "latex")
+### # residuals
+vec_e <- rmdhelp::vecGetVecElem(psBaseElement = "e", pnVecLen = n_nr_obs, psResult = "latex")
+```
+
+* Put observations in vector $y$
+
+```{r numexanidisplay, echo=FALSE, results='asis'}
+cat("$$\n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_y, ps_name = 'y'), "\n"))
+cat("$$\n")
+```
+
+* Fixed effects such as `herd` go in vector $\beta$ and $X$ links observations to components in $\beta$
+
+```{r, echo=FALSE, results='asis'}
+cat("$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_X, ps_name = 'X'), "\n"))
+cat("\\text{, }")
+
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_beta, ps_name = '\\beta'), "\n"))
+cat("$$\n")
+```
+
+
+## Breeding Values As Random Effects and Residuals
+
+```{r echo=FALSE, results='asis'}
+cat("$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_Z, ps_name = 'Z'), "\n"))
+cat("\\text{, }")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_a, ps_name = 'u'), "\n"))
+cat("\\text{, }")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_e, ps_name = 'e'), "\n"))
+cat("$$\n")
+```
+
+
+## Putting Everything Together
+
+```{r, echo=FALSE, results='asis'}
+cat("$$\n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_y), "\n"))
+cat(" = \n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_X), "\n"))
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_beta), "\n"))
+cat(" + \n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_Z), "\n"))
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_a), "\n"))
+cat(" + \n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_e), "\n"))
+cat("$$\n")
+```
+
+
+## Solution with Mixed Model Equations
+
+* General form
+
+\begin{equation}
+\left[
+  \begin{array}{lr}
+  X^T R^{-1} X  &  X^T R^{-1} Z \\
+  Z^T R^{-1} X  &  Z^T R^{-1} Z + G^{-1}
+  \end{array}
+\right]
+\left[
+  \begin{array}{c}
+  \hat{\beta} \\
+  \hat{u}
+  \end{array}
+\right]
+=
+\left[
+  \begin{array}{c}
+  X^T R^{-1} y \\
+  Z^T R^{-1} y
+  \end{array}
+\right] \notag
+\end{equation}
+
+* Assume $R = I * \sigma_e^2$ and we set $G = A * \sigma_u^2$
+
+\begin{equation}
+\left[
+  \begin{array}{lr}
+  X^T  X  &  X^T  Z \\
+  Z^T  X  &  Z^T  Z + \lambda * A^{-1}
+  \end{array}
+\right]
+\left[
+  \begin{array}{c}
+  \hat{\beta} \\
+  \hat{u}
+  \end{array}
+\right]
+=
+\left[
+  \begin{array}{c}
+  X^T  y \\
+  Z^T  y
+  \end{array}
+\right] \notag
+\end{equation}
+
+with $\lambda = \sigma_e^2 / \sigma_u^2$
+
+
+## Components of Mixed Model Equations
+
+```{r, echo=FALSE, results='asis'}
+### # preliminary computations
+mat_xtx <- crossprod(mat_X)
+mat_xtz <- crossprod(mat_X, mat_Z)
+mat_ztx <- t(mat_xtz)
+mat_ztz <- crossprod(mat_Z)
+mat_xty <- crossprod(mat_X, vec_y)
+mat_zty <- crossprod(mat_Z, vec_y)
+
+### # show components
+cat("$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_xtx, ps_name = 'X^TX'), "\n"))
+cat("\\text{, } ")
+cat(paste(rmdhelp::bmatrix(pmat = mat_xtz, ps_name = 'X^TZ'), "\n"))
+cat("$$\n")
+
+cat("$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = mat_ztz, ps_name = 'Z^TZ'), "\n"))
+cat("\\text{, } ")
+cat(paste(rmdhelp::bmatrix(pmat = mat_xty, ps_name = 'X^Ty'), "\n"))
+cat("\\text{, } ")
+cat(paste(rmdhelp::bmatrix(pmat = mat_zty, ps_name = 'Z^Ty'), "\n"))
+cat("$$\n")
+```
+
+
+## Numerator Relationship Matrix
+
+* Only component missing in mixed model equations: matrix $A$ 
+* $A$ is called the __numerator relationship matrix__
+* Properties of $A$
+
+$$var(u) = G = A * \sigma_u^2$$
+
+
+## Meaning of $var()$ for scalar variable $x$
+
+* Depending on type of argument to $var()$, the result is different
+* Scalar argument $x$, that means $x$ is just a single number
+
+$$var(x) = \sum\left( x - E[x]\right)^2 f(x)$$
+for a discrete random variable $x$, e.g. genotypic values $V$ in single locus model.
+
+$$var(x) = \int \left( x - E[x]\right)^2 f(x) dx$$
+for a continuous random variable $x$. 
+
+
+## Meaning of $var()$ for a vector $u$
+
+* Assume that $u$ is a vector with $q$ elements
+
+```{r vec-u-def, echo=FALSE, results='asis'}
+vec_u <- rmdhelp::vecGetVecElem(psBaseElement = 'u', pnVecLen = 2, psResult = 'latex')
+vec_u <- c(vec_u, '...', 'u_{q}')
+cat(paste(rmdhelp::bcolumn_vector(pvec = vec_u, ps_name = 'u', ps_env = '$$'), collapse = '\n'), '\n')
+```
+
+* Then $var(u)$ is a $q\times q$ variance-covariance matrix with a structure shown on the next slide
+
+## Meaning of $A$
+
+```{r animalcov, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="80%"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/animalcov.odg")
+knitr::include_graphics(path = "odg/animalcov.png")
+``` 
+
+
+## Elements of $A$
+
+* Remember: $var(u) = G = A * \sigma_u^2$
+* Diagonal elements $(A)_{ii} = 1 + F_i$ where $F_i$: inbreeding coefficient of $i$
+* Offdiagonal elements $(A)_{ij} = cov(u_i, u_j) / \sigma_u^2$
+* Symmetric
+* Definition leads to recursive algorithm for computing components of $A$
+
+
+## Example
+
+Elements of $G$ are computed as
+
+* Animal 1 has unknown parents and is assumed to show no inbreeding (parents are not related)
+$$var(u_1) = (1+F_1) * \sigma_u^2 = \sigma_u^2$$
+
+* Animal 2 has unknown parents and is not related to animal 1
+$$cov(u_1, u_2) = 0$$
+
+* Animal 3 has parents 1 and 2
+$$cov(u_1, u_3) = cov\left(u_1, \left[{1\over 2}(u_1 + u_2) + m_3\right]\right) = {1\over 2}\sigma_u^2$$
+
+
