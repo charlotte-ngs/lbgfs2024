@@ -1,3 +1,9 @@
+# Week 7 
+## lbgfs2024 0.7.0
+
+* Zoom-video of lecture
+* Slides with annotations
+
 # Week 6 
 ## lbgfs2024 0.6.5
 
@@ -195,4 +201,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-10-25 07:14:42 CEST (pvr)_
+ _Latest Changes: 2024-10-25 17:29:05 CEST (pvr)_
