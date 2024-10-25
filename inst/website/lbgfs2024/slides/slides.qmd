@@ -27,7 +27,6 @@ knitr::kable(tbl_sl)
 Slides with annotations
 
 ```{r}
-
 #| echo: false
 #| message: false
 #| warning: false
