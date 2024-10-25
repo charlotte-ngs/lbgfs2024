@@ -1,0 +1,51 @@
+---
+title: "LBG - FS2024 -- Exercise 4"
+author: "Peter von Rohr"
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Analysis of residuals
+Use the dataset on weaning weight for beef cattle to fit a fixed linear model. Hence in this first analysis any random effects besides the residuals such as breeding values are currently ignored. In the fixed linear model `Weaning Weight` is used as response variable. `Breast Circumference` is used as regression predictor variable and `Herd` is used as fixed effect.
+
+After fitting the fixed linear model, plot the residuals against the fitted values and see by visual inspection whether you can find any internal structure in the data.
+
+The dataset is available from
+
+https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_bc.csv
+
+
+### Solution
+
+* Start by reading the data
+
+```{webr}
+# read the data
+
+```
+
+
+* Fit a fixed linear model
+
+```{webr}
+# change herd to factor
+
+# fit model and show results
+
+```
+
+
+* Plot residuals against fitted values
+
+```{webr}
+# plot
+
+```
+
+Groups of points can be identified which most likely belong to animals which are related to each other.
+
