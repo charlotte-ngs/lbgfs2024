@@ -143,7 +143,31 @@ with $cov(u, e^T) = 0$, $$var(y) = Z * var(u) * Z^T + var(e) = ZUZ^T + R = V$$
 
 ## Estimates of unknown Parameters
 
-$$\hat{u} = E(u|y) = UZ^TV^{-1}(y - X\hat{\beta})$$
+Use properties of BLUP to design predictor $\widehat{u}$
+
+* Linear: predictor $\widehat{u}$ is a linear function of data
+
+$$\widehat{u} = M \cdot (y - k)$$
+
+* Unbiased: $E(\widehat{u}) = E(u)$. Above we have specified $E(u) = 0$
+
+$$k = E(y)$$
+
+* Best: Prediction error variance $var(u - \widehat{u})$ is minimal
+
+$$M = UZ^TV^{-1}$$
+
+## Result
+
+* Summary of above results, using $E(y) = X\beta$
+
+$$\hat{u} = UZ^TV^{-1}(y - X\beta)$$
+
+* For $u$ and $y$ following a Gaussian normal distribution
+
+$$\hat{u} = E(u|y)$$
+
+* $\beta$ unknown, replace it by general least squares estimate 
 
 $$\hat{\beta} = (X^T V^{-1} X)^- X^T V^{-1} y$$
 
@@ -179,7 +203,15 @@ $$\left[
 * Breeding value of sire as random effect: 
 
 $$y = X\beta + Zs + e$$
+* Expected values
 
+$$E(s) = 0 \text{  and  } E(e) = 0 \rightarrow E(y) = X\beta$$
+
+* Variances
+
+$$var(s) = U_s  \text{  and  } var(e) = R$$
+
+* Unrelated sires: $var(s) = U_s = I \sigma_s^2$
 
 ## Example
 ```{r siremodelbeefexample, echo=FALSE, results='asis'}
@@ -238,3 +270,13 @@ cat("$$ \n")
 * Breeding value for all animals as random effects
 
 $$y = X\beta + Zu + e$$
+
+* Expected values
+
+$$E(u) = 0 \text{  and  } E(e) = 0 \rightarrow E(y) = X\beta$$
+
+* Variances
+
+$$var(u) = U = A * \sigma_u^2  \text{  and  } var(e) = R$$
+
+* Matrix $A$: numerator relationship matrix and $\sigma_u^2$ the genetic additive variance
