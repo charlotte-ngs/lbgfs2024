@@ -1,3 +1,7 @@
+# lbgfs2024 0.7.2
+
+* Exercise lbg_ex05
+
 # lbgfs2024 0.7.1
 
 * Adapted chapter 04 of cn
