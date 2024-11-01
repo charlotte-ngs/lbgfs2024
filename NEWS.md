@@ -1,3 +1,13 @@
+# lbgfs2024 0.7.3
+
+Material for week 7:
+
+* [Adapted Course notes 04_blup](https://charlotte-ngs.github.io/lbgfs2024/course_notes/04_blup.pdf)
+* [Course Notes Appendix 4.6](https://charlotte-ngs.github.io/lbgfs2024/course_notes/046_blup_deriv_app.pdf)
+* [Adapted slides l05_blup](https://charlotte-ngs.github.io/lbgfs2024/slides/l05_blup.pdf)
+* [Exercise lbg_ex05](https://charlotte-ngs.github.io/lbgfs2024/exercises/lbg_ex05/lbg_ex05.html)
+
+
 # lbgfs2024 0.7.2
 
 * Exercise lbg_ex05
