@@ -160,11 +160,11 @@ E(u) = 0 \qquad \text{and} \qquad E(e) = 0
 From this it follows that $E(y) = X\beta$. The variance-covariance matrices for the random effects are set to 
 
 \begin{equation}
-var(u) = G \qquad \text{and} \qquad var(e) = R
+var(u) = U \qquad \text{and} \qquad var(e) = R
 (\#eq:variancerandomeffects)
 \end{equation}
 
-Under the assumption that $cov(u,e^T) = 0$, we can compute $var(y) = Z * var(u) * Z^T + var(e) = ZGZ^T + R = V$. 
+Under the assumption that $cov(u,e^T) = 0$, we can compute $var(y) = Z * var(u) * Z^T + var(e) = ZUZ^T + R = V$. 
 
 In model \@ref(eq:linearmixedeffectmodelmatrixvector) the vectors $\beta$ and $u$ are unknown. The solution of the model \@ref(eq:linearmixedeffectmodelmatrixvector) for the unknowns $\beta$ and $u$ leads to estimates $\hat{\beta}$ for the fixed effects $\beta$ and for predicted random effects $\hat{u}$. Unlike with the selection index, with BLUP, we do not have to correct the observations before predicting random effects.
 
@@ -173,7 +173,7 @@ In model \@ref(eq:linearmixedeffectmodelmatrixvector) the vectors $\beta$ and $u
 An outline of how to derive the BLUP solutions for $\hat{\beta}$ and $\hat{u}$ will be given in an Appendix. The details of this derivation are not important. Therefore, we are presenting here directly the result which are
 
 \begin{equation}
-\hat{u} = GZ^TV^{-1}(y - X\hat{\beta})
+\hat{u} = UZ^TV^{-1}(y - X\hat{\beta})
 (\#eq:hatublup)
 \end{equation}
 
@@ -194,7 +194,7 @@ The solutions shown in \@ref(eq:hatublup) for $\hat{u}$ and in \@ref(eq:hatbetah
 \left[
   \begin{array}{lr}
   X^T R^{-1} X  &  X^T R^{-1} Z \\
-  Z^T R^{-1} X  &  Z^T R^{-1} Z + G^{-1}
+  Z^T R^{-1} X  &  Z^T R^{-1} Z + U^{-1}
   \end{array}
 \right]
 \left[
@@ -213,7 +213,7 @@ The solutions shown in \@ref(eq:hatublup) for $\hat{u}$ and in \@ref(eq:hatbetah
 (\#eq:mixedmodeleq)
 \end{equation}
 
-The above shown equations are called __mixed model equations__ (MME). They do no longer contain the inverse $V^{1}$ and hence these MME are much simpler to solve. The MME contain the inverses $R^{-1}$ and $G^{-1}$, but we will see with concrete examples that they are much easier to invert. As a consequence, whenever we have to predict breeding values using BLUP, we will use the mixed model equations shown in \@ref(eq:mixedmodeleq).
+The above shown equations are called __mixed model equations__ (MME). They do no longer contain the inverse $V^{1}$ and hence these MME are much simpler to solve. The MME contain the inverses $R^{-1}$ and $U^{-1}$, but we will see with concrete examples that they are much easier to invert. As a consequence, whenever we have to predict breeding values using BLUP, we will use the mixed model equations shown in \@ref(eq:mixedmodeleq).
 
 
 ## Sire Model
@@ -278,13 +278,13 @@ E(s) = 0 \qquad \text{and} \qquad E(e) = 0 \qquad \rightarrow \qquad E(y) = X\be
 For the variances there are a few simplifications that we can use in our sire model. The covariance between the random effects $s$ and $e$ are assumed to be $0$. The covariances among the single residual effects are also assumed to be $0$. Hence, the variance-covariance matrix of the residual effects are $var(e) = I * \sigma_e^2$. The variance of the sire effects $s$ is 
 
 $$
-var(s) = A_s * \sigma_s^2 = G
+var(s) = A_s * \sigma_s^2 = U
 $$
 
 where $A_s$ is the additive genetic relationship matrix between the sires. We will be deriving the matrix $A_s$ in a later chapter. Because our sires are not related, we can say that $A_s = I$ and hence
 
 $$
-G = I * {\sigma_u^2 \over 4}
+U = I * {\sigma_u^2 \over 4}
 $$
 
 Now we are ready to set up the mixed model equations from \@ref(eq:mixedmodeleq) for the sire model. The computation of the numerical solutions from the mixed model equations will be the topic of an exercise.
@@ -295,22 +295,100 @@ Now we are ready to set up the mixed model equations from \@ref(eq:mixedmodeleq)
 The mixed model equations are a universal tool to find BLUPs of random effects and BLUEs of fixed effect simultaneously. On the other hand it is not satisfactory that with the sire model only sires obtain predicted breeding values. All information that is known about the mothers was completely ignored when we specified the sire model. A better approach would be to combine all available information from a given population. This can be done by replacing in the sire model the random sire effects by random animals effects. As a result each animal in the dataset receives a random effect which models its breeding value. This type of model is called an __animal model__. Because the animal model has the breeding values of all animals as random effects, they are often referred to with the variable or the vector $a$^[This is not the same as the genotypic value in a single locus model.] and no longer $s$ as in the sire model. The variance-covariance matrix ($var(a)$) between all animal effects is proportional to the additive genetic relationship matrix $A$ among all animals. We will see in a later chapter how to compute the matrix $A$.
 
 
-<!--
+\clearpage
+\pagebreak
+
 ## Appendix: Derivation of BLUP {#appderivblup}
 Consider the mixed linear model
 
 $$y = Xb + Zu + e$$
-with $E(y) = Xb$, $E(a) = 0$ and $E(e) = 0$, $var(u) = G$ and $var(e) = R$, hence $var(y) = V = ZGZ^T + R$
 
-Suppose, we want to predict a linear function $k^Tb + a$, using a linear function $L^Ty$ of $y$. Predictor $L^Ty$ is chosen such that 
-
-$$E(L^Ty) = E(k^Tb + a)= E(k^Tb) + E(a) = k^Tb\rightarrow L^TXb = k^Tb \rightarrow k=X^TL$$
-
-and such that the prediction error variance (PEV) is minimal.
-
--->
+with $E(y) = Xb$, $E(u) = 0$ and $E(e) = 0$, $var(u) = U$ and $var(e) = R$, hence $var(y) = V = ZUZ^T + R$
 
 
+### Predictions
+Breeding values $u$ are to be predicted by a statistic which is a function of the data $y$. At this point, we are restricting ourselves on linear functions of the data. The predictions are called $\widehat{u}$
+
+Suppose, we want to predict breeding values $u$ with a linear function of the data $y$ corrected for some vector $k$. As a formula this can be written as 
+
+$$\widehat{u} = M\cdot(y - k)$$ 
+
+where $M$ is an unknown matrix and $k$ an unknown vector of corrections. The unknowns $M$ and $k$ are determined using the properties of BLUP. 
 
 
+### Unbiasedness
+The BLUP $\widehat{u}$ has the property of unbiasedness. This means
+
+$$E[ \widehat{u}] = E[u]$$
+
+According to the previously made definition of breeding value, we set $E[u] = 0$. Inserting the above definition of $\widehat{u}$  and taking expectations, leads to
+
+$$E[ \widehat{u}] = E[M\cdot(y - k)] =  M \cdot (E[y] - E[k])$$
+
+Due to the unbiasedness property, we want $E[ \widehat{u}] = 0$. This leads to $E[y] = E[k]$. Because, $k$ is expected to be a constant vector of corrections, we can set 
+
+$$k = E[y]$$
+
+In the definition of the linear mixed effects model, we saw that $E[y] = X\beta$. The BLUP $\widehat{u}$ of our breeding values has now the form
+
+$$\widehat{u} = M\cdot(y - E[y])$$
+
+
+### Minimal Prediction Error Variance (Best)
+The third condition that is satisfied by the BLUP $\widehat{u}$ is that of minimal prediction error variance. More formally that means
+
+$$var(u - \widehat{u}) \rightarrow \text{Minimum}$$
+
+For reasons of simplicity, we are looking at the case of just one breeding value $u_i$ and one observation $y_i$ for animal $i$. This reduces $M$ to a scalar factor which is to be determined such that the prediction error variance (PEV) is minimal.
+
+\begin{align}
+PEV &= var(u_i - \widehat{u}_i) = var(u_i) + var(\widehat{u}_i) - 2*cov(u_i, \widehat{u}_i) \notag \\
+    &= var(u_i) + var(M(y_i - E[y_i])) - 2 * cov(u_i, (M(y_i - E[y_i]))) \notag \\
+    &= var(u_i) + M^2 * var(y_i - E[y_i]) - 2 * M*cov(u_i, (y_i - E[y_i])) \notag \\
+    &= var(u_i) + M^2 * var(y_i) - 2 * M*cov(u_i, y_i) \notag
+\end{align}
+
+The factor $M$ is found by taking the first derivative of PEV with respect to $M$. 
+
+\begin{align}
+\frac{\partial PEV}{\partial M} = 2 * M * var(y_i) - 2 * cov(u_i, y_i) \notag
+\end{align}
+
+The value $\widehat{M}$ for which PEV is minimal is found by setting $\partial PEV/\partial M$ to $0$. 
+
+\begin{align}
+0 &= 2 * \widehat{M} * var(y_i) - 2 * cov(u_i, y_i) \notag \\
+\widehat{M} &= cov(u_i, y_i) * (var(y_i))^{-1} \notag
+\end{align}
+
+This result can be generalized by going back to the original vector valued variables and the mixed model
+
+$$y = X\beta + Zu + e.$$
+
+Hence 
+
+* $y$ is a vector of length $n$ with phenotypic observations
+* $u$ is a vector of length $q$ with breeding values
+
+Expected values and variance-covariance matrices for the two vectors $y$ and $u$ are given by
+
+* $E[y] = X\beta$
+* $E[u] = 0$
+* var(y) = V
+* var(u) = U
+* cov(u, y^T) = UZ^T
+
+The matrix $\widehat{M}$ can be written as
+
+$$\widehat{M} = UZ^TV^{-1}$$
+
+Inserting the value for matrix $M$ to the BLUP $\widehat{u}$ and using $E[y] = X\beta$ yields
+
+$$\widehat{u} = UZ^TV^{-1}(y - X\beta)$$
+
+The vector $\beta$ of fixed effects and regression coefficients is not known. But because $X\widehat{\beta}$ with $\widehat{\beta}$ being the general least squares solution for $\beta$, the above used unbiasedness property does also hold for $X\widehat{\beta}$. Therefore we can write the BLUP $\widehat{u}$ as 
+
+$$\widehat{u} = UZ^TV^{-1}(y - X\widehat{\beta})$$
+
+with $\widehat{\beta} = (X^TV{-1}X)^{-}X^TV^{-1}y$
 
