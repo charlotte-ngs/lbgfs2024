@@ -1,0 +1,79 @@
+---
+title: "LBG - FS2024 -- Solution 5"
+author: "Peter von Rohr"
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Sire Model
+As already shown during the lecture for the small data set at
+
+https://charlotte-ngs.github.io/lbgfs2024/data/small_beef_data.csv
+
+a sire model is to be used for the following dataset, already used in Exercise 4. The data set is available from
+
+https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_bc.csv
+
+The ration $\lambda_s$ between the residual variance and the sire variance can be assumed to be
+
+$$\lambda_s = \frac{\sigma_e^2}{\sigma_s^2} = 1$$
+
+
+### Solution
+
+```{webr}
+# read the data
+s_beef <- 'https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_bc.csv'
+tbl_beef <- readr::read_delim(s_beef, delim = ",")
+```
+
+
+* Design matrix $X$
+
+```{webr}
+# design matrix X
+
+```
+
+* Design matrix $Z$
+
+```{webr}
+# design matrix Z
+
+```
+
+* Coefficient matrix of mixed model equations
+
+```{webr}
+# coefficient matrix
+
+```
+
+* Right-hand side of mixed model equations
+
+```{webr}
+# right-hand side
+
+```
+
+* Solve mixed model equations
+
+```{webr}
+# solve mme
+
+```
+
+* Identify estimates of fixed effects and predictions of sire effects
+
+```{webr}
+# fixed effects estimates
+
+# predictions of sire effects
+
+```
+
