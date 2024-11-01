@@ -129,7 +129,7 @@ SRC_PATH=''
 TRG_PATH=''
 DEPLOY_DATE=''
 LINK_TITLE=''
-CN_TABLE_DAT=''
+DATA_TABLE_DAT=''
 VERBOSE='false'
 while getopts ":c:d:hl:s:t:z" FLAG; do
   case $FLAG in
@@ -137,7 +137,7 @@ while getopts ":c:d:hl:s:t:z" FLAG; do
       usage "Help message for $SCRIPT"
       ;;
     c)
-      CN_TABLE_DAT=$OPTARG
+      DATA_TABLE_DAT=$OPTARG
       ;;
     d)
       DEPLOY_DATE=$OPTARG
@@ -194,15 +194,16 @@ fi
 if [[ $DEPLOY_DATE == '' ]];then
   DEPLOY_DATE=$(date +"%Y-%m-%d")
 fi
-if [[ $CN_TABLE_DAT == '' ]];then
-  CN_TABLE_DAT=$EVALREPO/inst/website/lbgfs2024/course_notes/course_notes.dat
+if [[ $DATA_TABLE_DAT == '' ]];then
+  DATA_TABLE_DAT=$EVALREPO/inst/website/lbgfs2024/course_notes/course_notes.dat
 fi
 if [[ $VERBOSE == 'true' ]];then
   log_msg $SCRIPT " * Check args and defaults ..."
-  log_msg $SCRIPT " * ==>  SRC_PATH:     $SRC_PATH ..."
-  log_msg $SCRIPT " * ==>  TRG_PATH:     $TRG_PATH ..."
-  log_msg $SCRIPT " * ==>  LINK_TITLE:   $LINK_TITLE ..."
-  log_msg $SCRIPT " * ==>  DEPLOY_DATE:  $DEPLOY_DATE ..."
+  log_msg $SCRIPT " * ==>  SRC_PATH:        $SRC_PATH ..."
+  log_msg $SCRIPT " * ==>  TRG_PATH:        $TRG_PATH ..."
+  log_msg $SCRIPT " * ==>  LINK_TITLE:      $LINK_TITLE ..."
+  log_msg $SCRIPT " * ==>  DEPLOY_DATE:     $DEPLOY_DATE ..."
+  log_msg $SCRIPT " * ==>  DATA_TABLE_DAT:  $DATA_TABLE_DAT ..."
 fi
 
 
