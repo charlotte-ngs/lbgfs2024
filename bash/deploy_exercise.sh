@@ -55,11 +55,17 @@ REAL_EVALROOT=$(dirname $REAL_EVALREPO)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -h -s <source_exercise_dir> -t <deployment_target_dir> -z"
+  echo "Usage:   $SCRIPT -c <cn_table_dat> -d <deploy_date> -h -l <link_title>"
+  echo '                 -s <source_exercise_dir> -t <deployment_target_dir> -z'
   echo '  where '
+  echo '        -c <data_table_dat>         --  (optional) alternative path to data table file ...'
+  echo '                                                   > default: $EVALREPO/inst/website/lbgfs2024/exercises/exercises.dat ...'
+  echo '        -d <deploy_date>            --  (optional) alternative deploy date ...'
+  echo '                                                   > default: $(date +"%Y-%m-%d") ...'
   echo '        -h                          --  (optional) show usage message ...'
+  echo '        -l <link_title>             --             link name ...'
   echo '        -s <source_exercise_dir>    --             source directory from where exercise is to be deployed ...'
-  echo '        -t <deployment_target_dir>. --  (optional) target deployment directory ...'
+  echo '        -t <deployment_target_dir>  --  (optional) target deployment directory ...'
   echo '                                                   > default: docs/exercise ...'
   echo '        -z                          --  (optional) produce verbose output'
   echo '                                                   > default: false'
@@ -99,6 +105,40 @@ log_msg () {
   echo "[${l_RIGHTNOW} -- ${l_CALLER}] $l_MSG"
 }
 
+#' ### Clean Up
+#' Un-needed exercise material not needed after deployment
+#' can be deleted
+#+ clean-up-exc-material-fun
+clean_up_exc_material () {
+  local l_EXC_NAME=$(basename $SRC_EXC_DIR)
+  local l_EXC_FILES_DIR=$SRC_EXC_DIR/${l_EXC_NAME}_files
+  local l_EXC_HTML=$SRC_EXC_DIR/${l_EXC_NAME}.html
+  local l_QMD_TRG=$TRG_DPL_DIR/$l_EXC_NAME/${l_EXC_NAME}.qmd
+  for f in $l_EXC_FILES_DIR $l_EXC_HTML $l_QMD_TRG;do
+    if [[ $VERBOSE == 'true' ]];then log_msg clean_up_exc_material " * Clean up for $f ...";fi
+    if [[ -d $f ]] || [[ -f $f]];then
+      if [[ $VERBOSE == 'true' ]];then log_msg clean_up_exc_material " * Remove $f ...";fi
+      rm -rf $f
+    fi
+  done
+  
+}
+
+#' ### Data Table Entry
+#' Data table entry which defines list of topics in website
+#+ write-data-table-entry-fun
+write_data_table_entry () {
+  local l_EXC_NAME=$(basename $SRC_EXC_DIR)
+  local l_TBL_ENTRY="${DEPLOY_DATE};${LINK_TITLE};$l_EXC_NAME"
+  if [[ $VERBOSE == 'true' ]];then log_msg write_data_table_entry " * Cn table entry: $l_TBL_ENTRY ...";fi
+  # check whether entry exists
+  if [[ $(grep "$l_TBL_ENTRY" $DATA_TABLE_DAT | wc -l ) -eq 0 ]];then
+    echo "$l_TBL_ENTRY" >> $DATA_TABLE_DAT
+  else
+    log_msg write_data_table_entry " * FOUND $l_TBL_ENTRY in $DATA_TABLE_DAT ..."
+  fi
+}
+
 
 #' ## Getopts for Commandline Argument Parsing
 #' If an option should be followed by an argument, it should be followed by a ":".
@@ -107,11 +147,23 @@ log_msg () {
 #+ getopts-parsing, eval=FALSE
 SRC_EXC_DIR=''
 TRG_DPL_DIR=''
+DEPLOY_DATE=''
+LINK_TITLE=''
+DATA_TABLE_DAT=''
 VERBOSE='false'
-while getopts ":hs:t:z" FLAG; do
+while getopts ":c:d:hl:s:t:z" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
+      ;;
+    c)
+      DATA_TABLE_DAT=$OPTARG
+      ;;
+    d)
+      DEPLOY_DATE=$OPTARG
+      ;;
+    l)
+      LINK_TITLE=$OPTARG
       ;;
     s)
       if [[ -d $OPTARG ]];then
@@ -153,6 +205,9 @@ log_msg $SCRIPT " * Check arguments and set defaults ..."
 if [[ $SRC_EXC_DIR == '' ]];then
   usage " *** ERROR: -s <source_exercise_dir> required but not defined ..."
 fi
+if [[ $LINK_TITLE == '' ]];then
+  usage " *** ERROR: -l <link_title> required, but not defined ..."
+fi
 if [[ $TRG_DPL_DIR == '' ]];then
   TRG_DPL_DIR=$EVALREPO/docs/exercises
 fi
@@ -160,6 +215,20 @@ fi
 if [[ ! -d $TRG_DPL_DIR ]];then
   if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Create dir: $TRG_DPL_DIR ...";fi
   mkdir -p $TRG_DPL_DIR
+fi
+if [[ $DEPLOY_DATE == '' ]];then
+  DEPLOY_DATE=$(date +"%Y-%m-%d")
+fi
+if [[ $DATA_TABLE_DAT == '' ]];then
+  DATA_TABLE_DAT=$EVALREPO/inst/website/lbgfs2024/exercises/exercises.dat
+fi
+if [[ $VERBOSE == 'true' ]];then
+  log_msg $SCRIPT " * Check args and defaults ..."
+  log_msg $SCRIPT " * ==>  SRC_EXC_DIR:     $SRC_EXC_DIR ..."
+  log_msg $SCRIPT " * ==>  TRG_DPL_DIR:     $TRG_DPL_DIR ..."
+  log_msg $SCRIPT " * ==>  LINK_TITLE:      $LINK_TITLE ..."
+  log_msg $SCRIPT " * ==>  DEPLOY_DATE:     $DEPLOY_DATE ..."
+  log_msg $SCRIPT " * ==>  DATA_TABLE_DAT:  $DATA_TABLE_DAT ..."
 fi
 
 
@@ -174,25 +243,15 @@ cp -r $SRC_EXC_DIR $TRG_DPL_DIR
 #' ## Clean Up
 #' Files and directories not needed any more are deleted
 #+ clean-up
-EXC_NAME=$(basename $SRC_EXC_DIR)
-EXC_FILES_DIR=$SRC_EXC_DIR/${EXC_NAME}_files
-EXC_HTML=$SRC_EXC_DIR/${EXC_NAME}.html
-QMD_TRG=$TRG_DPL_DIR/$EXC_NAME/${EXC_NAME}.qmd
-for f in $EXC_FILES_DIR $EXC_HTML $QMD_TRG;do
-  if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Clean up for $f ...";fi
-  if [[ -d $f ]] || [[ -f $f]];then
-    if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Remove $f ...";fi
-    rm -rf $f
-  fi
-done
+log_msg $SCRIPT " * Clean up exercise material ..."
+clean_up_exc_material
 
 
 #' ## Data Table Entry
 #' The deployed exercise needs an entry in the exercise data table
 #+ add-data-table-entry
- 1074  cat inst/website/lbgfs2024/exercises/exercises.dat
- 1075  echo '2024-11-01;Sire model;lbg_ex05' >> inst/website/lbgfs2024/exercises/exercises.dat 
-
+log_msg $SCRIPT " * Write data table entry ..."
+write_data_table_entry
 
 
 #' ## End of Script
