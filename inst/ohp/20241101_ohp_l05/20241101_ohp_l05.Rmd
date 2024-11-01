@@ -27,7 +27,7 @@ done
 # odg to .gitignore
 # echo inst/ohp/20241101_ohp_l05/odg >> .gitignore
 # add entry to ohp data table
-# echo "2024-11-01;BLUP;" >> inst/website/lbgfs2024/ohp/ohp.dat
+# echo "2024-11-01;BLUP;https://drive.google.com/file/d/1-AQmcVPthaquHnQ1s3DgcEA6uef-Myj2/view?usp=sharing" >> inst/website/lbgfs2024/ohp/ohp.dat
 ```
 
 ```{r, echo=FALSE, eval=FALSE}
