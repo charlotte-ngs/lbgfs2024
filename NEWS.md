@@ -1,3 +1,8 @@
+# lbgfs2024 0.7.1
+
+* Adapted chapter 04 of cn
+* Added appendix 4.6 to cn
+
 # lbgfs2024 0.7.0
 
 * Zoom-video of lecture
