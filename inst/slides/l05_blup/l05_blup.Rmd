@@ -1,7 +1,7 @@
 ---
 title: "BLUP"
 author: "Peter von Rohr"
-date: 2024-10-25
+date: 2024-11-01
 output:
   beamer_presentation:
     includes:
@@ -13,102 +13,19 @@ knitr::opts_chunk$set(echo = FALSE, results = "asis")
 knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
 ```
 
-## Recap: Prediction of Breeding Values
+## Recap: Linear Mixed Effects Model
 
-* Own Performance Records ($h^2$: Heritability)
+$$y = X \cdot b + Z \cdot u + e$$
 
-$$\hat{u}_i = h^2 * (y_i - \mu)$$
-
-
-* Repeated Measurements
-
-$$\hat{u}_i = \frac{nh^2}{1 + (n-1)t} * (\bar{y_i} - \mu) $$
-with $n$: number of records, $t$: repeatability
-
-* Progeny Records
-
-$$\hat{u}_i = \frac{2n}{n+k} * (\bar{y_i} - \mu)\ \text{ with } k=\frac{4-h^2}{h^2}$$
-with $n$: number of progeny
-
-
-## General Principle
-
-* All methods to predict breeding values follow the same principle
-
-1. Correct information sources for some population mean
-2. Multiply corrected information source by an appropriate factor
-
-* Regression Method
-$$\hat{u} = b (y - \mu)$$
-
-* Selection Index 
-    + uses all available information combined into an index
-    
-
-## Selection Index
-
-* will be presented later to estimate aggregate genotype
-* Idea: all available information about an animals breeding value is combined into an index of merit ($I$)
-* corresponds to multiple regression approach
-$$ \hat{u} = I = b_1*y_1^* + b_2*y_2^* + ... + b_k*y_k^* = b^T y^*$$
-
-where $b$ the regression coefficients are computed such that the variance ($var(u - \hat{u})$) of the error is minimal. 
-
-
-## Index Weights
-
-* Minimization of the variance of the errors means
-
-$$PEV = var(u - \hat{u}) = var(u - I) = var(u - b^Ty^*)$$
-
-$$= var(u) + var(b^Ty^*) - 2 cov(u, (y^*)^Tb) $$
-
-$$= \sigma_u^2 + b^T * var(y^*) * b - 2 * b^T * cov(u, (y^*)^T)$$
-
-$$= \sigma_u^2 + b^T * P * b - 2 * b^T * G $$
-
-
-## Solution
-
-* Compute $\frac{\partial PEV}{\partial b} = 0$
-
-$$ \frac{\partial PEV}{\partial b} = 2 * P * b - 2 * G = 0$$
-
-$$\rightarrow b = P^{-1} * G$$
-
-
-## Problem with Correction
-
-* Population mean is ideal as correction
-
-$$
-y = \mu + u + e  \qquad \rightarrow \qquad \bar{y} = \bar{\mu} + \bar{u} + \bar{e} = \mu
-$$
-
-* Because performances are observed in different
-    + environments and 
-    + time points
-    
-* Formation of comparison groups where animals are exposed to the same environments
-* The more groups, the better the correction of environmental effects
-* The more groups, the smaller the single groups
-
-
-## Bias
-
-* With small comparison groups, it is more likely that mean breeding value of animals in a single group is not $0$
-* Average performance of all animals in a comparison group
-
-$$\bar{y}_{CG} = \mu + \bar{u}_{CG} + \bar{e}_{CG}$$
-* If $\bar{u}_{CG}$ is not $0$, the predicted breeding value $\hat{u}_i$ of animal $i$ is
-
-\begin{align}
-\hat{u}_i = I  &=  b(y_i - (\mu + \bar{u}_{CG})) \notag \\
-   &=  b(y_i - \mu) - b\bar{u}_{CG} \notag \\
-   &=  \hat{u}_i  - b\bar{u}_{CG} \notag
-\end{align}
-
-where $b\bar{u}_{CG}$ is called bias. 
+\begin{tabular}{llp{8cm}}
+where  &  &  \\
+       &  $y$       &  vector of phenotypic observations of all animals \\
+       &  $b$       &  vector of unknown fixed effects and unknown regression coefficients \\
+       &  $u$       &  vector of random breeding values of all animals \\
+       &  $e$       &  vector of random environmental effects \\
+       &  $X$       &  design matrix with regression covariates or indicator values for fixed effects \\
+       &  $Z$       &  design matrix relating breeding values to observations
+\end{tabular}
 
 
 ## Solution - BLUP
@@ -123,7 +40,15 @@ where $b\bar{u}_{CG}$ is called bias.
     + __P__ stands for __prediction__ 
 
 
-## Example
+## Example Dataset I
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+s_data_lm <- "https://charlotte-ngs.github.io/lbgfs2024/data/small_beef_data.csv"
+tbl_lm <- readr::read_delim(s_data_lm, delim = ",")
+knitr::kable(tbl_lm)
+```
+
+## Example Dataset II
 ```{r TableBeefExample, echo=FALSE, results='asis', message=FALSE, warning=FALSE}
 ### # fix the numbers parents and offspring
 n_nr_sire <- 3
@@ -139,7 +64,7 @@ vec_herd_codes <- c(rep(1,4), rep(2,4), rep(1,4), rep(2,4))
 vec_weaning_weight <-  c(2.61,2.31,2.44,2.41,2.51,2.55,2.14,2.61,2.34,1.99,3.1,2.81,2.14,2.41,2.54,3.16)
 
 ### # create a tibble from the data
-tbl_beef_data <- dplyr::data_frame( Animal = (n_nr_parents + 1):n_nr_animals,
+tbl_beef_data <- tibble::tibble( Animal = (n_nr_parents + 1):n_nr_animals,
                                     Sire   = vec_sire_id,
                                     Dam    = vec_dam_id[order(vec_dam_id)],
                                     Herd   = vec_herd_codes,
@@ -176,7 +101,7 @@ $$y_{ij} = \mu + herd_j + e_{ij}$$
 ## Linear Mixed Effects Model
 
 * What about breeding value $u_i$ for animal $i$?
-    + Problem: breeding values have a variance $\sigma_u^2$
+    + Problem: breeding values have a variance $\sigma_u^2$ and co-variances
     + Cannot be specified in simple linear model
 
 $\rightarrow$ __Linear Mixed Effects Model__ (LME)
@@ -211,14 +136,14 @@ $$E(u) = 0 \text{  and  } E(e) = 0 \rightarrow E(y) = X\beta$$
 
 * Variances
 
-$$var(u) = G  \text{  and  } var(e) = R$$
+$$var(u) = U  \text{  and  } var(e) = R$$
 
-with $cov(u, e^T) = 0$, $$var(y) = Z * var(u) * Z^T + var(e) = ZGZ^T + R = V$$
+with $cov(u, e^T) = 0$, $$var(y) = Z * var(u) * Z^T + var(e) = ZUZ^T + R = V$$
 
 
 ## Estimates of unknown Parameters
 
-$$\hat{u} = E(u|y) = GZ^TV^{-1}(y - X\hat{\beta})$$
+$$\hat{u} = E(u|y) = UZ^TV^{-1}(y - X\hat{\beta})$$
 
 $$\hat{\beta} = (X^T V^{-1} X)^- X^T V^{-1} y$$
 
@@ -231,7 +156,7 @@ $$\hat{\beta} = (X^T V^{-1} X)^- X^T V^{-1} y$$
 $$\left[
   \begin{array}{lr}
   X^T R^{-1} X  &  X^T R^{-1} Z \\
-  Z^T R^{-1} X  &  Z^T R^{-1} Z + G^{-1}
+  Z^T R^{-1} X  &  Z^T R^{-1} Z + U^{-1}
   \end{array}
 \right]
 \left[
