@@ -1,4 +1,8 @@
 # Week 7 
+## lbgfs2024 0.7.2
+
+* Exercise lbg_ex05
+
 ## lbgfs2024 0.7.1
 
 * Adapted chapter 04 of cn
@@ -206,4 +210,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-11-01 07:45:03 CET (pvr)_
+ _Latest Changes: 2024-11-01 08:30:18 CET (pvr)_
