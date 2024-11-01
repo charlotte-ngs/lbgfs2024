@@ -141,7 +141,7 @@ cat("$$\n")
 \left[
   \begin{array}{lr}
   X^T R^{-1} X  &  X^T R^{-1} Z \\
-  Z^T R^{-1} X  &  Z^T R^{-1} Z + G^{-1}
+  Z^T R^{-1} X  &  Z^T R^{-1} Z + U^{-1}
   \end{array}
 \right]
 \left[
@@ -159,7 +159,7 @@ cat("$$\n")
 \right] \notag
 \end{equation}
 
-* Assume $R = I * \sigma_e^2$ and we set $G = A * \sigma_u^2$
+* Assume $R = I * \sigma_e^2$ and we set $U = A * \sigma_u^2$
 
 \begin{equation}
 \left[
@@ -220,7 +220,7 @@ cat("$$\n")
 * $A$ is called the __numerator relationship matrix__
 * Properties of $A$
 
-$$var(u) = G = A * \sigma_u^2$$
+$$var(u) = U = A * \sigma_u^2$$
 
 
 ## Meaning of $var()$ for scalar variable $x$
@@ -257,7 +257,7 @@ knitr::include_graphics(path = "odg/animalcov.png")
 
 ## Elements of $A$
 
-* Remember: $var(u) = G = A * \sigma_u^2$
+* Remember: $var(u) = U = A * \sigma_u^2$
 * Diagonal elements $(A)_{ii} = 1 + F_i$ where $F_i$: inbreeding coefficient of $i$
 * Offdiagonal elements $(A)_{ij} = cov(u_i, u_j) / \sigma_u^2$
 * Symmetric
@@ -266,7 +266,7 @@ knitr::include_graphics(path = "odg/animalcov.png")
 
 ## Example
 
-Elements of $G$ are computed as
+Elements of $U$ are computed as
 
 * Animal 1 has unknown parents and is assumed to show no inbreeding (parents are not related)
 $$var(u_1) = (1+F_1) * \sigma_u^2 = \sigma_u^2$$
