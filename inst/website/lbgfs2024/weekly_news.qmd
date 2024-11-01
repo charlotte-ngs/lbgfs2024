@@ -1,4 +1,9 @@
 # Week 7 
+## lbgfs2024 0.7.1
+
+* Adapted chapter 04 of cn
+* Added appendix 4.6 to cn
+
 ## lbgfs2024 0.7.0
 
 * Zoom-video of lecture
@@ -201,4 +206,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-10-25 17:29:05 CEST (pvr)_
+ _Latest Changes: 2024-11-01 07:45:03 CET (pvr)_
