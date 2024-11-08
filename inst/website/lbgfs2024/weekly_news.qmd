@@ -1,4 +1,8 @@
 # Week 8 
+## lbgfs2024 0.8.2
+
+* Exercise lbg_ex06
+
 ## lbgfs2024 0.8.1
 
 * Course Notes 05_gencov
@@ -229,4 +233,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-11-08 05:11:25 CET (pvr)_
+ _Latest Changes: 2024-11-08 08:09:30 CET (pvr)_
