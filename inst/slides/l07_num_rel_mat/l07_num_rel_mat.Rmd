@@ -1,0 +1,217 @@
+---
+title: "Numerator Relationship Matrix"
+author: "Peter von Rohr"
+date: "2024-11-08"
+output:
+  beamer_presentation:
+header-includes:
+ \usepackage{longtable}
+ \usepackage{float}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis", message = FALSE, warning = FALSE)
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## Similarity Between Individuals {#similaritybetweenindividuals}
+At the genetic level there are two different kinds of similarity
+
+1. Identity by descent (IBD)
+2. Identity by state
+
+
+## IBD versus IBS
+
+```{r ibdvsibs, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", fig.align='center', out.width='10cm'}
+#rmdhelp::use_odg_graphic(ps_path = "odg/ibdvsibs.odg")
+knitr::include_graphics(path = "odg/ibdvsibs.png")
+```
+
+
+## Numerator Relationship Matrix
+* probability of IBD alleles in two individuals: __coancestry__ or __coefficient of kinship__
+* additive genetic relationship between two individuals is twice their coancestry
+* matrix containing all additive genetic relationships in a population is called __numerator relationship matrix__ ($A$)
+* $A$ is symmetric and contains on 
+    + diagonal: $(A)_{ii} = (1 + F_i)$
+    + off-diagonal: $(A)_{ij} = cov(u_i, u_j) / \sigma_u^2$ (with $i \ne j$)
+ 
+
+## Recursive Computation of $A$
+
+* If both parents $s$ and $d$ of animal $i$ are known then 
+    + the diagonal element $(A)_{ii}$ corresponds to:  $(A)_{ii} = 1 + F_i = 1 + {1\over 2} (A)_{sd}$ and
+    + the offdiagonal element $(A)_{ji}$ is computed as:  $(A)_{ji} = {1\over 2} ((A)_{js} + (A)_{jd})$
+    + because $A$ is symmetric $(A)_{ji} = (A)_{ij}$
+    
+* If only one parent $s$ is known and assumed unrelated to the mate
+    + $(A)_{ii} = 1$
+    + $(A)_{ij} = (A)_{ji} = {1\over 2} ((A)_{js}$
+    
+* If both parents are unknown    
+    + $(A)_{ii} = 1$
+    + $(A)_{ij} = (A)_{ji} = 0$
+
+
+## Example
+
+```{r pedexamplegraph, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", fig.align='center', out.width='10cm'}
+#rmdhelp::use_odg_graphic(ps_path = "odg/pedexamplegraph.odg")
+knitr::include_graphics(path = "odg/pedexamplegraph.png")
+```
+
+
+## Tabular Representation of Pedigree
+```{r pedexamplesetup, echo=FALSE, results='hide'}
+suppressPackageStartupMessages( library(pedigreemm) )
+n_nr_ani_ped <- 6
+n_nr_parent <- 2
+tbl_ped <- tibble::tibble(Calf = c((n_nr_parent+1):n_nr_ani_ped),
+                             Sire = c(1, 1, 4, 5),
+                             Dam  = c(2, NA, 3, 2))
+ped <- pedigree(sire = c(rep(NA, n_nr_parent), tbl_ped$Sire), dam = c(rep(NA, n_nr_parent), tbl_ped$Dam), label = as.character(1:n_nr_ani_ped))
+matA <- as.matrix(getA(ped = ped))
+matAinv <- as.matrix(getAInv(ped = ped))
+ped
+```
+
+
+```{r tabpedexample, echo=FALSE}
+knitr::kable(tbl_ped,
+             booktabs = TRUE,
+             longtable = TRUE,
+             caption = "Example Pedigree To Compute Additive Genetic Relationship Matrix")
+``` 
+
+
+## Stepwise Computation of $A$
+
+* Start by extending pedigree with animals that do not have parents
+* Order animals, such that parents before progeny
+
+```{r tabpedextended, echo=FALSE, results='asis'}
+tbl_ped_extended <- tibble::tibble(Animal = c(1:n_nr_ani_ped),
+                                      Sire = c(NA, NA, 1, 1, 4, 5),
+                                      Dam  = c(NA, NA, 2, NA, 3, 2))
+
+knitr::kable(tbl_ped_extended,
+             booktabs = TRUE,
+             longtable = TRUE)
+``` 
+
+
+## Initialize With Empty Matrix $A$
+
+* Dimensions of $A$: number of rows and number of columns equal to the number of animals
+* Our example: $`r n_nr_ani_ped` \times `r n_nr_ani_ped`$
+
+```{r mataempty, echo=FALSE, results='asis'}
+matA_empty <- matrix(NA, nrow = n_nr_ani_ped, ncol = n_nr_ani_ped)
+### # display
+cat("$$\n")
+cat("A = \\left[")
+cat(paste(rmdhelp::sConvertMatrixToLaTexArray(pmatAMatrix = matA_empty), collapse = "\n"), "\n")
+cat("\\right]\n")
+cat("$$\n")
+```
+
+
+## First Diagonal Element
+
+* Compute first element $(A)_{11} = 1 + F_1$
+* Animal $1$ has both parents unknown $\rightarrow$ $F_1 = 0$
+
+```{r mata11, echo=FALSE, results='asis'}
+matA_empty[1,1] <- matA[1,1]
+### # display
+cat("$$\n")
+cat("A = \\left[")
+cat(paste(rmdhelp::sConvertMatrixToLaTexArray(pmatAMatrix = matA_empty), collapse = "\n"), "\n")
+cat("\\right]\n")
+cat("$$\n")
+```
+
+
+## Off-diagonal Elements
+
+* Assume animal $i$ has parents $s$ and $d$
+* $(A)_{ji} = {1\over 2} ((A)_{js} + (A)_{jd})$
+
+
+## First Row of $A$
+
+```{r matarow1, echo=FALSE, results='asis'}
+matA_empty[1,] <- matA[1,]
+### # display
+cat("$$\n")
+cat("A = \\left[")
+cat(paste(rmdhelp::sConvertMatrixToLaTexArray(pmatAMatrix = matA_empty), collapse = "\n"), "\n")
+cat("\\right]\n")
+cat("$$\n")
+```
+
+
+## Use Symmetry of $A$
+
+* Copy first row into first column
+
+```{r matacol1, echo=FALSE, results='asis'}
+matA_empty[,1] <- matA[,1]
+### # display
+cat("$$\n")
+cat("A = \\left[")
+cat(paste(rmdhelp::sConvertMatrixToLaTexArray(pmatAMatrix = matA_empty), collapse = "\n"), "\n")
+cat("\\right]\n")
+cat("$$\n")
+```
+
+
+## Remaining Elements of $A$
+
+* Continue with rows and columns $2$ to $`r n_nr_ani_ped`$ using the same recipe
+
+
+## Final Result
+
+```{r matafinalresult, echo=FALSE, results='asis'}
+### # display
+cat("$$\n")
+cat("A = \\left[")
+cat(paste(rmdhelp::sConvertMatrixToLaTexArray(pmatAMatrix = matA, pnDigits = 4), collapse = "\n"), "\n")
+cat("\\right]\n")
+cat("$$\n")
+```
+
+
+## The Inverse Numerator Relationship Matrix {#inversenumeratorrelationshipmatrix}
+
+* Recap: Henderson's mixed model equations depend on four matrices
+
+1. Design matrix $X$ for the fixed effects
+2. Design matrix $Z$ for the random effects
+3. The inverse variance-covariance matrix $R^{-1}$ for the residuals $e$ and
+4. The inverse variance-covariance matrix $G^{-1}$ for the random breeding values $a$. 
+
+
+## Animal Model
+
+* Breeding values of all individuals as random effects
+* Variance-Covariance matrix $G$ corresponds to variance-covariance matrix of breeding values
+
+$$G = A * \sigma_u^2$$
+
+* We need: $G^{-1}$
+
+$$G^{-1} = A^{-1} * {1\over \sigma_u^2}$$
+
+
+## Need For Efficient Computation of $A{-1}$
+
+* In practical livestock breeding evaluations $A$ is very large
+* Dimensions of $A$ can be $10^7 \times 10^7$
+* Explicit general inversion not possible
+* Special structure of $A^{-1}$ leads to efficient computation
+
+
+
