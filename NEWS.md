@@ -1,3 +1,7 @@
+# lbgfs2024 0.8.3
+
+* Slides l07_num_rel_mat
+
 # lbgfs2024 0.8.2
 
 * Exercise lbg_ex06
