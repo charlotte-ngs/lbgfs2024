@@ -1,3 +1,7 @@
+# lbgfs2024 0.8.2
+
+* Exercise lbg_ex06
+
 # lbgfs2024 0.8.1
 
 * Course Notes 05_gencov
