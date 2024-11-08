@@ -1,4 +1,8 @@
 # Week 8 
+## lbgfs2024 0.8.1
+
+* Course Notes 05_gencov
+
 ## lbgfs2024 0.8.0
 
 * OHP-L05
@@ -225,4 +229,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-11-01 17:41:05 CET (pvr)_
+ _Latest Changes: 2024-11-08 05:11:25 CET (pvr)_
