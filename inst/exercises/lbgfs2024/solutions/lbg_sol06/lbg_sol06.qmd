@@ -1,0 +1,202 @@
+---
+title: "LBG - FS2024 -- Solution 6"
+author: "Peter von Rohr"
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - tibble
+    - readr
+    - dplyr
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Numerator Relationship Matrix
+The following pedigree is given
+
+```{webr}
+#| message: false
+#| warning: false 
+#| edit: false
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+tbl_pedigree <- readr::read_delim(file = s_ped_data, 
+                                  col_types = readr::cols(Calf = readr::col_integer(),
+                                                          Sire = readr::col_integer(),
+                                                          Dam = readr::col_integer()))
+knitr::kable(tbl_pedigree, booktabs = TRUE, longtable = TRUE)
+```
+
+The pedigree can be read from the file:
+
+```{webr}
+#| echo: false
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+cat(s_ped_data, "\n")
+```
+
+
+Compute the numerator relationship matrix $A$ for the given pedigree. Recall from the course notes that elements of matrix $A$ are computed differently for elements on the diagonal and for off-diagonal elements. In summary, we compute
+
+* diagonal element $(A)_{ii}$ as $(A)_{ii} = 1+F_i$ where $F_i = 0.5 * (A)_{sd}$ where $s$ and $d$ are parents of $i$. 
+* off-diagonal element $(A)_{ki}$ as $(A)_{ki} = 0.5 * \left[(A)_{ks} + (A)_{kd}\right]$ where $s$ and $d$ are parents of $i$
+
+
+### Task
+Use two nested loops over the rows and the columns of matrix $A$ to compute all the elements of matrix $A$ using the formulas given above. You can use the following steps to get to the solution
+
+* Read the pedigree from the given file
+* Add parents that do not appear as animals to the column of animals
+* Create an empty square matrix $A$ with as many rows and columns as we have animals in the pedigree.
+* Use the above formula to compute the diagonal element of the first row
+* Create a first loop to compute all the off-diagonal elements of the first row
+* Create a loop to repeat the computations over all rows.
+
+
+### Solution
+Pedigree is read from the given file
+
+```{webr}
+#| message: false
+#| warning: false
+# read pedigree
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+tbl_ped <- readr::read_delim(file = s_ped_data, 
+                             delim = ";",
+                             col_types = readr::cols(
+                               Calf = readr::col_integer(),
+                               Sire = readr::col_integer(),
+                               Dam  = readr::col_integer()
+                             ))
+tbl_ped
+```
+
+Find animals that appear only as parents, start with sires
+
+```{webr}
+# find founder sires
+(vec_founder_sire <- setdiff(tbl_ped$Sire, tbl_ped$Calf))
+```
+
+The same for the dams
+
+```{webr}
+# find founder dams
+(vec_founder_dam <- setdiff(tbl_ped$Dam, tbl_ped$Calf))
+```
+
+Combining them into one vector and sorting them 
+
+```{webr}
+# combine founders of both sexes
+vec_founder <- c(vec_founder_sire, vec_founder_dam)
+vec_founder <- vec_founder[order(vec_founder)]
+vec_founder
+```
+
+Add pedigree records for founder animals at the top of the pedigree
+
+```{webr}
+# extend pedigree with founder records
+n_nr_founder <- length(vec_founder)
+tbl_ped_rec_founder <- tibble::tibble(Calf = vec_founder, 
+                                      Sire = rep(NA, n_nr_founder),
+                                      Dam  = rep(NA, n_nr_founder))
+tbl_ext_ped <- dplyr::bind_rows(tbl_ped_rec_founder, tbl_ped)
+tbl_ext_ped
+```
+
+An empty matrix $A$ is initialized
+
+```{webr}
+# start with empty matrix A
+n_ani_ped <- nrow(tbl_ext_ped)
+mat_A <- matrix(nrow = n_ani_ped, ncol = n_ani_ped)
+mat_A
+```
+
+Start with the diagonal elemenent for animal 1
+
+```{webr}
+# diagonal for animal 1
+i <- 1
+s <- tbl_ext_ped$Sire[i]
+d <- tbl_ext_ped$Dam[i]
+Fi <- ifelse(is.na(s) || is.na(d), 0, 0.5*mat_A[s,d])
+mat_A[1,1] <- 1 + Fi
+mat_A
+```
+
+Offdiagonal elements belonging to animal 1
+
+```{webr}
+# offdiagonals in first row and first column
+i <- 1
+for (col_idx in 2:n_ani_ped){
+  u <- tbl_ext_ped$Sire[col_idx]
+  mat_elem_u <- ifelse(is.na(u), 0, mat_A[i,u])
+  v <- tbl_ext_ped$Dam[col_idx]
+  mat_elem_v <- ifelse(is.na(v), 0, mat_A[i,v])
+  mat_A[i,col_idx] <- 0.5 * (mat_elem_u + mat_elem_v)
+  mat_A[col_idx,i] <- mat_A[i,col_idx]
+}
+mat_A
+```
+
+The above two steps can be extended to all rows
+
+```{webr}
+# extension to all animals
+for (row_idx in 1:n_ani_ped){
+  # diagonal element
+  s <- tbl_ext_ped$Sire[row_idx]
+  d <- tbl_ext_ped$Dam[row_idx]
+  Fi <- ifelse(is.na(s) || is.na(d), 0, 0.5*mat_A[s,d])
+  mat_A[row_idx,row_idx] <- 1 + Fi
+
+  # off-diagonal
+  if (row_idx < n_ani_ped){
+    for (col_idx in (row_idx+1):n_ani_ped){
+      u <- tbl_ext_ped$Sire[col_idx]
+      mat_elem_u <- ifelse(is.na(u), 0, mat_A[row_idx,u])
+      v <- tbl_ext_ped$Dam[col_idx]
+      mat_elem_v <- ifelse(is.na(v), 0, mat_A[row_idx,v])
+      mat_A[row_idx,col_idx] <- 0.5 * (mat_elem_u + mat_elem_v)
+      mat_A[col_idx,row_idx] <- mat_A[row_idx,col_idx]
+    }
+  }
+}
+mat_A
+```
+
+
+## Problem 2: Verification
+Use the function `pedigreemm::getA()` from package `pedigreemm` to verify your result from problem 1.
+
+
+### Solution
+The pedigree is defined by
+
+```{webr}
+# define pedigree in pedigreemm based on extended version of pedigree
+ped <- pedigreemm::pedigree(sire = tbl_ext_ped$Sire,
+                            dam = tbl_ext_ped$Dam,
+                            label = as.character(tbl_ext_ped$Calf))
+ped
+```
+
+The numerator relationship matrix is computed by
+
+```{webr}
+#| message: false
+#| warning: false
+mat_num_relmat <- pedigreemm::getA(ped = ped)
+mat_num_relmat
+```
+
+Check whether matrices are identical
+
+```{webr}
+mat_A - as.matrix(mat_num_relmat)
+```
