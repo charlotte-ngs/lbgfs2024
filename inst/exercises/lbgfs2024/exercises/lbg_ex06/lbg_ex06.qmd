@@ -1,0 +1,150 @@
+---
+title: "LBG - FS2024 -- Exercise 6"
+author: "Peter von Rohr"
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - tibble
+    - readr
+    - dplyr
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Numerator Relationship Matrix
+The following pedigree is given
+
+```{webr}
+#| message: false
+#| warning: false 
+#| edit: false
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+tbl_pedigree <- readr::read_delim(file = s_ped_data, 
+                                  col_types = readr::cols(Calf = readr::col_integer(),
+                                                          Sire = readr::col_integer(),
+                                                          Dam = readr::col_integer()))
+knitr::kable(tbl_pedigree, booktabs = TRUE, longtable = TRUE)
+```
+
+The pedigree can be read from the file:
+
+```{webr}
+#| echo: false
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+cat(s_ped_data, "\n")
+```
+
+
+Compute the numerator relationship matrix $A$ for the given pedigree. Recall from the course notes that elements of matrix $A$ are computed differently for elements on the diagonal and for off-diagonal elements. In summary, we compute
+
+* diagonal element $(A)_{ii}$ as $(A)_{ii} = 1+F_i$ where $F_i = 0.5 * (A)_{sd}$ where $s$ and $d$ are parents of $i$. 
+* off-diagonal element $(A)_{ki}$ as $(A)_{ki} = 0.5 * \left[(A)_{ks} + (A)_{kd}\right]$ where $s$ and $d$ are parents of $i$
+
+
+### Task
+Use two nested loops over the rows and the columns of matrix $A$ to compute all the elements of matrix $A$ using the formulas given above. You can use the following steps to get to the solution
+
+* Read the pedigree from the given file
+* Add parents that do not appear as animals to the column of animals
+* Create an empty square matrix $A$ with as many rows and columns as we have animals in the pedigree.
+* Use the above formula to compute the diagonal element of the first row
+* Create a first loop to compute all the off-diagonal elements of the first row
+* Create a loop to repeat the computations over all rows.
+
+
+### Solution
+Pedigree is read from the given file
+
+```{webr}
+#| message: false
+#| warning: false
+# read pedigree
+
+```
+
+Find animals that appear only as parents, start with sires
+
+```{webr}
+# find founder sires
+
+```
+
+The same for the dams
+
+```{webr}
+# find founder dams
+
+```
+
+Combining them into one vector and sorting them 
+
+```{webr}
+# combine founders of both sexes
+
+```
+
+Add pedigree records for founder animals at the top of the pedigree
+
+```{webr}
+# extend pedigree with founder records
+
+```
+
+An empty matrix $A$ is initialized
+
+```{webr}
+# start with empty matrix A
+
+```
+
+Start with the diagonal elemenent for animal 1
+
+```{webr}
+# diagonal for animal 1
+
+```
+
+Offdiagonal elements belonging to animal 1
+
+```{webr}
+# offdiagonals in first row and first column
+
+```
+
+The above two steps can be extended to all rows
+
+```{webr}
+# extension to all animals
+
+```
+
+
+## Problem 2: Verification
+Use the function `pedigreemm::getA()` from package `pedigreemm` to verify your result from problem 1.
+
+
+### Solution
+The pedigree is defined by
+
+```{webr}
+# define pedigree in pedigreemm based on extended version of pedigree
+
+```
+
+The numerator relationship matrix is computed by
+
+```{webr}
+#| message: false
+#| warning: false
+# compute numerator relationship matrix
+
+```
+
+Check whether matrices are identical
+
+```{webr}
+# check whether matrices are the same
+
+```
