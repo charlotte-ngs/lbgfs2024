@@ -55,10 +55,10 @@ REAL_EVALROOT=$(dirname $REAL_EVALREPO)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -c <cn_table_dat> -d <deploy_date> -h -l <link_title>"
+  echo "Usage:   $SCRIPT -c <data_table_dat> -d <deploy_date> -h -l <link_title>"
   echo '                 -s <cn_source_path> -t <deploy_target_path> -z'
   echo '  where '
-  echo '        -c <cn_table_dat>    --  (optional) alternative path to course notes data table file ...'
+  echo '        -c <data_table_dat>  --  (optional) alternative path to course notes data table file ...'
   echo '                                            > default: $EVALREPO/inst/website/lbgfs2024/course_notes/course_notes.dat ...'
   echo '        -d <deploy_date>     --  (optional) alternative deploy date ...'
   echo '                                            > default: $(date +"%Y-%m-%d") ...'
@@ -111,10 +111,10 @@ write_data_table_entry () {
   local l_TBL_ENTRY="${DEPLOY_DATE};${LINK_TITLE};$(basename $TRG_PATH)"
   if [[ $VERBOSE == 'true' ]];then log_msg write_data_table_entry " * Cn table entry: $l_TBL_ENTRY ...";fi
   # check whether entry exists
-  if [[ $(grep "$l_TBL_ENTRY" $CN_TABLE_DAT | wc -l ) -eq 0 ]];then
-    echo "$l_TBL_ENTRY" >> $CN_TABLE_DAT
+  if [[ $(grep "$l_TBL_ENTRY" $DATA_TABLE_DAT | wc -l ) -eq 0 ]];then
+    echo "$l_TBL_ENTRY" >> $DATA_TABLE_DAT
   else
-    log_msg write_data_table_entry " * FOUND $l_TBL_ENTRY in $CN_TABLE_DAT ..."
+    log_msg write_data_table_entry " * FOUND $l_TBL_ENTRY in $DATA_TABLE_DAT ..."
   fi
 }
 
