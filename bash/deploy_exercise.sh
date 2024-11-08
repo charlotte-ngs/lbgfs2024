@@ -116,7 +116,7 @@ clean_up_exc_material () {
   local l_QMD_TRG=$TRG_DPL_DIR/$l_EXC_NAME/${l_EXC_NAME}.qmd
   for f in $l_EXC_FILES_DIR $l_EXC_HTML $l_QMD_TRG;do
     if [[ $VERBOSE == 'true' ]];then log_msg clean_up_exc_material " * Clean up for $f ...";fi
-    if [[ -d $f ]] || [[ -f $f]];then
+    if [[ -d $f ]] || [[ -f $f ]];then
       if [[ $VERBOSE == 'true' ]];then log_msg clean_up_exc_material " * Remove $f ...";fi
       rm -rf $f
     fi
