@@ -1,0 +1,146 @@
+---
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+```{bash}
+#| echo: false
+#| eval: false
+# bash - export as jpeg
+ls -1 "/Users/${USER}/ngs.charlotte@gmail.com - Google Drive/My Drive/Vorlesung/LBG/FS2024/OHP-L06"/* | while read p
+do
+  CURPICFN=$(basename "$p")
+  echo " * Copy $p ..."
+  cp "$p" ~/Desktop
+  echo " * Convert ~/Desktop/$CURPICFN ..."
+  mogrify -resize 30% -format jpg ~/Desktop/$CURPICFN
+  echo " * Remove ~/Desktop/$CURPICFN ..."
+  rm ~/Desktop/$CURPICFN
+  sleep 2
+done
+# ### move back the generated pdf to Google Drive
+# mv inst/ohp/20241108_ohp_l06/20241108_ohp_l06.pdf "/Users/${USER}/ngs.charlotte@gmail.com - Google Drive/My Drive/Vorlesung/LBG/FS2024/OHP-L06"
+# ### odg to .gitignore
+# echo inst/ohp/20241108_ohp_l06/odg >> .gitignore
+# ### add entry to ohp data table
+# echo "2024-11-08;Numerator Relationship Matrix;https://drive.google.com/file/d/1-NGBgxac6_x_qTvE7f0YyeIM9H4DIs-w/view?usp=sharing" >> inst/website/lbgfs2024/ohp/ohp.dat
+```
+
+```{r, echo=FALSE, eval=FALSE}
+#| echo: false
+#| eval: false
+# include jpg into this rmd
+this_rmd_file <- ifelse(rstudioapi::isAvailable(),
+                        rstudioapi::getActiveDocumentContext()$path,
+                        whereami::thisfile())
+
+
+vec_pics <- list.files(path = "~/Desktop", pattern = ".jpg$")
+#vec_pics <- vec_pics[c(1:6, 10:11, 7:9)]
+for (pidx in seq_along(vec_pics)){
+   cur_pic <- vec_pics[pidx]
+   cur_pic_nr <- as.integer(unlist(strsplit(fs::path_ext_remove(cur_pic), "_"))[2])
+  cat("\n## OHP Picture ", pidx, "\n\n", sep = "", file = this_rmd_file, append = TRUE)
+  cat("```{r ohp-picture", cur_pic_nr, "}\n", sep = "", file = this_rmd_file, append = TRUE)
+  # cat("```{r}\n", sep = "", file = this_rmd_file, append = TRUE)
+  # cat("#| label: ohp-picture", cur_pic_nr, "\n", sep = "", file = this_rmd_file, append = TRUE)
+  cat("rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page", cur_pic_nr, ".odg', ps_odg_template = 'odg_draw_a4_portrait')\n", sep = "", file = this_rmd_file, append = TRUE)
+  cat("if (fs::file_exists('~/Desktop/", cur_pic, "')) fs::file_delete(path = '~/Desktop/", cur_pic, "')\n", sep = "", file = this_rmd_file, append = TRUE)
+  cat("```\n\n", file = this_rmd_file, append = TRUE)
+}
+```
+
+
+## OHP Picture 1
+
+```{r ohp-page4398, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4398.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4398.png")
+if (fs::file_exists('~/Desktop/IMG_4398.jpg')) fs::file_delete(path = '~/Desktop/IMG_4398.jpg')
+```
+
+
+## OHP Picture 2
+
+```{r ohp-page4399, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4399.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4399.png")
+if (fs::file_exists('~/Desktop/IMG_4399.jpg')) fs::file_delete(path = '~/Desktop/IMG_4399.jpg')
+```
+
+
+## OHP Picture 3
+
+```{r ohp-page4400, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4400.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4400.png")
+if (fs::file_exists('~/Desktop/IMG_4400.jpg')) fs::file_delete(path = '~/Desktop/IMG_4400.jpg')
+```
+
+
+## OHP Picture 4
+
+```{r ohp-page4405, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4405.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4405.png")
+if (fs::file_exists('~/Desktop/IMG_4405.jpg')) fs::file_delete(path = '~/Desktop/IMG_4405.jpg')
+```
+
+
+## OHP Picture 5
+
+```{r ohp-page4406, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4406.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4406.png")
+if (fs::file_exists('~/Desktop/IMG_4406.jpg')) fs::file_delete(path = '~/Desktop/IMG_4406.jpg')
+```
+
+
+## OHP Picture 6
+
+```{r ohp-page4407, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4407.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4407.png")
+if (fs::file_exists('~/Desktop/IMG_4407.jpg')) fs::file_delete(path = '~/Desktop/IMG_4407.jpg')
+```
+
+
+## OHP Picture 7
+
+```{r ohp-page4408, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4408.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4408.png")
+if (fs::file_exists('~/Desktop/IMG_4408.jpg')) fs::file_delete(path = '~/Desktop/IMG_4408.jpg')
+```
+
+
+## OHP Picture 8
+
+```{r ohp-page4409, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4409.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4409.png")
+if (fs::file_exists('~/Desktop/IMG_4409.jpg')) fs::file_delete(path = '~/Desktop/IMG_4409.jpg')
+```
+
+
+## OHP Picture 9
+
+```{r ohp-page4410, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4410.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4410.png")
+if (fs::file_exists('~/Desktop/IMG_4410.jpg')) fs::file_delete(path = '~/Desktop/IMG_4410.jpg')
+```
+
+
+## OHP Picture 10
+
+```{r ohp-page4411, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = 'odg/ohp-page4411.odg', ps_odg_template = 'odg_draw_a4_portrait')
+knitr::include_graphics(path = "odg/ohp-page4411.png")
+if (fs::file_exists('~/Desktop/IMG_4411.jpg')) fs::file_delete(path = '~/Desktop/IMG_4411.jpg')
+```
+          
