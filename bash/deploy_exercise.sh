@@ -55,18 +55,19 @@ REAL_EVALROOT=$(dirname $REAL_EVALREPO)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -c <cn_table_dat> -d <deploy_date> -h -l <link_title>"
-  echo '                 -s <source_exercise_dir> -t <deployment_target_dir> -z'
+  echo "Usage:   $SCRIPT -d <deploy_date> -e <exercise_name> -h -l <link_title>"
+  echo '                 -s <source_exercise_dir> -t <deployment_target_dir> -w <data_table_path> -z'
   echo '  where '
-  echo '        -c <data_table_dat>         --  (optional) alternative path to data table file ...'
-  echo '                                                   > default: $EVALREPO/inst/website/lbgfs2024/exercises/exercises.dat ...'
   echo '        -d <deploy_date>            --  (optional) alternative deploy date ...'
   echo '                                                   > default: $(date +"%Y-%m-%d") ...'
+  echo '        -e <exercise_name>          --             exercise name ...'
   echo '        -h                          --  (optional) show usage message ...'
   echo '        -l <link_title>             --             link name ...'
   echo '        -s <source_exercise_dir>    --             source directory from where exercise is to be deployed ...'
   echo '        -t <deployment_target_dir>  --  (optional) target deployment directory ...'
   echo '                                                   > default: docs/exercise ...'
+  echo '        -w <data_table_path>        --  (optional) alternative path to data table file ...'
+  echo '                                                   > default: $EVALREPO/inst/website/lbgfs2024/exercises/exercises.dat ...'
   echo '        -z                          --  (optional) produce verbose output'
   echo '                                                   > default: false'
   echo 
@@ -145,22 +146,23 @@ write_data_table_entry () {
 #' Notice there is no ":" after "h". The leading ":" suppresses error messages from
 #' getopts. This is required to get my unrecognized option code to work.
 #+ getopts-parsing, eval=FALSE
+EXC_NAME=''
 SRC_EXC_DIR=''
 TRG_DPL_DIR=''
 DEPLOY_DATE=''
 LINK_TITLE=''
-DATA_TABLE_DAT=''
+DATA_TABLE_PATH=''
 VERBOSE='false'
-while getopts ":c:d:hl:s:t:z" FLAG; do
+while getopts ":d:e:hl:s:t:w:z" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
       ;;
-    c)
-      DATA_TABLE_DAT=$OPTARG
-      ;;
     d)
       DEPLOY_DATE=$OPTARG
+      ;;
+    e)
+      EXC_NAME=$OPTARG
       ;;
     l)
       LINK_TITLE=$OPTARG
@@ -174,6 +176,9 @@ while getopts ":c:d:hl:s:t:z" FLAG; do
       ;;
     t)
       TRG_DPL_DIR=$OPTARG
+      ;;
+    w)
+      DATA_TABLE_PATH=$OPTARG
       ;;
     z)
       VERBOSE='true'
@@ -219,8 +224,8 @@ fi
 if [[ $DEPLOY_DATE == '' ]];then
   DEPLOY_DATE=$(date +"%Y-%m-%d")
 fi
-if [[ $DATA_TABLE_DAT == '' ]];then
-  DATA_TABLE_DAT=$EVALREPO/inst/website/lbgfs2024/exercises/exercises.dat
+if [[ $DATA_TABLE_PATH == '' ]];then
+  DATA_TABLE_PATH=$EVALREPO/inst/website/lbgfs2024/exercises/exercises.dat
 fi
 if [[ $VERBOSE == 'true' ]];then
   log_msg $SCRIPT " * Check args and defaults ..."
@@ -228,7 +233,7 @@ if [[ $VERBOSE == 'true' ]];then
   log_msg $SCRIPT " * ==>  TRG_DPL_DIR:     $TRG_DPL_DIR ..."
   log_msg $SCRIPT " * ==>  LINK_TITLE:      $LINK_TITLE ..."
   log_msg $SCRIPT " * ==>  DEPLOY_DATE:     $DEPLOY_DATE ..."
-  log_msg $SCRIPT " * ==>  DATA_TABLE_DAT:  $DATA_TABLE_DAT ..."
+  log_msg $SCRIPT " * ==>  DATA_TABLE_PATH:  $DATA_TABLE_PATH ..."
 fi
 
 
