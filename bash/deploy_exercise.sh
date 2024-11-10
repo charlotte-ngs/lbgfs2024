@@ -55,7 +55,7 @@ REAL_EVALROOT=$(dirname $REAL_EVALREPO)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -d <deploy_date> -e <exercise_name> -h -l <link_title>"
+  echo "Usage:   $SCRIPT -d <deploy_date> -e <exercise_name> -h -l <link_title> -q <quarto_yml>"
   echo '                 -s <source_exercise_dir> -t <deployment_target_dir> -w <data_table_path> -z'
   echo '  where '
   echo '        -d <deploy_date>            --  (optional) alternative deploy date ...'
@@ -63,6 +63,8 @@ usage () {
   echo '        -e <exercise_name>          --             exercise name ...'
   echo '        -h                          --  (optional) show usage message ...'
   echo '        -l <link_title>             --             link name ...'
+  echo '        -q <quarto_yml>             --  (optional) quarto yml parameter file ...'
+  echo '                                                   > default: _quarto.yml ...'
   echo '        -s <source_exercise_dir>    --             source directory from where exercise is to be deployed ...'
   echo '        -t <deployment_target_dir>  --  (optional) target deployment directory ...'
   echo '                                                   > default: docs/exercise ...'
@@ -111,10 +113,9 @@ log_msg () {
 #' can be deleted
 #+ clean-up-exc-material-fun
 clean_up_exc_material () {
-  local l_EXC_NAME=$(basename $SRC_EXC_DIR)
-  local l_EXC_FILES_DIR=$SRC_EXC_DIR/${l_EXC_NAME}_files
-  local l_EXC_HTML=$SRC_EXC_DIR/${l_EXC_NAME}.html
-  local l_QMD_TRG=$TRG_DPL_DIR/$l_EXC_NAME/${l_EXC_NAME}.qmd
+  local l_EXC_FILES_DIR=$SRC_EXC_DIR/${EXC_NAME}_files
+  local l_EXC_HTML=$SRC_EXC_DIR/${EXC_NAME}.html
+  local l_QMD_TRG=$TRG_DPL_DIR/$EXC_NAME/${EXC_NAME}.qmd
   for f in $l_EXC_FILES_DIR $l_EXC_HTML $l_QMD_TRG;do
     if [[ $VERBOSE == 'true' ]];then log_msg clean_up_exc_material " * Clean up for $f ...";fi
     if [[ -d $f ]] || [[ -f $f ]];then
@@ -129,14 +130,13 @@ clean_up_exc_material () {
 #' Data table entry which defines list of topics in website
 #+ write-data-table-entry-fun
 write_data_table_entry () {
-  local l_EXC_NAME=$(basename $SRC_EXC_DIR)
-  local l_TBL_ENTRY="${DEPLOY_DATE};${LINK_TITLE};$l_EXC_NAME"
+  local l_TBL_ENTRY="${DEPLOY_DATE};${LINK_TITLE};$EXC_NAME"
   if [[ $VERBOSE == 'true' ]];then log_msg write_data_table_entry " * Cn table entry: $l_TBL_ENTRY ...";fi
   # check whether entry exists
-  if [[ $(grep "$l_TBL_ENTRY" $DATA_TABLE_DAT | wc -l ) -eq 0 ]];then
-    echo "$l_TBL_ENTRY" >> $DATA_TABLE_DAT
+  if [[ $(grep "$l_TBL_ENTRY" $DATA_TABLE_PATH | wc -l ) -eq 0 ]];then
+    echo "$l_TBL_ENTRY" >> $DATA_TABLE_PATH
   else
-    log_msg write_data_table_entry " * FOUND $l_TBL_ENTRY in $DATA_TABLE_DAT ..."
+    log_msg write_data_table_entry " * FOUND $l_TBL_ENTRY in $DATA_TABLE_PATH ..."
   fi
 }
 
@@ -152,8 +152,9 @@ TRG_DPL_DIR=''
 DEPLOY_DATE=''
 LINK_TITLE=''
 DATA_TABLE_PATH=''
+QYMLPAR=''
 VERBOSE='false'
-while getopts ":d:e:hl:s:t:w:z" FLAG; do
+while getopts ":d:e:hl:q:s:t:w:z" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
@@ -166,6 +167,13 @@ while getopts ":d:e:hl:s:t:w:z" FLAG; do
       ;;
     l)
       LINK_TITLE=$OPTARG
+      ;;
+    q)
+      if [[ -f $OPTARG ]];then
+        QYMLPAR=$OPTARG
+      else
+        usage " *** ERROR: CANNOT FIND quarto-yml par at: $OPTARG ..."
+      fi
       ;;
     s)
       if [[ -d $OPTARG ]];then
@@ -208,7 +216,13 @@ start_msg
 #+ argument-test, eval=FALSE
 log_msg $SCRIPT " * Check arguments and set defaults ..."
 if [[ $SRC_EXC_DIR == '' ]];then
-  usage " *** ERROR: -s <source_exercise_dir> required but not defined ..."
+  if [[ $EXC_NAME == '' ]];then
+    usage " *** ERROR: -s <source_exercise_dir> or -e <exercise_name> required but not defined ..."
+  else
+    SRC_EXC_DIR=$EVALREPO/inst/exercises/lbgfs2024/exercises/$EXC_NAME
+  fi
+else
+  EXC_NAME=$(basename $SRC_EXC_DIR)
 fi
 if [[ $LINK_TITLE == '' ]];then
   usage " *** ERROR: -l <link_title> required, but not defined ..."
@@ -227,14 +241,25 @@ fi
 if [[ $DATA_TABLE_PATH == '' ]];then
   DATA_TABLE_PATH=$EVALREPO/inst/website/lbgfs2024/exercises/exercises.dat
 fi
+if [[ $QYMLPAR == '' ]];then
+  QYMLPAR=$EVALREPO/inst/exercises/lbgfs2024/_quarto.yml
+fi
 if [[ $VERBOSE == 'true' ]];then
   log_msg $SCRIPT " * Check args and defaults ..."
-  log_msg $SCRIPT " * ==>  SRC_EXC_DIR:     $SRC_EXC_DIR ..."
-  log_msg $SCRIPT " * ==>  TRG_DPL_DIR:     $TRG_DPL_DIR ..."
-  log_msg $SCRIPT " * ==>  LINK_TITLE:      $LINK_TITLE ..."
-  log_msg $SCRIPT " * ==>  DEPLOY_DATE:     $DEPLOY_DATE ..."
+  log_msg $SCRIPT " * ==>  SRC_EXC_DIR:      $SRC_EXC_DIR ..."
+  log_msg $SCRIPT " * ==>  EXC_NAME:         $EXC_NAME ..."
+  log_msg $SCRIPT " * ==>  TRG_DPL_DIR:      $TRG_DPL_DIR ..."
+  log_msg $SCRIPT " * ==>  LINK_TITLE:       $LINK_TITLE ..."
+  log_msg $SCRIPT " * ==>  DEPLOY_DATE:      $DEPLOY_DATE ..."
   log_msg $SCRIPT " * ==>  DATA_TABLE_PATH:  $DATA_TABLE_PATH ..."
+  log_msg $SCRIPT " * ==>  QYMLPAR:          $QYMLPAR ..."
 fi
+
+
+#' ## Render and Preview
+#' Render the quarto source document and give a preview
+#+ render-preview
+quarto render $SRC_EXC_DIR/${EXC_NAME}.qmd --execute-params $QYMLPAR 
 
 
 #' ## Copy Exercise Material
