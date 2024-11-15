@@ -1,6 +1,6 @@
 ---
-title: "{{COURSE_NAME}} -- {{DOC_TYPE}} {{EX_COUNT}}"
-author: {{AUTHOR}}
+title: "{{course_name}} -- {{doc_type}} {{ex_count}}"
+author: {{author}}
 format: live-html
 engine: knitr
 webr:
