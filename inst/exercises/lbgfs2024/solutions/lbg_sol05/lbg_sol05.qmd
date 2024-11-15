@@ -26,6 +26,8 @@ $$\lambda_s = \frac{\sigma_e^2}{\sigma_s^2} = 1$$
 
 ### Solution
 
+Reading the data from the given Webaddress
+
 ```{webr}
 # read the data
 s_beef <- 'https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_bc.csv'
@@ -33,47 +35,77 @@ tbl_beef <- readr::read_delim(s_beef, delim = ",")
 ```
 
 
-* Design matrix $X$
+* Setting up the design matrix $X$
 
 ```{webr}
+# convert Herd into factor
+tbl_beef$Herd <- as.factor(tbl_beef$Herd)
 # design matrix X
-
+mat_X <- model.matrix(`Weaning Weight` ~ `Breast Circumference` + Herd, data = tbl_beef)
+mat_X
 ```
 
 * Design matrix $Z$
 
 ```{webr}
+# convert sires into factors
+tbl_beef$Sire <- as.factor(tbl_beef$Sire)
+nr_sire <- nlevels(tbl_beef$Sire)
 # design matrix Z
-
+mat_Z <- model.matrix(`Weaning Weight` ~ 0 + Sire, data = tbl_beef)
+mat_Z
 ```
 
 * Coefficient matrix of mixed model equations
 
 ```{webr}
+# lambda as given
+lambda <- 1
+# single components of coefficient matrix
+mat_xtx <- crossprod(mat_X)
+mat_xtz <- crossprod(mat_X, mat_Z)
+mat_ztx <- t(mat_xtz)
+mat_ztz_ldiag <- crossprod(mat_Z) + lambda * diag(1, nrow = nr_sire)
 # coefficient matrix
-
+mat_coef <- rbind(cbind(mat_xtx, mat_xtz), cbind(mat_ztx, mat_ztz_ldiag))
+mat_coef
 ```
 
 * Right-hand side of mixed model equations
 
 ```{webr}
+# vector of observations
+vec_y <- tbl_beef$`Weaning Weight`
 # right-hand side
-
+mat_rhs <- rbind(crossprod(mat_X, vec_y),
+                 crossprod(mat_Z, vec_y))
+mat_rhs
 ```
 
 * Solve mixed model equations
 
 ```{webr}
 # solve mme
-
+mat_sol <- solve(mat_coef, mat_rhs)
+mat_sol
 ```
 
 * Identify estimates of fixed effects and predictions of sire effects
 
 ```{webr}
+# number of fixed effects
+n_nr_fixed_eff <- ncol(mat_X)
 # fixed effects estimates
-
-# predictions of sire effects
-
+mat_sol_fix <- mat_sol[1:n_nr_fixed_eff,]
+mat_sol_fix
 ```
+
+The solutions for the random sire effects are
+
+```{webr}
+# predictions of sire effects
+mat_sol_sire <- mat_sol[(n_nr_fixed_eff+1):nrow(mat_sol),]
+mat_sol_sire
+```
+
 
