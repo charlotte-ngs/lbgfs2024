@@ -188,7 +188,6 @@ for f in $(find $QWEBPROJROOT/_site -type f -name '*.html');do
   check_exist_create_dir $TRGWEBDIR
   if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Copy $f to $TRGWEBPATH ...";fi
   cp $f $TRGWEBPATH
-  sleep 2
 done
 
 
