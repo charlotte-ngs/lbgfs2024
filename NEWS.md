@@ -1,3 +1,7 @@
+# lbgfs2024 0.9.2
+
+* Solutions lbg_06
+
 # lbgfs2024 0.9.1
 
 * Solutions lbg_05
