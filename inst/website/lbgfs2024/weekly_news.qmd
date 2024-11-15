@@ -2,6 +2,7 @@
 ## lbgfs2024 0.9.1
 
 * Solutions lbg_05
+* Solutions lbg_04
 
 ## lbgfs2024 0.9.0
 
@@ -246,4 +247,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-11-15 07:29:46 CET (pvr)_
+ _Latest Changes: 2024-11-15 07:38:19 CET (pvr)_
