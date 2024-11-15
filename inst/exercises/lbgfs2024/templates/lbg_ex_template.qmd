@@ -1,0 +1,24 @@
+---
+title: "{{COURSE_NAME}} -- {{DOC_TYPE}} {{EX_COUNT}}"
+author: {{AUTHOR}}
+format: live-html
+engine: knitr
+webr:
+  packages:
+---
+
+<!-- {{< include ../../_extensions/r-wasm/live/_knitr.qmd >}} -->
+
+## Problem 1: 
+
+
+```{webr}
+#| label: exchunk1
+
+```
+
+
+### Task
+
+
+### Solution
