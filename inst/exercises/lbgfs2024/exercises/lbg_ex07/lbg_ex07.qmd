@@ -1,13 +1,13 @@
 ---
 title: "LBG - FS2024 -- Exercise 7"
-author: "Peter von Rohr"
+author: Peter von Rohr
 format: live-html
 engine: knitr
 webr:
   packages:
-    - tibble
     - readr
     - dplyr
+    - tibble
     - pedigreemm
 ---
 
@@ -38,3 +38,52 @@ cat(s_ped_data, "\n")
 
 
 Compute the inverse numerator relationship matrix $A^{-1}$ for the given pedigree. 
+
+
+### Solution 
+
+* Read data
+
+```{webr}
+#| message: false
+#| warning: false 
+# read data
+
+```
+
+* Extend the pedigree
+
+```{webr}
+# find founder sires
+
+# find founder dams
+
+# all founders
+
+
+# extend pedigree
+
+```
+
+* Compute inverse numerator relationship matrix using the rule taken from section 5.6.4 of the course notes. The diagonal elements of matrix $D$ is taken from `pedigreemm::Dmat`
+
+```{webr}
+# get diagonals of Dinv
+
+```
+
+* Initialize matrix
+
+```{webr}
+# init A inverse
+
+```
+
+* Go through pedigree and fill in matrix
+
+```{webr}
+# fill matrix
+
+```
+
+
