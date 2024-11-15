@@ -1,0 +1,40 @@
+---
+title: "LBG - FS2024 -- Exercise 7"
+author: "Peter von Rohr"
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - tibble
+    - readr
+    - dplyr
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Inverse Numerator Relationship Matrix
+The following pedigree is given
+
+```{webr}
+#| message: false
+#| warning: false 
+#| edit: false
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+tbl_pedigree <- readr::read_delim(file = s_ped_data, 
+                                  col_types = readr::cols(Calf = readr::col_integer(),
+                                                          Sire = readr::col_integer(),
+                                                          Dam = readr::col_integer()))
+knitr::kable(tbl_pedigree, booktabs = TRUE, longtable = TRUE)
+```
+
+The pedigree can be read from the file:
+
+```{webr}
+#| echo: false
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+cat(s_ped_data, "\n")
+```
+
+
+Compute the inverse numerator relationship matrix $A^{-1}$ for the given pedigree. 
