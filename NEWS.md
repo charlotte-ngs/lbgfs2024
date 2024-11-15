@@ -1,3 +1,7 @@
+# lbgfs2024 0.9.3
+
+* Exercise lbg_ex07
+
 # lbgfs2024 0.9.2
 
 * Solutions lbg_06
