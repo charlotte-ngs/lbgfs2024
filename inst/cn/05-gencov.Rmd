@@ -395,14 +395,14 @@ The contributions to rows and columns corresponding to parents $s$ and $d$ are o
 Inbreeding coefficients can be computed using different methods. From all these methods, we are just showing the one method which was described in [`r met$add('Quaas1976')`]. This method is based on the properties of a second decomposition of the numerator relationship matrix $A$ which is called the __cholesky decomposition__. The cholesky decomposition of a matrix $A$ corresponds to 
 
 \begin{equation}
-A = RR^T
+A = CC^T
 (\#eq:choleskymata)
 \end{equation}
 
-where the matrix $R$ is a lower triangular matrix. At this point we have to be clear about this. In practical routine evaluations, we will not explicitly compute this decomposition, because we do not want to construct $A$ explicitly. We are just using the properties of \@ref(eq:choleskymata) to find an efficient way to compute the diagonal elements $(A)_{ii}$ of $A$ without constructing the complete matrix $A$. The diagonal elements $(A)_{ii}$ are important, because they contain the inbreeding coefficients ($F_i$), as $(A)_{ii} = 1 + F_i$. Based on \@ref(eq:choleskymata), $(A)_{ii}$ can be computed from the components of $R$ as
+where the matrix $C$ is a lower triangular matrix. At this point we have to be clear about this. In practical routine evaluations, we will not explicitly compute this decomposition, because we do not want to construct $A$ explicitly. We are just using the properties of \@ref(eq:choleskymata) to find an efficient way to compute the diagonal elements $(A)_{ii}$ of $A$ without constructing the complete matrix $A$. The diagonal elements $(A)_{ii}$ are important, because they contain the inbreeding coefficients ($F_i$), as $(A)_{ii} = 1 + F_i$. Based on \@ref(eq:choleskymata), $(A)_{ii}$ can be computed from the components of $C$ as
 
 \begin{equation}
-(A)_{ii} = \sum_{j=1}^i (R)_{ij}^2
+(A)_{ii} = \sum_{j=1}^i (C)_{ij}^2
 (\#eq:DiagElemMatA)
 \end{equation}
 
@@ -411,7 +411,7 @@ This can be shown with a small $3\times 3$ matrix $A$
 ```{r SmallExCholA, eval=TRUE, echo=FALSE, results='asis'}
 nAnzAni <- 3
 matA <- rmdhelp::matGetMatElem(psBaseElement = "(A)", pnNrRow = nAnzAni, pnNrCol = nAnzAni)
-matR <- rmdhelp::matLowerTri(psBaseElement = "(R)", pnNrRow = nAnzAni, pnNrCol = nAnzAni)
+matR <- rmdhelp::matLowerTri(psBaseElement = "(C)", pnNrRow = nAnzAni, pnNrCol = nAnzAni)
 cat("$$")
 cat(paste(rmdhelp::bmatrix(pmat = matA), collapse = "\n"))
 cat(" \n")
@@ -427,27 +427,27 @@ cat("$$\n")
 For the above shown example, the diagonal elements $(A)_{ii}$ are computed as
 
 \begin{align}
-  (A)_{11} &= (R)_{11}^2 \notag \\
-  (A)_{22} &= (R)_{21}^2 + (R)_{22}^2 \notag \\
-  (A)_{33} &= (R)_{31}^2 + (R)_{32}^2 + (R)_{33}^2 \notag
+  (A)_{11} &= (C)_{11}^2 \notag \\
+  (A)_{22} &= (C)_{21}^2 + (C)_{22}^2 \notag \\
+  (A)_{33} &= (C)_{31}^2 + (C)_{32}^2 + (C)_{33}^2 \notag
 (\#eq:MatADiag)
 \end{align}
 
-This shows that diagonal elements $(A)_{ii}$ can be computed using just all the components of row $i$ in $R$ up to the diagonal. Next, we have to show how to compute the components of $R$.
+This shows that diagonal elements $(A)_{ii}$ can be computed using just all the components of row $i$ in $C$ up to the diagonal. Next, we have to show how to compute the components of $C$.
 
 
-### Recursive Computation of $R$
+### Recursive Computation of $C$
 We are setting the two decompositions of $A$ equal which leads to
 
 \begin{equation}
-A = R * R^T = L * D * L^T
+A = C * C^T = L * D * L^T
 (\#eq:CholEqLdl)
 \end{equation}
 
-Let us write the matrix $R$ as a product of two matrices $L$ and $S$ where $L$ corresponds to the matrix from the `LDL`-decomposition and insert that product into \@ref(eq:CholEqLdl)
+Let us write the matrix $C$ as a product of two matrices $L$ and $S$ where $L$ corresponds to the matrix from the `LDL`-decomposition and insert that product into \@ref(eq:CholEqLdl)
 
 \begin{equation}
-A = R * R^T = L * S * (L * S)^T = L * S * S^T * L^T= L * D * L^T
+A = C * C^T = L * S * (L * S)^T = L * S * S^T * L^T= L * D * L^T
 (\#eq:CholRLSEqLdl)
 \end{equation}
 
@@ -467,10 +467,10 @@ cat("\n")
 (\#eq:SmallExRLS)
 \end{equation}
 
-From \@ref(eq:SmallExRLS), we can see that the diagonal elements $(R)_{ii}$ are equal to $(S)_{ii}$. Therefore
+From \@ref(eq:SmallExRLS), we can see that the diagonal elements $(C)_{ii}$ are equal to $(S)_{ii}$. Therefore
 
 \begin{equation}
-(R)_{ii} = (S)_{ii} = \sqrt{(D)_{ii}}
+(C)_{ii} = (S)_{ii} = \sqrt{(D)_{ii}}
 \label{eq:ComputeRii}
 \end{equation}
 
@@ -484,29 +484,29 @@ Earlier, we have seen that diagonal elements $(D)_{ii}$ of $D$ correspond to
 and hence
 
 \begin{equation}
-(R)_{ii} = \sqrt{1 - 0.25((A)_{ss} + (A)_{dd})}
+(C)_{ii} = \sqrt{1 - 0.25((A)_{ss} + (A)_{dd})}
 \label{eq:ComputeRiiResult}
 \end{equation}
 
 The components $(A)_{ss}$ and $(A)_{dd}$ correspond to diagonal elements of $A$ of parents of $s$ and $d$ which were computed earlier.
 
-The off-diagonal elements of $R$ are computed as
+The off-diagonal elements of $C$ are computed as
 
 \begin{equation}
-(R)_{ij} = (L)_{ij} * (S)_{jj}
+(C)_{ij} = (L)_{ij} * (S)_{jj}
 \label{eq:ComputeRij}
 \end{equation}
 
 One property of the matrix $L$ is that any element $(L)_{ij}$ is equal to the average of elements $(L)_{sj}$ and $(L)_{dj}$, if $s$ and $d$ are parents of animal $i$. Using this we get
 
 \begin{align}
-(R)_{ij} &= (L)_{ij} * (S)_{jj} \nonumber\\
+(C)_{ij} &= (L)_{ij} * (S)_{jj} \nonumber\\
        &= {1\over 2}((L)_{sj} + (L)_{dj}) * (S)_{jj} \nonumber\\
-       &= {1\over 2}((R)_{sj} + (R)_{dj})
+       &= {1\over 2}((C)_{sj} + (C)_{dj})
 (\#eq:ComputeRijRec)
 \end{align}
 
-With that we have shown how to compute all elements of $R$ recursively. This requires an ordering of all animals according to their age.
+With that we have shown how to compute all elements of $C$ recursively. This requires an ordering of all animals according to their age.
 
 
 <!--
