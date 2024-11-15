@@ -1,0 +1,102 @@
+---
+title: "LBG - FS2024 -- Solution 7"
+author: Peter von Rohr
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+    - dplyr
+    - tibble
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Inverse Numerator Relationship Matrix
+The following pedigree is given
+
+```{webr}
+#| message: false
+#| warning: false 
+#| edit: false
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+tbl_pedigree <- readr::read_delim(file = s_ped_data, 
+                                  col_types = readr::cols(Calf = readr::col_integer(),
+                                                          Sire = readr::col_integer(),
+                                                          Dam = readr::col_integer()))
+knitr::kable(tbl_pedigree, booktabs = TRUE, longtable = TRUE)
+```
+
+The pedigree can be read from the file:
+
+```{webr}
+#| echo: false
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+cat(s_ped_data, "\n")
+```
+
+
+Compute the inverse numerator relationship matrix $A^{-1}$ for the given pedigree. 
+
+
+### Solution 
+
+* Read data
+
+```{webr}
+#| message: false
+#| warning: false 
+# read data
+s_ped_data <- "https://charlotte-ngs.github.io/lbgfs2024/data/ped_num_rel_mat.csv"
+tbl_pedigree <- readr::read_delim(file = s_ped_data, 
+                                  col_types = readr::cols(Calf = readr::col_integer(),
+                                                          Sire = readr::col_integer(),
+                                                          Dam = readr::col_integer()))
+tbl_pedigree
+```
+
+* Extend the pedigree
+
+```{webr}
+# find founder sires
+vec_founder_sire <- setdiff(tbl_pedigree$Sire, tbl_pedigree$Calf)
+# find founder dams
+vec_founder_dam <- setdiff(tbl_pedigree$Dam, tbl_pedigree$Calf)
+# all founders
+vec_founder <- c(vec_founder_sire,vec_founder_dam)
+vec_founder <- vec_founder[order(vec_founder)]
+# extend pedigree
+n_nr_founder <- length(vec_founder)
+tbl_ped_ext <- dplyr::bind_rows(tibble::tibble(Calf = vec_founder,
+                                               Sire = rep(NA, n_nr_founder),
+                                               Dam  = rep(NA, n_nr_founder)),
+                                tbl_pedigree)
+tbl_ped_ext
+```
+
+* Compute inverse numerator relationship matrix using the rule taken from section 5.6.4 of the course notes. The diagonal elements of matrix $D$ is taken from `pedigreemm::Dmat`
+
+```{webr}
+# get diagonals of Dinv
+ped <- pedigreemm::pedigree(sire = tbl_ped_ext$Sire,dam = tbl_ped_ext$Dam, label = tbl_ped_ext$Calf)
+vec_diag_Dinv <- 1/pedigreemm::Dmat(ped = ped)
+vec_diag_Dinv
+```
+
+* Initialize matrix
+
+```{webr}
+# init A inverse
+n_nr_animals <- nrow(tbl_ped_ext)
+mat_A_inv <- matrix(0, nrow = n_nr_animals, ncol = n_nr_animals)
+```
+
+* Go through pedigree and fill in matrix
+
+```{webr}
+# fill matrix
+
+```
+
+
