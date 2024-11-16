@@ -59,7 +59,7 @@ create_exercise <- function(ps_ex_name,
 #'
 #' @examples
 #' \dontrun{
-#' create_exercise_lbg(ps_ex_name = "lbg_sol01", ps_ex_count = 1)
+#' create_exercise_lbg(ps_ex_name = "lbg_sol01")
 #' }
 create_exercise_lbg <- function(ps_ex_name, 
                                 ps_ex_count = as.integer(gsub(pattern = '[[:punct:]]', 
