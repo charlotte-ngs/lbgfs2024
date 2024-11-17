@@ -90,13 +90,46 @@ vec_diag_Dinv
 # init A inverse
 n_nr_animals <- nrow(tbl_ped_ext)
 mat_A_inv <- matrix(0, nrow = n_nr_animals, ncol = n_nr_animals)
+mat_A_inv
 ```
 
 * Go through pedigree and fill in matrix
 
 ```{webr}
 # fill matrix
-
+for (idx in 1:n_nr_animals){
+  # add element of animal
+  mat_A_inv[idx,idx] <- mat_A_inv[idx,idx] + vec_diag_Dinv[idx]
+  # sire-animal elements
+  s_idx <- tbl_ped_ext$Sire[idx]
+  if (!is.na(s_idx)) {
+    mat_A_inv[s_idx, idx] <- mat_A_inv[s_idx, idx] - vec_diag_Dinv[idx]/2
+    mat_A_inv[idx, s_idx] <- mat_A_inv[idx, s_idx] - vec_diag_Dinv[idx]/2
+    mat_A_inv[s_idx,s_idx] <- mat_A_inv[s_idx,s_idx] + vec_diag_Dinv[idx]/4
+  }
+  # dam-animal elements
+  d_idx <- tbl_ped_ext$Dam [idx]
+  if (!is.na(d_idx)){
+    mat_A_inv[d_idx, idx] <- mat_A_inv[d_idx, idx] - vec_diag_Dinv[idx]/2
+    mat_A_inv[idx, d_idx] <- mat_A_inv[idx, d_idx] - vec_diag_Dinv[idx]/2
+    mat_A_inv[d_idx,d_idx] <- mat_A_inv[d_idx,d_idx] + vec_diag_Dinv[idx]/4
+  }
+  # parent elements
+  if (!is.na(s_idx) && !is.na(d_idx)){
+    mat_A_inv[s_idx,d_idx] <- mat_A_inv[s_idx,d_idx] + vec_diag_Dinv[idx]/4
+    mat_A_inv[d_idx,s_idx] <- mat_A_inv[d_idx,s_idx] + vec_diag_Dinv[idx]/4
+  }
+}
+mat_A_inv
 ```
 
+* Check the result with pedigreemm
+
+```{webr}
+# setup pedigree
+ped <- pedigreemm::pedigree(sire = tbl_ped_ext$Sire,
+                            dam = tbl_ped_ext$Dam,
+                            label = tbl_ped_ext$Calf)
+mat_A_inv-pedigreemm::getAInv(ped = ped)
+```
 
