@@ -60,7 +60,6 @@ Compute the inverse numerator relationship matrix $A^{-1}$ for the given pedigre
 
 # all founders
 
-
 # extend pedigree
 
 ```
@@ -86,4 +85,12 @@ Compute the inverse numerator relationship matrix $A^{-1}$ for the given pedigre
 
 ```
 
+* Check the result with pedigreemm
+
+```{webr}
+# setup pedigree
+
+# compare computed inverse with the one from pedigreemm
+
+```
 
