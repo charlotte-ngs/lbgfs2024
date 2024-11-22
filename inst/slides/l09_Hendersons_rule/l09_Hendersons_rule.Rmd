@@ -1,0 +1,143 @@
+---
+title: "Henderson's Rule"
+author: "Peter von Rohr"
+date: "2024-11-22"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# rmdhelp::show_knit_hook_call()
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## Aim
+```{r ped-init, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+n_nr_founder <- 3
+tbl_ped <- tibble::tibble(Animal = c(1:n_nr_founder),
+                          Sire = rep(NA, n_nr_founder),
+                          Dam = rep(NA, n_nr_founder))
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+pem_ped
+```
+
+* Use simple example pedigrees to establish Henderson's rules to construct $A^{-1}$
+* Trivial example pedigree: `r n_nr_founder` founder animals
+
+```{r ped-init}
+```
+
+
+## Computation of $A^{-1}$
+
+$$A^{-1} = (L^{-1})^T \cdot D^{-1} \cdot L^{-1}$$
+with 
+
+* $L^{-1} = I - P$
+* $P$ is the transformation matrix from simple decomposition: $u = P \cdot u + m$
+* diagonal elements of $D$ obtained from `pedigreemm::Dmat()`
+
+
+## Example Pedigree
+
+* Diagonal elements of $D$
+
+```{r}
+pedigreemm::Dmat(ped = pem_ped)
+```
+
+* Matrix $P$ is the zero matrix $\rightarrow$ matrix $L = I$
+* Matrix $A^{-1} = I$
+* First part of the rule: For animals without parents add element $(D^{-1})_{ii}$ to each diagonal element $(A^{-1})_{ii}$
+
+
+## Extend Pedigree
+```{r add-first-parent, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+s_idx <- 1
+a_idx <- 3
+tbl_ped$Sire[a_idx] <- s_idx
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+pem_ped
+```
+
+
+* Add animal $1$ as parent for animal $3$
+
+```{r add-first-parent}
+```
+
+
+## Matrix Setup
+```{r get-Linv-fun, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+get_L_inv <- function(ptbl_ped){
+  n_nr_ani <- nrow(ptbl_ped)
+  mat_L_inv_result <- diag(nrow = n_nr_ani)
+  for (idx in 1:n_nr_ani){
+    # sire
+    s_idx <- ptbl_ped$Sire[idx]
+    if (!is.na(s_idx)) mat_L_inv_result[idx, s_idx] <- -0.5
+    # dam
+    d_idx <- ptbl_ped$Dam[idx]
+    if (!is.na(d_idx)) mat_L_inv_result[idx, d_idx] <- -0.5
+  }
+  return(mat_L_inv_result)
+}
+mat_L_inv <- get_L_inv(ptbl_ped = tbl_ped)
+```
+
+* Diagonals of matrix $D^{-1}$ yield the following matrix
+
+```{r}
+diag(1/pedigreemm::Dmat(ped = pem_ped))
+```
+
+* Matrix $L^{-1} = I - P$
+
+```{r}
+mat_L_inv
+```
+
+
+## Computation of $A^{-1}$
+
+```{r comp-ainv, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmdhelp::use_odg_graphic(ps_path = "odg/comp-ainv.odg")
+knitr::include_graphics(path = "odg/comp-ainv.png")
+```
+
+
+## Extension of Rule
+
+* So far: Add $(D^{-1})_{ii}$ to $(A^{-1})_{ii}$
+* Check for animals $1$, $2$ and $3$
+* New: 
+    + Subtract $(D^{-1})_{ii}/2$ from $(A^{-1})_{is}$ and $(A^{-1})_{si}$
+    + Add $(D^{-1})_{ii}/4$ to $(A^{-1})_{ss}$
+
+
+## Second Parent
+```{r add-second-parent, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+d_idx <- 2
+a_idx <- 3
+tbl_ped$Dam[a_idx] <- d_idx
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+pem_ped
+```
+
+* Add animal `r d_idx` as second parent of animal `r a_idx`
+
+```{r add-second-parent}
+```
+
+* Do the same setup of matrices and describe the extensions of the rule as exercise
+
+
+
+
+ 
