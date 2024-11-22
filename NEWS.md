@@ -1,3 +1,7 @@
+# lbgfs2024 0.10.2
+
+* Slides l09
+
 # lbgfs2024 0.10.1
 
 * Course notes chapter 6
