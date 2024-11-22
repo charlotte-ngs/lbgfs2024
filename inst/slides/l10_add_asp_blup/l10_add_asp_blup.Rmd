@@ -1,0 +1,362 @@
+---
+title: "Additional Aspects of BLUP"
+author: "Peter von Rohr"
+date: "2024-11-22"
+output:
+  beamer_presentation:
+header-includes:
+ \usepackage{longtable}
+ \usepackage{float}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+```
+
+## Aspects
+
+* Accurracy 
+    + Results from MME are estimates of fixed effects and predictions of breeding values
+    + Need statement about quality of estimates and predictions
+
+* Confidence Intervals
+
+* Decomposition of Predicted Breeding values
+
+
+## Accurracy - Fixed Effects
+
+* One property of BLUP was that variance of prediction error is minimal
+* How can we measure the variance of the prediction error
+* Fixed effects 
+
+$$var(\beta - \hat{\beta}) = var(\hat{\beta})$$
+
+* Reminder: 
+
+$$\hat{\beta} = (X^TX)^{-1}X^Ty$$
+with $X$ having full column rank
+
+## Accurracy - Random effects
+
+$$var(u - \hat{u}) = var(u) - 2*cov(u,\hat{u}) + var(\hat{u}) = var(u) - var(\hat{u}) = PEV(\hat{u})$$
+
+because with BLUP: $cov(u,\hat{u}) = var(\hat{u})$
+
+
+## PEV
+
+* PEV depends on inverse of coefficient matrix of MME
+
+$$
+\left[
+  \begin{array}{lr}
+  X^TR^{-1}X  &  X^TR^{-1}Z  \\
+  Z^TR^{-1}X  &  Z^TR^{-1}Z + G^{-1}
+  \end{array}
+\right]^{-1}
+=
+\left[
+  \begin{array}{lr}
+  C^{11}  &  C^{12}  \\
+  C^{21}  &  C^{22}
+  \end{array}
+\right]
+$$
+
+* For predicted breeding values $\hat{u}$
+
+$$PEV(\hat{u}) = var(u) - var(\hat{u}) = C^{22}$$
+
+
+## Single Animal $i$
+
+$$PEV(\hat{u}_i) = (C)_{ii}^{22}$$
+
+where $(C)_{ii}^{22}$ is the $i$-th diagonal of $C^{22}$
+
+* Accuracy measured by correlation
+
+$$r_{u_i, \hat{u}_i} = \frac{cov(u_i, \hat{u}_i)}{\sqrt{var(u_i) * var(\hat{u}_i)}} = \sqrt{\frac{var(\hat{u}_i)}{var(u_i)}}$$
+
+* Combining
+
+$$PEV(\hat{u}_i) = (C)_{ii}^{22} = var(u_i) - var(\hat{u}_i) = var(u_i) - r_{u_i, \hat{u}_i}^2 var(u_i)$$
+
+
+## Reliability $B_i$
+
+$$B_i = r_{u_i, \hat{u}_i}^2 = \frac{var(u_i) - (C)_{ii}^{22}}{var(u_i)} = 1 - \frac{PEV(\hat{u}_i)}{var(u_i)}  
+  = 1 - \frac{(C)_{ii}^{22}}{var(u_i)} $$
+
+* $B_i$ is large for small $PEV(\hat{u}_i)$
+* In the limit $B_i \rightarrow 1$ for $PEV(\hat{u}_i) \rightarrow 0$
+* For $PEV(\hat{u}_i) \rightarrow 0$ we must have $var(\hat{u}_i) \rightarrow var(u_i)$
+* Therefore, the closer $var(\hat{u}_i)$ is to $var(u_i)$, the more accurate the predicted breeding value
+
+
+## Confidence Intervals of $\hat{u}_i$
+
+* Predicted breeding value ($\hat{u}_i$) is a function of the data ($y$)
+* Hence $\hat{u}_i$ is a random variable with a distribution
+
+
+## Distribution
+
+```{r confintfig, echo=FALSE, hook_convert_odg=TRUE, fig_path="odg", out.width="100%"}
+#rmddochelper::use_odg_graphic(ps_path = "odg/confintfig.odg")
+knitr::include_graphics(path = "odg/confintfig.png")
+```
+
+
+$$SEP(\hat{u}_i) = \sqrt{PEV(\hat{u}_i)} = \sqrt{(1 - r_{u_i,\hat{u}_i}^2) * var(u_i)}$$ 
+
+
+## Widths Of Confidence Intervals
+
+```{r confintwidth, echo=FALSE, results='asis'}
+pred_bv <- 100
+sigma_u <- 12
+r2_seq <- c(seq(0.4, 0.9, 0.1), .95, .99)
+sep <- sqrt(1-r2_seq) * sigma_u
+alpha <- .05
+lower_limit <- qnorm(alpha/2, lower.tail = TRUE)
+upper_limit <- qnorm(1-alpha/2, lower.tail = TRUE)
+interval_width <- (upper_limit - lower_limit) * sep
+### # table with accuracies and interval widths
+tbl_interval_widths <- tibble::tibble(Accurracy = r2_seq, `Interval Width` = round(interval_width, digits = 2))
+knitr::kable(tbl_interval_widths,
+             booktabs  = TRUE,
+             longtable = TRUE,
+             caption   = "Widths of Confidence Intervals for Given Accuracies")
+```
+
+with $\hat{u}_i = `r pred_bv`$, $var(u_i) = `r sigma_u^2`$ and $\alpha = `r alpha`$
+
+
+## Selection Response
+
+Correlation $r_{u_i,\hat{u}_i}$ for a single animal $i$
+
+* across conceptual repeated sampling
+* change of a predicted breeding value for animal $i$ with increasing information
+* related to standard error of prediction (SEP) $\rightarrow$ measure of risk of using $i$ as parent
+
+Accuracies also important for selection response
+
+* correlation between true and predicted breeding values in selection candidates
+* characteristic of population not of single animal
+* estimation with cross-validation
+
+$\rightarrow$ use correlation between predicted breeding values with whole and partial data
+
+## Decomposition of Predicted Breeding Value
+
+* Write MME as 
+
+$$M \cdot s = r$$
+
+with 
+
+$$
+s = \left[
+  \begin{array}{c}
+  \hat{\beta} \\
+  \hat{u}
+  \end{array}
+\right]
+$$
+
+* $\hat{\beta}$ has length $p$
+* $\hat{u}$ has length $q$
+
+
+## Simplified Model
+
+\begin{equation}
+y_i = \mu + u_i + e_i \notag
+\end{equation}
+
+\begin{tabular}{lll}
+where  &  $y_i$  &  Observation for animal $i$\\
+       &  $u_i$  &  breeding value of animal $i$ with a variance of $(1+F_i)\sigma_u^2$\\
+       &  $e_i$  &  random residual effect with variance $\sigma_e^2$\\
+       &  $\mu$  &  single fixed effect
+\end{tabular}
+
+
+## Data
+
+* all animals have an observation
+* animal $i$ has 
+    + parents $s$ and $d$ 
+    + $n$ progeny $k_j$ (with $j=1, \ldots , n$) 
+    + $n$ mates $l_j$ (with $j=1, \ldots , n$). 
+* progeny $k_j$ has parents $i$ and $l_j$. 
+
+
+## Example
+```{r, echo=FALSE, results='asis'}
+sigmae2 <- 40
+sigmaa2 <- 20
+lambda <- sigmae2/sigmaa2
+sigmap2 <- sigmaa2 + sigmae2
+h2 <- sigmaa2 / sigmap2
+nNrObsSmd <- 5
+dfWwg <- tibble::tibble(Animal = (1:nNrObsSmd),
+                    Sire = c(NA,NA,NA,1,4),
+                    Dam = c(NA,NA,NA,2,3),
+                    WWG = c(4.5,2.9,3.9,3.5,5.0))
+knitr::kable(dfWwg)
+```
+
+Variance components $\sigma_e^2 = `r sigmae2`$ and $\sigma_u^2 = `r sigmaa2`$.
+
+
+
+## Model Components
+
+```{r MmeSimpleModelDecomp, echo=FALSE}
+### # constants
+nNrObsSmd <- 5
+### # design matrics
+matXSmd <- matrix(data = 1, nrow = nNrObsSmd)
+matZSmd <- diag(1, nrow = nNrObsSmd, ncol = nNrObsSmd)
+matXtXSmd <- crossprod(matXSmd)
+matXtZSmd <- crossprod(matXSmd,matZSmd)
+matZtZSmd <- crossprod(matZSmd)
+```
+```{r MmeSmdCoeffMatShow, echo=FALSE}
+cat("\n$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = matXSmd, ps_name = 'X'), collapse = '\n'))
+cat("\\text{, }")
+cat(paste(rmdhelp::bmatrix(pmat = matZSmd, ps_name = 'Z'), collapse = '\n'))
+cat("$$\n")
+cat("\n$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = matXtXSmd, ps_name = 'X^TX'), collapse = '\n'))
+cat("\\text{, }")
+cat(paste(rmdhelp::bmatrix(pmat=matXtZSmd, ps_name = 'X^TZ'), collapse = '\n'))
+cat("$$\n")
+cat("\n$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = matZtZSmd, ps_name = 'Z^TZ'), collapse = '\n'))
+cat("\n$$\n")
+```
+
+
+## Right-hand Side
+
+```{r}
+vecY <- dfWwg$WWG
+```
+
+
+$$X^Ty = \left[\sum_{j=1}^n y_i\right] = `r sum(vecY)`$$
+
+```{r VecZtYSmd, echo=FALSE}
+vecZtYSmd <- rmdhelp::vecGetVecElem(psBaseElement = "y", pnVecLen = nNrObsSmd)
+cat("\n$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = as.matrix(vecZtYSmd, nrow = nNrObsSmd), ps_name = 'Z^Ty'), collapse = '\n'))
+cat("= \n")
+cat(paste(rmdhelp::bcolumn_vector(pvec = vecY), collapse = '\n'))
+cat('$$\n')
+```
+
+
+
+## $A^{-1}$
+
+```{r ExPedSmd, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+pedSmd <- pedigreemm::pedigree(sire = c(NA,NA,NA,1,4), dam = c(NA,NA,NA,2,3), label = as.character(1:nNrObsSmd))
+matAinvSmd <- as.matrix(pedigreemm::getAInv(ped = pedSmd))
+cat(paste(rmdhelp::bmatrix(pmat = matAinvSmd, ps_name = 'A^{-1}', ps_env = '$$')))
+```
+
+
+## MME
+
+\begin{equation}
+\left[
+\begin{array}{cc}
+X^TX  &  X^TZ\\
+Z^TX  &  Z^TZ + A^{-1} * \lambda
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+\hat{\mu}\\
+\hat{u}
+\end{array}
+\right]
+=
+\left[
+\begin{array}{c}
+X^Ty\\
+Z^Ty
+\end{array}
+\right] \notag
+\end{equation}
+
+
+## Insert Data
+
+```{r MmeSmdNumeric, echo=FALSE}
+vecY <- dfWwg$WWG
+matCoeffSmd <- cbind(rbind(matXtXSmd,t(matXtZSmd)),rbind(matXtZSmd,matZtZSmd + matAinvSmd * lambda))
+solVecSmd <- c("\\mu", rmdhelp::vecGetVecElem(psBaseElement = "\\hat{u}", pnVecLen = nNrObsSmd))
+vecRhsSmd <- rbind(crossprod(matXSmd,vecY), crossprod(matZSmd,vecY))
+cat("\n$$\n")
+cat(paste(rmdhelp::bmatrix(pmat = matCoeffSmd), collapse = '\n'))
+cat(paste(rmdhelp::bmatrix(pmat = as.matrix(solVecSmd, nrow = nNrObsSmd+1)), collapse = '\n'))
+cat(" = \n")
+cat(paste(rmdhelp::bmatrix(pmat = as.matrix(vecRhsSmd, nrow = nNrObsSmd+1)), collapse = '\n'))
+cat("$$\n")
+```
+
+
+## Animal 4
+
+* parents $1$ and $2$
+* progeny $5$
+* mate $3$
+* inspection of second but last equation in MME where $y_4$ and $\hat{u}_4$ occur
+* Remember from construction of $A^{-1}$, the variable $d^{ii}$ can assume the following values
+
+$$
+d^{ii} = \left\{
+  \begin{array}{rl} 
+  2           & \text{both parents known}\\
+  {4\over 3}  & \text{one parent known}\\
+  1           & \text{both parents unknown}
+  \end{array}
+  \right.
+$$
+
+## Extract Equation
+
+$$y_4 = 3.5 = 1* \hat{\mu} - 2 * \hat{u}_1 - 2 * \hat{u}_2 + 1 * \hat{u}_3 + 6 * \hat{u}_4 - 2 * \hat{u_5}$$
+
+* Solving for $\hat{u}_4$
+
+$$\hat{u}_4 = {1\over 6}\left[ y_4 - \hat{\mu} + 2 * (\hat{u}_1 + \hat{u}_2) - \hat{u}_3 + 2 \hat{u}_5\right] $$
+
+*  $\hat{u}_4$ depends on
+    + own performance record $y_4$
+    + estimate of fixed effect $\hat{\mu}$ - environment
+    + predicted breeding value of parents $1$ and $2$, mate $3$ and progeny $5$
+
+
+## General Equation
+
+\begin{align}
+\hat{u}_i  &= \frac{1}{1 + \alpha \delta^{(i)} + {\alpha\over 4} \sum_{j=1}^n \delta^{(k_j)}}
+              \left[y_i - \hat{\mu} \right. \notag \\
+           &  \left. + {\alpha\over 2}\left\{\delta^{(i)}(\hat{u}_s + \hat{u}_d) 
+              + \sum_{j=1}^n \delta^{(k_j)} (\hat{u}_{k_j} - {1\over 2}\hat{u}_{l_j}) \right\} \right] \notag
+\end{align}
+
+\begin{tabular}{lll}
+where    &  $\alpha$  &  ration between variance components $\sigma_e^2 / \sigma_u^2$  \\
+         &  $\delta^{(j)}$  &  contribution for animal $j$ to $A^{-1}$
+\end{tabular}
+
