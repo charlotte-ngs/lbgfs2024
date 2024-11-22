@@ -117,6 +117,17 @@ write_data_table_entry () {
   fi
 }
 
+write_to_gitignore () {
+  local l_SRC_DIR=$(dirname $SRC_PATH)
+  local l_ODG_DIR=$l_SRC_DIR/odg
+  if [[ $VERBOSE == 'true' ]];then log_msg write_to_gitignore " * Check for odg-dir: $l_ODG_DIR ...";fi
+  if [[ -d $l_ODG_DIR ]];then
+    if [[ $VERBOSE == 'true' ]];then log_msg write_to_gitignore " * Write $l_ODG_DIR/*.{pdf,png} ...";fi
+    echo "$l_ODG_DIR/*.pdf" >> .gitignore
+    echo "$l_ODG_DIR/*.png" >> .gitignore
+  fi
+}
+
 
 #' ## Getopts for Commandline Argument Parsing
 #' If an option should be followed by an argument, it should be followed by a ":".
@@ -219,6 +230,12 @@ cp $SRC_PATH $TRG_DIR
 log_msg $SCRIPT " * Write data table entry ..."
 write_data_table_entry
 
+
+#' ## Entry To .gitignore
+#' Write entry to .gitignore of pdf and png of included odg diagrams
+#+ write-to-gitignore
+log_msg $SCRIPT " * Write to .gitignore ..."
+write_to_gitignore
 
 #' ## End of Script
 #' This is the end of the script with an end-of-script message.
