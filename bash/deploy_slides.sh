@@ -130,7 +130,7 @@ write_to_gitignore () {
 
 cleanup () {
   local l_SRC_DIR=$(dirname $SRC_PATH)
-  for fmt in pdf png;do
+  for fmt in pdf log;do
     if [[ $VERBOSE == 'true' ]];then log_msg cleanup " * Format: $fmt ...";fi
     rm $l_SRC_DIR/*.$fmt
   done  
