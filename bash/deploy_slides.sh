@@ -128,6 +128,14 @@ write_to_gitignore () {
   fi
 }
 
+cleanup () {
+  local l_SRC_DIR=$(dirname $SRC_PATH)
+  for fmt in pdf png;do
+    if [[ $VERBOSE == 'true' ]];then log_msg cleanup " * Format: $fmt ...";fi
+    rm $l_SRC_DIR/*.$fmt
+  done  
+}
+
 
 #' ## Getopts for Commandline Argument Parsing
 #' If an option should be followed by an argument, it should be followed by a ":".
@@ -236,6 +244,14 @@ write_data_table_entry
 #+ write-to-gitignore
 log_msg $SCRIPT " * Write to .gitignore ..."
 write_to_gitignore
+
+
+#' ## Clean up
+#' 
+#+ clean-up
+log_msg $SCRIPT " * Clean up ..."
+cleanup
+
 
 #' ## End of Script
 #' This is the end of the script with an end-of-script message.
