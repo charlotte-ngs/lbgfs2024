@@ -1,3 +1,7 @@
+# lbgfs2024 0.10.1
+
+* Course notes chapter 6
+
 # lbgfs2024 0.10.0
 
 * OHP-L07
