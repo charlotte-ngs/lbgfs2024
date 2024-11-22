@@ -1,4 +1,8 @@
 # Week 10 
+## lbgfs2024 0.10.1
+
+* Course notes chapter 6
+
 ## lbgfs2024 0.10.0
 
 * OHP-L07
@@ -260,4 +264,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-11-15 16:32:04 CET (pvr)_
+ _Latest Changes: 2024-11-22 05:25:36 CET (pvr)_
