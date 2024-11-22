@@ -55,17 +55,17 @@ REAL_EVALROOT=$(dirname $REAL_EVALREPO)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -c <data_table_dat> -d <deploy_date> -h -l <link_title>"
-  echo '                 -s <cn_source_path> -t <deploy_target_path> -z'
+  echo "Usage:   $SCRIPT -d <deploy_date> -h -l <link_title>"
+  echo '                 -s <cn_source_path> -t <deploy_target_path> -w <data_table_dat> -z'
   echo '  where '
-  echo '        -c <data_table_dat>  --  (optional) alternative path to course notes data table file ...'
-  echo '                                            > default: $EVALREPO/inst/website/lbgfs2024/course_notes/course_notes.dat ...'
   echo '        -d <deploy_date>     --  (optional) alternative deploy date ...'
   echo '                                            > default: $(date +"%Y-%m-%d") ...'
   echo '        -h                   --  (optional) show usage message ...'
   echo '        -l <link_title>      --             link name ...'
   echo '        -s <cn_source_path>  --             course notes source path ...'
   echo '        -t <target_path>     --             deployment target path ...'
+  echo '        -w <data_table_dat>  --  (optional) alternative path to course notes data table file ...'
+  echo '                                            > default: $EVALREPO/inst/website/lbgfs2024/course_notes/course_notes.dat ...'
   echo '        -z                   --  (optional) produce verbose output ...'
   echo '                                            > default: false ...'
   echo 
@@ -131,13 +131,10 @@ DEPLOY_DATE=''
 LINK_TITLE=''
 DATA_TABLE_DAT=''
 VERBOSE='false'
-while getopts ":c:d:hl:s:t:z" FLAG; do
+while getopts ":d:hl:s:t:w:z" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
-      ;;
-    c)
-      DATA_TABLE_DAT=$OPTARG
       ;;
     d)
       DEPLOY_DATE=$OPTARG
@@ -154,6 +151,9 @@ while getopts ":c:d:hl:s:t:z" FLAG; do
       ;;
     t)
       TRG_PATH=$OPTARG
+      ;;
+    w)
+      DATA_TABLE_DAT=$OPTARG
       ;;
     z)
       VERBOSE='true'
