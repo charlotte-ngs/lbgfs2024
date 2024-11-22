@@ -1,5 +1,7 @@
 # lbgfs2024 0.10.3
 
+* Slides l10
+
 # lbgfs2024 0.10.2
 
 * Slides l09
