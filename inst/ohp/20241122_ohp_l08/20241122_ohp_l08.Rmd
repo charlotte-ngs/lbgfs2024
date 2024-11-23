@@ -29,7 +29,7 @@ done
 # ### odg to .gitignore
 # echo inst/ohp/20241122_ohp_l08/odg >> .gitignore
 # ### add entry to ohp data table
-# echo "2024-11-15;Inverse Numerator Relationship Matrix;https://drive.google.com/file/d/1-Qqxd5YSw3klRnCo-hecyIpaibH3-ZRr/view?usp=sharing" >> inst/website/lbgfs2024/ohp/ohp.dat
+# echo "2024-11-22;Henderson's Rule;https://drive.google.com/file/d/1-RUMotCCUZjk10xGtsb1S3uouAvs32IU/view?usp=sharing" >> inst/website/lbgfs2024/ohp/ohp.dat
 ```
 
 ```{r, echo=FALSE, eval=FALSE}
