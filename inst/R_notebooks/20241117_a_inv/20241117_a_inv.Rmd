@@ -1,0 +1,179 @@
+---
+title: "Derive Hendersons Rules for Setting Up $A^{-1}$"
+output: html_notebook
+---
+
+
+# Pedigree
+The pedigree is grown gradually. We start with two unrelated animals $1$ and $2$. This means
+
+```{r}
+n_nr_founder <- 2
+tbl_ped <- tibble::tibble(Animal = c(1:n_nr_founder),
+                          Sire = rep(NA, n_nr_founder),
+                          Dam = rep(NA, n_nr_founder))
+tbl_ped
+```
+
+The pedigree is also stored in pedigreemm format
+
+```{r}
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+pem_ped
+```
+
+
+# Numerator Relationship Matrix
+The numerator relationship matrix is computed using the following function ...
+
+The verification with pedigreemm
+
+```{r}
+pedigreemm::getA(ped = pem_ped)
+```
+
+
+# Inverse of $A$
+
+```{r}
+pedigreemm::getAInv(ped = pem_ped)
+```
+
+
+# Add Animal $3$
+Animal $3$ without parents is added to the pedigree
+
+```{r}
+(tbl_ped <- dplyr::bind_rows(tbl_ped, tibble::tibble(Animal = 3, Sire = NA, Dam = NA)))
+```
+
+The pedigreemm format
+
+```{r}
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+```
+
+
+# Matrices $L^{-1}$ and $D^{-1}$
+Matrix $L^{-1}$ is computed as 
+
+$$L^{-1} = I - P$$
+
+The matrix $P$ as $0.5$ on the animal-parent off-diagonal elements. Because in the above pedigree, there are no parent-offspring relations, $P$ is the zero matrix and $L^{-1}$ is the identity matrix. The matrix $D^{-1}$ is the diagonal matrix with elements 
+
+```{r}
+1/pedigreemm::Dmat(ped = pem_ped)
+```
+
+This leads to the matrix $A^{-1}$ corresponding to the identity matrix. With respect to the rule, for every animal without parents, the element $(D^{-1})_{ii}$ is added to $A^{-1}$. 
+
+
+# Offspring with One Parent
+Adding parents $1$ for animal $3$
+
+```{r}
+n_ani_id <- 3
+tbl_ped$Sire[n_ani_id] <- 1 
+tbl_ped
+```
+
+```{r}
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+pem_ped
+```
+
+
+# Matrices $L^{-1}$ and $D^{-1}$
+Matrix $D^{-1}$ has diagonal elements 
+
+```{r}
+mat_D_inv <- diag(1/pedigreemm::Dmat(ped = pem_ped))
+mat_D_inv
+```
+
+The matrix $(L^{-1})^T$ is given by
+
+```{r}
+mat_L_inv <- diag(nrow = n_ani_id)
+mat_L_inv[3,1] <- -0.5
+t(mat_L_inv)
+```
+
+The first two factors multiplied is
+
+```{r}
+(mat_LD <- crossprod(mat_L_inv,mat_D_inv))
+```
+
+The product with the third factor is 
+
+```{r}
+mat_L_inv
+```
+
+
+```{r}
+mat_LD %*% mat_L_inv
+```
+
+Check
+
+```{r}
+pedigreemm::getAInv(ped = pem_ped)
+```
+
+
+# Offspring with Two Parents
+Adding parent $2$ for animal $3$
+
+```{r}
+n_ani_id <- 3
+tbl_ped$Dam[n_ani_id] <- 2
+tbl_ped
+```
+
+The pedigreemm format
+
+```{r}
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+pem_ped
+```
+
+
+
+# Matrices $L^{-1}$ and $D^{-1}$
+Use the following function `get_L_inv()` to obtain the matrix $L^{-1}$
+
+```{r}
+get_L_inv <- function(ptbl_ped){
+  n_nr_ani <- nrow(ptbl_ped)
+  mat_L_inv_result <- diag(nrow = n_nr_ani)
+  for (idx in 1:n_nr_ani){
+    # sire
+    s_idx <- ptbl_ped$Sire[idx]
+    if (!is.na(s_idx)) mat_L_inv_result[idx, s_idx] <- -0.5
+    # dam
+    d_idx <- ptbl_ped$Dam[idx]
+    if (!is.na(d_idx)) mat_L_inv_result[idx, d_idx] <- -0.5
+  }
+  return(mat_L_inv_result)
+}
+```
+
+The matrix can be obtained as 
+
+```{r}
+mat_L_inv <- get_L_inv(ptbl_ped = tbl_ped)
+mat_L_inv
+```
+
+
+
