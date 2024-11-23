@@ -1,4 +1,13 @@
+# Week 11 
+## lbgfs2024 0.11.0
+
+* OHP_L08
+
 # Week 10 
+## lbgfs2024 0.10.4
+
+* Exercise lbg_ex08
+
 ## lbgfs2024 0.10.3
 
 * Slides l10
@@ -272,4 +281,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-11-22 08:40:12 CET (pvr)_
+ _Latest Changes: 2024-11-23 08:04:40 CET (pvr)_
