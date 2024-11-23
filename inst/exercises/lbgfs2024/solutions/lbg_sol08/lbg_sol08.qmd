@@ -1,0 +1,101 @@
+---
+title: "LBG - FS2024 -- Solution 8"
+author: Peter von Rohr
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - tibble
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Henderson's Rule
+
+Use the following pedigree to come up with the final version of Hendersons rules.
+
+```{webr}
+#| label: exchunk1
+#| message: false
+#| warning: false 
+#| edit: false
+n_nr_founder <- 2
+n_nr_ani <- 3
+tbl_ped <- tibble::tibble(Animal = c(1:n_nr_ani),
+                          Sire = c(rep(NA, n_nr_founder),1),
+                          Dam = c(rep(NA, n_nr_founder),2))
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+pem_ped
+```
+
+### Task
+
+-   Get matrices $L^{-1}$ and $D^{-1}$
+-   Do the matrix multiplication to get $A^{-1}$
+-   Describe rules to come up with $A^{-1}$
+
+### Solution
+
+-   Matrix $L^{-1}$
+
+```{webr}
+# matrix L_inv
+get_L_inv <- function(ptbl_ped){
+  n_nr_ani <- nrow(ptbl_ped)
+  mat_L_inv_result <- diag(nrow = n_nr_ani)
+  for (idx in 1:n_nr_ani){
+    # sire
+    s_idx <- ptbl_ped$Sire[idx]
+    if (!is.na(s_idx)) mat_L_inv_result[idx, s_idx] <- -0.5
+    # dam
+    d_idx <- ptbl_ped$Dam[idx]
+    if (!is.na(d_idx)) mat_L_inv_result[idx, d_idx] <- -0.5
+  }
+  return(mat_L_inv_result)
+}
+mat_L_inv <- get_L_inv(ptbl_ped = tbl_ped)
+mat_L_inv
+```
+
+-   Matrix $(L^{-1})^T$
+
+```{webr}
+# matrix t(L_inv)
+t(mat_L_inv)
+```
+
+-   Matrix $D^{-1}$
+
+```{webr}
+# matrix D_inv
+mat_D_inv <- diag(1/pedigreemm::Dmat(ped = pem_ped))
+mat_D_inv
+```
+
+-   Matrix multiplication
+
+```{webr}
+#| message: false
+#| warning: false
+# multiply first two matricesmatrices
+(mat_LD <- t(mat_L_inv) %*% mat_D_inv)
+
+# result times third
+(mat_A_inv <- mat_LD %*% mat_L_inv)
+
+# check
+mat_A_inv - as.matrix(pedigreemm::getAInv(ped = pem_ped))
+```
+
+-   Multiplication diagram
+
+![](odg/multiplication_diagram_a_inv.png){fig-align="center"}
+
+-   Extract Rules
+
+    -   Add $(D^{-1})_{ii}$ to $(A^{-1})_{ii}$
+    -   Subtract $(D^{-1})_{ii}/2$ from $(A^{-1})_{is}$, $(A^{-1})_{si}$, $(A^{-1})_{id}$ and $(A^{-1})_{di}$
+    -   Add $(D^{-1})_{ii}/4$ to $(A^{-1})_{ss}$, $(A^{-1})_{dd}$, $(A^{-1})_{sd}$ and $(A^{-1})_{ds}$
