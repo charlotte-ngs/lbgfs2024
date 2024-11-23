@@ -171,12 +171,6 @@ start_msg
 #' meaningful default value
 #+ argument-test, eval=FALSE
 log_msg $SCRIPT " * Check arguments and set defaults ..."
-if [[ $CLEANUPDIRS == '' ]];then
-  usage " *** ERROR: -d <cleanup_dirs> required, but not defined ..."
-fi
-if [[ $CLEANUPFILES == '' ]];then
-  usage " *** ERROR: -f <cleanup_files> required, but not defined ..."
-fi
 if [[ $VERBOSE == 'true' ]];then
   log_msg $SCRIPT " * Checked arguments and set defaults: "
   log_msg $SCRIPT "   ==> CLEANUPDIRS: $CLEANUPDIRS ..."
@@ -187,15 +181,18 @@ fi
 #' ## Clean Up Directories
 #' Cleaning up specified directories
 #+ cleanup-dirs
-log_msg $SCRIPT " * Cleanup dirs ..."
-cleanup_dirs
-
+if [[ $CLEANUPDIRS != '' ]];then
+  log_msg $SCRIPT " * Cleanup dirs ..."
+  cleanup_dirs
+fi
 
 #' ## Clean Up Files
 #' Cleaning up specified files
 #+ cleanup-files
-log_msg $SCRIPT " * Cleanup files ..."
-cleanup_files
+if [[ $CLEANUPFILES == '' ]];then
+  log_msg $SCRIPT " * Cleanup files ..."
+  cleanup_files
+fi
 
 
 #' ## End of Script
