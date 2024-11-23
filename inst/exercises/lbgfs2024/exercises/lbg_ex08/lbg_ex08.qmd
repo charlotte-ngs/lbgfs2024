@@ -1,0 +1,82 @@
+---
+title: "LBG - FS2024 -- Exercise 8"
+author: Peter von Rohr
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - tibble
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+## Problem 1: Henderson's Rule
+
+Use the following pedigree to come up with the final version of Hendersons rules.
+
+```{webr}
+#| label: exchunk1
+#| message: false
+#| warning: false 
+#| edit: false
+n_nr_founder <- 2
+n_nr_ani <- 3
+tbl_ped <- tibble::tibble(Animal = c(1:n_nr_ani),
+                          Sire = c(rep(NA, n_nr_founder),1),
+                          Dam = c(rep(NA, n_nr_founder),2))
+pem_ped <- pedigreemm::pedigree(sire = tbl_ped$Sire,
+                                dam = tbl_ped$Dam,
+                                label = tbl_ped$Animal)
+pem_ped
+```
+
+### Task
+
+-   Get matrices $L^{-1}$ and $D^{-1}$
+-   Do the matrix multiplication to get $A^{-1}$
+-   Describe rules to come up with $A^{-1}$
+
+### Solution
+
+-   Matrix $L^{-1}$
+
+```{webr}
+# matrix L_inv
+
+```
+
+-   Matrix $(L^{-1})^T$
+
+```{webr}
+# matrix t(L_inv)
+
+```
+
+-   Matrix $D^{-1}$
+
+```{webr}
+# matrix D_inv
+
+```
+
+-   Matrix multiplication
+
+```{webr}
+#| message: false
+#| warning: false
+# multiply first two matricesmatrices
+
+
+# result times third
+
+
+# check
+
+```
+
+-   Multiplication diagram
+
+
+-   Extract Rules
+
