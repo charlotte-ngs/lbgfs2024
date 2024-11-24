@@ -1,3 +1,7 @@
+# lbgfs2024 0.11.1
+
+* Solution lbg_ex07
+
 # lbgfs2024 0.11.0
 
 * OHP_L08
