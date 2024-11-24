@@ -55,9 +55,11 @@ REAL_EVALROOT=$(dirname $REAL_EVALREPO)
 usage () {
   local l_MSG=$1
   echo "Message: $l_MSG"
-  echo "Usage:   $SCRIPT -h -z"
+  echo "Usage:   $SCRIPT -h -p -z"
   echo '  where '
   echo '        -h  --  (optional) show usage message ...'
+  echo '        -p  --  (optional) directly publish rendered content ...'
+  echo '                           > default: false'
   echo '        -z  --  (optional) produce verbose output'
   echo '                           > default: false'
   echo 
@@ -117,11 +119,15 @@ check_exist_create_dir () {
 #+ getopts-parsing, eval=FALSE
 QWEBPROJROOT=''
 PUBWEBDIR=''
+PUBLISH_CONTENT='false'
 VERBOSE='false'
-while getopts ":hz" FLAG; do
+while getopts ":hpz" FLAG; do
   case $FLAG in
     h)
       usage "Help message for $SCRIPT"
+      ;;
+    p)
+      PUBLISH_CONTENT='true'
       ;;
     z)
       VERBOSE='true'
@@ -189,6 +195,16 @@ for f in $(find $QWEBPROJROOT/_site -type f -name '*.html');do
   if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Copy $f to $TRGWEBPATH ...";fi
   cp $f $TRGWEBPATH
 done
+
+
+#' ## Publish Content
+#' Directly publish content by committing all changes and by 
+#' pushing everything to Github
+#+ publish-content
+if [[ $PUBLISH_CONTENT == 'true' ]];then
+  log_msg $SCRIPT " * Publish content ..."
+  $EVALREPO/bash/stepwise_commit_push.sh -s modified
+fi
 
 
 
