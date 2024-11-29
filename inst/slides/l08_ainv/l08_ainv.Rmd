@@ -331,7 +331,6 @@ where $var(m)$ is the variance-covariance matrix of all components in vector $m$
 
 \begin{align}
 var(u_i)  &=  var(1/2u_s + 1/2u_d + m_i) \notag \\
-          &=  var(1/2u_s)  + var(1/2u_d) + {1\over 2} * cov(u_s, u_d) + var(m_i) \notag \\
           &=  1/4 var(u_s) + 1/4 var(u_d) + {1\over 2} * cov(u_s, u_d) + var(m_i) \notag 
 \end{align}
 
@@ -352,7 +351,7 @@ cov(u_s, u_d)  &=  (A)_{sd} \sigma_u^2 = 2F_i \sigma_u^2 \notag
 * Solve equation for $var(u_i)$ for $var(m_i)$
 
 \begin{align}
-var(m_i)  &=  var(u_i) - 1/4 var(u_s) - 1/4 var(u_d) - 2 * cov(u_s, u_d) \notag
+var(m_i)  &=  var(u_i) - 1/4 var(u_s) - 1/4 var(u_d) - 1/2 * cov(u_s, u_d) \notag
 \end{align}
 
 * Insert definitions from $A$
