@@ -1,4 +1,8 @@
 # Week 11 
+## lbgfs2024 0.11.5
+
+* Slides l11_gensel
+
 ## lbgfs2024 0.11.4
 
 * Course notes chapter 7
@@ -297,4 +301,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-11-29 08:28:38 CET (pvr)_
+ _Latest Changes: 2024-11-29 08:37:25 CET (pvr)_
