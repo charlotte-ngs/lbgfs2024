@@ -1,3 +1,15 @@
+# lbgfs2024 0.11.6
+
+Material for week 11:
+
+* [Slides l11_gensel](https://charlotte-ngs.github.io/lbgfs2024/slides/l11_geno_sel.pdf)
+* [Course Notes 07_gen_sel](https://charlotte-ngs.github.io/lbgfs2024/course_notes/07_gen_sel.pdf)
+* [Exercise lbg_ex09](https://charlotte-ngs.github.io/lbgfs2024/exercises/lbg_ex09/lbg_ex09.html)
+* [Correction ohp_l07](https://drive.google.com/file/d/1-_Qr0xjS3JxRYWC9BGEeahqKXXWvswsY/view?usp=sharing)
+* [Correction l08_ainv](https://charlotte-ngs.github.io/lbgfs2024/slides/l08_ainv.pdf)
+* [Solution lbg_ex07](https://charlotte-ngs.github.io/lbgfs2024/solutions/lbg_sol07/lbg_sol07.html)
+* [OHP ohp_l08](https://drive.google.com/file/d/1-RUMotCCUZjk10xGtsb1S3uouAvs32IU/view?usp=sharing)
+
 # lbgfs2024 0.11.5
 
 * Slides l11_gensel
