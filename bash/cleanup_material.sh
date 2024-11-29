@@ -189,7 +189,7 @@ fi
 #' ## Clean Up Files
 #' Cleaning up specified files
 #+ cleanup-files
-if [[ $CLEANUPFILES == '' ]];then
+if [[ $CLEANUPFILES != '' ]];then
   log_msg $SCRIPT " * Cleanup files ..."
   cleanup_files
 fi
