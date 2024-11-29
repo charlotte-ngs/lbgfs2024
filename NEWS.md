@@ -1,3 +1,7 @@
+# lbgfs2024 0.11.5
+
+* Slides l11_gensel
+
 # lbgfs2024 0.11.4
 
 * Course notes chapter 7
