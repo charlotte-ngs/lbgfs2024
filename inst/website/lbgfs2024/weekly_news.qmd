@@ -1,4 +1,8 @@
 # Week 11 
+## lbgfs2024 0.11.2
+
+* Corrected link to ohp_l07
+
 ## lbgfs2024 0.11.1
 
 * Solution lbg_ex07
@@ -285,4 +289,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-11-29 07:33:16 CET (pvr)_
+ _Latest Changes: 2024-11-29 07:42:17 CET (pvr)_
