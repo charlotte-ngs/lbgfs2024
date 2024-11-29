@@ -1,3 +1,7 @@
+# lbgfs2024 0.11.2
+
+* Corrected link to ohp_l07
+
 # lbgfs2024 0.11.1
 
 * Solution lbg_ex07
