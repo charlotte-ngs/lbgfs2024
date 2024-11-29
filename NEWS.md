@@ -1,3 +1,7 @@
+# lbgfs2024 0.11.3
+
+* Exercise lbg_ex09
+
 # lbgfs2024 0.11.2
 
 * Corrected link to ohp_l07
