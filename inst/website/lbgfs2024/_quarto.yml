@@ -1,7 +1,7 @@
 project:
   type: website
 website:
-  title: LBG - FS 2024 | 0.11.2
+  title: LBG - FS 2024 | 0.11.3
   navbar:
     left:
     - href: index.qmd
