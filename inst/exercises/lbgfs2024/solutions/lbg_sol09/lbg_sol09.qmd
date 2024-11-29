@@ -1,0 +1,98 @@
+---
+title: "LBG - FS2024 -- Solution 9"
+author: Peter von Rohr
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+    - dplyr
+    - tibble
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{r}
+#| echo: false
+n_h2_weight <- 0.25
+```
+
+
+## Problem 1: BLUP Animal Model
+Use the data set given below to predict breeding values for the response variable `Weight` using a BLUP animal model. The model contains `Herd` as fixed effect and `BreastCircumference` as regression covariate. The heritability ($h^2$) which is the ratio between genetic variance $\sigma_u^2$ and the phenotypic variance $\sigma_y^2$ is set to $h^2 = `r n_h2_weight`$. 
+
+```{webr}
+#| message: false
+#| warning: false 
+#| edit: false
+s_beef_dat <- "https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_blup.csv"
+tbl_beef_dat <- readr::read_delim(s_beef_dat, delim = ",")
+tbl_beef_dat
+```
+
+
+### Task
+
+* Set up mixed model equations
+* Use package 'pedigreemm' to get inverse of matrix $A$
+* Solve mixed model equations
+* Get estimates for fixed effects
+* Get solutions for random breeding values
+* Rank animals according to predicted breeding values
+
+
+### Solution 
+
+* Set up mixed model equations. For this, we require indcidence matrices
+
+```{webr}
+# incidence matrix X
+
+# incidence matrix Z
+
+```
+
+The inverse numerator relationship matrix is obtained via `pedigreemm`
+
+```{webr}
+# setup augmented version of pedigree
+
+# get inverse of A
+
+```
+
+
+* Solve mixed model equations
+
+```{webr}
+# set up coefficient matrix of mme
+
+# set up right-hand side of mme
+
+# solve for unknown estimates of fixed effects and solutions for breeding values
+
+```
+
+* Get estimates for fixed effects
+
+```{webr}
+# identify estimates of fixed effects from above solutions
+
+```
+
+* Get solutions for random breeding values
+
+```{webr}
+# solutions for random breeding values
+
+```
+
+
+* Rank animals according to predicted breeding values
+
+```{webr}
+# rank animals
+
+```
+
