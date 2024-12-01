@@ -48,18 +48,49 @@ tbl_beef_dat
 
 ```{webr}
 # incidence matrix X
+tbl_beef_dat$Herd <- as.factor(tbl_beef_dat$Herd)
+mat_X <- model.matrix(Weight ~ BreastCircumference + Herd, data = tbl_beef_dat)
+mat_X
+
+# extract pedigree
+tbl_beef_ped <- tbl_beef_dat[, c("Animal", "Sire", "Dam")]
+tbl_beef_ped
+
+# function to obtain founder animals from a pedigree
+get_founder_vec <- function(ptbl_ped){
+  vec_founder_sire <- setdiff(ptbl_ped$Sire, ptbl_ped$Animal)
+  vec_founder_dam <- setdiff(ptbl_ped$Dam, ptbl_ped$Animal)
+  vec_founder <- c(vec_founder_sire, vec_founder_dam)
+  vec_founder <- vec_founder[order(vec_founder)]
+  return(vec_founder)
+}
+# get animals without observations
+vec_founder_beef <- get_founder_vec(ptbl_ped = tbl_beef_ped)
+n_nr_founder <- length(vec_founder_beef)
 
 # incidence matrix Z
-
+mat_Z <- cbind(matrix(0, nrow = nrow(tbl_beef_dat), ncol = n_nr_founder),
+               diag(nrow = nrow(tbl_beef_dat)))
+mat_Z
 ```
 
 The inverse numerator relationship matrix is obtained via `pedigreemm`
 
 ```{webr}
 # setup augmented version of pedigree
+tbl_ped_ext <- dplyr::bind_rows(
+  tibble::tibble(Animal = vec_founder_beef,
+                 Sire = rep(NA, n_nr_founder),
+                 Dam = rep(NA, n_nr_founder)),
+  tbl_beef_ped
+)
+tbl_ped_ext
 
 # get inverse of A
-
+pem_beef <- pedigreemm::pedigree(sire = tbl_ped_ext$Sire,
+                                 dam = tbl_ped_ext$Dam,
+                                 label = tbl_ped_ext$Animal)
+mat_A_inv <- as.matrix(pedigreemm::getAInv(ped = pem_beef))
 ```
 
 
@@ -67,25 +98,38 @@ The inverse numerator relationship matrix is obtained via `pedigreemm`
 
 ```{webr}
 # set up coefficient matrix of mme
+n_h2 <- 0.25
+lambda <- (1-n_h2) / n_h2
+mat_xtx <- crossprod(mat_X)
+mat_xtz <- crossprod(mat_X, mat_Z)
+mat_ztx <- t(mat_xtz)
+mat_ztz_a_inv_lambda <- crossprod(mat_Z) + lambda * mat_A_inv
+mat_coef <- rbind(cbind(mat_xtx,mat_xtz), cbind(mat_ztx,mat_ztz_a_inv_lambda))
 
 # set up right-hand side of mme
+mat_rhs <- rbind(crossprod(mat_X, tbl_beef_dat$Weight),
+                 crossprod(mat_Z, tbl_beef_dat$Weight))
 
 # solve for unknown estimates of fixed effects and solutions for breeding values
-
+mat_sol <- solve(mat_coef, mat_rhs)
+mat_sol
 ```
 
 * Get estimates for fixed effects
 
 ```{webr}
 # identify estimates of fixed effects from above solutions
-
+n_nr_fix <- ncol(mat_X)
+mat_fix <- mat_sol[1:n_nr_fix,]
+mat_fix
 ```
 
 * Get solutions for random breeding values
 
 ```{webr}
 # solutions for random breeding values
-
+mat_bv <- mat_sol[(n_nr_fix+1):nrow(mat_sol),]
+mat_bv
 ```
 
 
@@ -93,6 +137,6 @@ The inverse numerator relationship matrix is obtained via `pedigreemm`
 
 ```{webr}
 # rank animals
-
+tbl_ped_ext$Animal[order(mat_bv, decreasing = T)]
 ```
 
