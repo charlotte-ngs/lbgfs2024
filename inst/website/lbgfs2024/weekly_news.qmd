@@ -1,4 +1,8 @@
 # Week 13 
+## lbgfs2024 0.13.1
+
+* Exercise lbg_ex11
+
 ## lbgfs2024 0.13.0
 
 * OHP: ohp_l10
@@ -333,4 +337,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-12-06 17:02:38 CET (pvr)_
+ _Latest Changes: 2024-12-06 17:52:18 CET (pvr)_
