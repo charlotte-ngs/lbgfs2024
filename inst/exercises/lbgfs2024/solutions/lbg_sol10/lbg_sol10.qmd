@@ -1,0 +1,145 @@
+---
+title: "LBG - FS2024 -- Solution 10"
+author: Peter von Rohr
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{r}
+#| echo: false
+n_h2_weight <- 0.25
+```
+
+
+## Problem 1: Reliability of Predicted Breeding Values
+Use the dataset given below to predict breeding values for the response variable `Weight` using a BLUP animal model. The model contains `Herd` as fixed effect and `BreastCircumference` as regression covariate. Compute reliabilities ($B\%$) for all predicted breeding values. 
+
+
+### Hints
+* The phenotypic variance $\sigma_p^2$ can be computed from the variance of the weight values given in the dataset. 
+* Heritability ($h^2$) is assumed to be `r n_h2_weight` for the trait `Weight`. 
+
+
+### Data
+The dataset is available from
+
+```{webr}
+#| message: false
+#| warning: false 
+#| edit: false
+s_beef_dat <- "https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_blup.csv"
+tbl_beef <- readr::read_delim(s_beef_dat, delim = ",")
+tbl_beef
+```
+
+
+
+### Solution 
+
+* Setup the mixed model equations (MME). Start with design matrix $X$ for fixed effects
+
+```{webr}
+# design matrix X
+matX <- model.matrix(Weight ~ BreastCircumference + as.factor(Herd), data = tbl_beef)
+attr(matX,"assign") <- NULL
+attr(matX,"contrasts") <- NULL
+dimnames(matX) <- NULL
+matX
+```
+
+* Design matrix $Z$ for random breeding values
+
+```{webr}
+# extract pedigree
+tbl_beef_ped <- tbl_beef[, c("Animal", "Sire", "Dam")]
+
+# function to obtain founder animals from a pedigree
+get_founder_vec <- function(ptbl_ped){
+  vec_founder_sire <- setdiff(ptbl_ped$Sire, ptbl_ped$Animal)
+  vec_founder_dam <- setdiff(ptbl_ped$Dam, ptbl_ped$Animal)
+  vec_founder <- c(vec_founder_sire, vec_founder_dam)
+  vec_founder <- vec_founder[!is.na(vec_founder)]
+  vec_founder <- vec_founder[order(vec_founder)]
+  return(vec_founder)
+}
+
+# get animals without observations
+vec_founder_beef <- get_founder_vec(ptbl_ped = tbl_beef_ped)
+n_nr_founder <- length(vec_founder_beef)
+n_nr_obs <- nrow(tbl_beef)
+
+# construct matrix Z
+matZ <- cbind(matrix(0, nrow = n_nr_obs, ncol = n_nr_founder),
+              diag(nrow = n_nr_obs))
+matZ
+```
+
+* Inverse numerator relationship matrix
+
+```{webr}
+# A inverse using pedigreemm
+n_nr_ani <- n_nr_founder + n_nr_obs
+ped <- pedigreemm::pedigree(sire = c(rep(NA, n_nr_founder), tbl_beef$Sire),
+                            dam  = c(rep(NA, n_nr_founder), tbl_beef$Dam),
+                            label = c(1:n_nr_ani))
+matA_inv <- as.matrix(pedigreemm::getAInv(ped = ped))
+matA_inv
+```
+
+* Setting up mixed model equations
+
+```{webr}
+# put together X, Z, lambda and A inverse to coefficient matrix
+n_h2_weight <- 0.25
+lambda <- (1-n_h2_weight) / n_h2_weight
+mat_coef <- rbind(cbind(crossprod(matX), crossprod(matX, matZ)), 
+                  cbind(crossprod(matZ, matX), crossprod(matZ) + lambda * matA_inv))
+# setup right-hand-side
+vec_y <- tbl_beef$Weight
+mat_rhs <- rbind(crossprod(matX, vec_y),
+                 crossprod(matZ, vec_y))
+# compute solutions
+mat_sol <- solve(mat_coef, mat_rhs)
+mat_sol
+```
+
+* Compute accuracies from inverse of coefficient matrix of MME
+
+```{webr}
+# setting up dimensions
+n_nr_sol <- nrow(mat_sol)
+n_nr_fix <- n_nr_sol - n_nr_ani
+# Compute phenotypic and residual variances
+var_p <- var(tbl_beef$Weight)
+var_e <- (1-n_h2_weight) * var_p
+# get original non-simplified form of coefficient matrix
+mat_coef_gen <- mat_coef / var_e
+# compute inverse coefficient matrix
+mat_coef_inv <- solve(mat_coef_gen)
+# extract diagonal elements of C22
+mat_C22 <- mat_coef_inv[(n_nr_fix + 1):n_nr_sol,(n_nr_fix + 1):n_nr_sol]
+vec_diag_C22 <- diag(mat_C22)
+# get inbreeding of animals using pedigreemm
+vec_inb <- pedigreemm::inbreeding(ped = ped)
+# get genetic additive variances of animals
+vec_ui <- n_h2_weight * var_p * (1+vec_inb)
+# compute reliability
+vec_Bi <- 1 - vec_diag_C22 / vec_ui
+vec_Bi
+```
+
+* Convert numbers to $B%$
+
+```{webr}
+# convert to percentages and round
+100 * round(vec_Bi, digits = 2)
+```
+
+
+
