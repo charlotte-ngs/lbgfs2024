@@ -1,24 +1,10 @@
 [
   {
-    "objectID": "course_notes.html",
-    "href": "course_notes.html",
+    "objectID": "course_notes/course_notes.html",
+    "href": "course_notes/course_notes.html",
     "title": "Course Notes",
     "section": "",
-    "text": "Latest Changes: 2024-09-16 16:13:05 CEST (pvr)"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About the Course",
-    "section": "",
-    "text": "The following content was taken from the course catalogue\n\nAbstract\nSwiss routine breeding value estimation/genetic evaluation systems of cattle, pig, sheep and goats are presented with methods and evaluated traits. Examples will be demonstrated using the statistical software R.\n\n\nLearning objective\nThe students know the theoretical and practical application of breeding value estimation in Switzerland for cattle, pig, sheep and goats. The students are able to interpret estimated breeding values.\n\n\nContent\n\nBasic principles of genetic evaluations\nApplied genetic evaluation in cattle (data, methods, traits, national and international genetic evaluations)\nApplied genetic evaluation in pigs (data, methods, traits)\nApplied genetic evaluation in sheep and goats (data, methods, traits)\n\n\nLatest Changes: 2024-09-16 16:13:09 CEST (pvr)"
-  },
-  {
-    "objectID": "weekly_news.html",
-    "href": "weekly_news.html",
-    "title": "Week 0",
-    "section": "",
-    "text": "Started deployment to Github pages\n\n\n\n\n\nAdded stub-pages for exercises and solutions\n\n\n\n\n\nModified structure of weekly news\n\n\n\n\n\nRefactored quarto render script for the website to make it possible to be called from any directory in the main course repo\n\n\n\n\n\nImplemented new package structure\n\n\n\n\n\nAdded about page\n\n\n\n\n\nStart to add weekly news\n\n\n\n\n\nInitial draft version of lecture material.\n\n\nLatest Changes: 2024-09-16 16:13:00 CEST (pvr)"
+    "text": "Chapters of course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-20\nBasics in Quantitative Genetics\n\n\n3\n2024-10-18\nGenetic Evaluation\n\n\n4\n2024-10-24\nBLUP\n\n\n5\n2024-11-01\nDerivation of BLUP\n\n\n6\n2024-11-07\nGenetic Covariance\n\n\n7\n2024-11-22\nAdditional Aspects of BLUP\n\n\n8\n2024-11-29\nGenomic Selection\n\n\n\n\n\nAppendix to course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nLinear Algebra\n\n\n2\n2024-10-18\nVariance Computations\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:41:58 CET (pvr)"
   },
   {
     "objectID": "index.html",
@@ -39,14 +25,14 @@
     "href": "index.html#topics-for-master-theses",
     "title": "Livestock Breeding and Genomics",
     "section": "Topics for Master Theses",
-    "text": "Topics for Master Theses\nTopics for Master Theses at Qualitas AG together with ETH will follow here …"
+    "text": "Topics for Master Theses\nTopics for Master Theses at Qualitas AG together with ETH are available here"
   },
   {
     "objectID": "index.html#information",
     "href": "index.html#information",
     "title": "Livestock Breeding and Genomics",
     "section": "Information",
-    "text": "Information\n\nLecturer: Peter von Rohr\nDate: Friday 9-12\nRoom: LFW C11\n\n\nExercise Platform\nThree options are available\n\nWebr: https://webr.r-wasm.org/latest\nPosit cloud: https://posit.cloud\nRun your own platform: Follow steps on https://posit.co/download/rstudio-desktop\n\n\n\nExam\n\nWritten exam\nDate: 20.12.2024 - 09:15 - 11:15\nRoom: LFW C 11"
+    "text": "Information\n\nLecturer: Peter von Rohr\nDate: Friday 9-12\nRoom: LFW C11\nMoodle: https://moodle-app2.let.ethz.ch/course/view.php?id=23928\nZoom: https://ethz.zoom.us/j/66360111190\n\n\nExercise Platform\nThree options are available\n\nWebr: https://webr.r-wasm.org/latest\nPosit cloud: https://posit.cloud\nRun your own platform: Follow steps on https://posit.co/download/rstudio-desktop\n\n\n\nExam\n\nWritten exam\nDate: 20.12.2024 - 09:15 - 11:15\nRoom: LFW C 11"
   },
   {
     "objectID": "index.html#questions",
@@ -60,76 +46,608 @@
     "href": "index.html#lecture-program",
     "title": "Livestock Breeding and Genomics",
     "section": "Lecture Program",
-    "text": "Lecture Program\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n20.09\nIntroduction to Livestock Breeding and Genomics\n\n\n2\n27.09\nReview of Quantitative Genetics/Single Locus\n\n\n3\n04.10\nGenetic Evaluation with Different Sources of Information\n\n\n4\n11.10\nGenetic Covariance Between Relatives\n\n\n5\n18.10\nBest Linear Unbiased Prediction (BLUP) - Univariate Analysis\n\n\n6\n25.10\nBLUP - Additional Aspects\n\n\n7\n01.11\nBLUP - Multiple Traits\n\n\n8\n08.11\nVariance and Inbreeding\n\n\n9\n15.11\nVariance Components Estimation\n\n\n10\n22.11\nGenomic Selection\n\n\n11\n29.11\nGenom-Wide Association Studies\n\n\n12\n06.12\nReview on Selection Index Theory\n\n\n13\n13.12\nTest-Exam and Questions\n\n\n14\n20.12\nExam\n\n\n\n\n\n\nLatest Changes: 2024-09-16 16:13:28 CEST (pvr)"
+    "text": "Lecture Program\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n20.09\nIntroduction to Livestock Breeding and Genomics\n\n\n2\n27.09\nReview of Quantitative Genetics/Single Locus\n\n\n3\n04.10\nGenetic Evaluation with Different Sources of Information\n\n\n4\n11.10\nGenetic Covariance Between Relatives\n\n\n5\n18.10\nBest Linear Unbiased Prediction (BLUP) - Univariate Analysis\n\n\n6\n25.10\nBLUP - Additional Aspects\n\n\n7\n01.11\nBLUP - Multiple Traits\n\n\n8\n08.11\nVariance and Inbreeding\n\n\n9\n15.11\nVariance Components Estimation\n\n\n10\n22.11\nGenomic Selection\n\n\n11\n29.11\nGenom-Wide Association Studies\n\n\n12\n06.12\nReview on Selection Index Theory\n\n\n13\n13.12\nTest-Exam and Questions\n\n\n14\n20.12\nExam\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:57:36 CET (pvr)"
   },
   {
-    "objectID": "weekly_news.html#lbgfs2024-0.0.5",
-    "href": "weekly_news.html#lbgfs2024-0.0.5",
-    "title": "Week 0",
+    "objectID": "slides/slides.html",
+    "href": "slides/slides.html",
+    "title": "Slides",
     "section": "",
-    "text": "Refactored quarto render script for the website to make it possible to be called from any directory in the main course repo"
+    "text": "List of slides documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-11\nMultiple Loci\n\n\n4\n2024-10-18\nGenetic Evaluation\n\n\n5\n2024-10-25\nBLUP\n\n\n6\n2024-11-01\nCovariance between Animals\n\n\n7\n2024-11-08\nNumerator Relationship Matrix\n\n\n8\n2024-11-15\nInverse A\n\n\n9\n2024-11-22\nHendersons Rule\n\n\n10\n2024-11-22\nAdditional Aspects of BLUP\n\n\n11\n2024-11-29\nGenomic Selection\n\n\n\n\n\nSlides with annotations\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nMultiple Loci\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:42:29 CET (pvr)"
   },
   {
-    "objectID": "weekly_news.html#lbgfs2024-0.0.4",
-    "href": "weekly_news.html#lbgfs2024-0.0.4",
-    "title": "Week 0",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About the Course",
     "section": "",
-    "text": "Implemented new package structure"
-  },
-  {
-    "objectID": "weekly_news.html#lbgfs2024-0.0.3",
-    "href": "weekly_news.html#lbgfs2024-0.0.3",
-    "title": "Week 0",
-    "section": "",
-    "text": "Added about page"
-  },
-  {
-    "objectID": "weekly_news.html#lbgfs2024-0.0.2",
-    "href": "weekly_news.html#lbgfs2024-0.0.2",
-    "title": "Week 0",
-    "section": "",
-    "text": "Start to add weekly news"
-  },
-  {
-    "objectID": "weekly_news.html#lbgfs2024-0.0.1",
-    "href": "weekly_news.html#lbgfs2024-0.0.1",
-    "title": "Week 0",
-    "section": "",
-    "text": "Initial draft version of lecture material.\n\n\nLatest Changes: 2024-09-16 16:13:00 CEST (pvr)"
-  },
-  {
-    "objectID": "weekly_news.html#lbgfs2024-0.0.6",
-    "href": "weekly_news.html#lbgfs2024-0.0.6",
-    "title": "Week 0",
-    "section": "",
-    "text": "Modified structure of weekly news"
+    "text": "The following content was taken from the course catalogue\n\nAbstract\nSwiss routine breeding value estimation/genetic evaluation systems of cattle, pig, sheep and goats are presented with methods and evaluated traits. Examples will be demonstrated using the statistical software R.\n\n\nLearning objective\nThe students know the theoretical and practical application of breeding value estimation in Switzerland for cattle, pig, sheep and goats. The students are able to interpret estimated breeding values.\n\n\nContent\n\nBasic principles of genetic evaluations\nApplied genetic evaluation in cattle (data, methods, traits, national and international genetic evaluations)\nApplied genetic evaluation in pigs (data, methods, traits)\nApplied genetic evaluation in sheep and goats (data, methods, traits)\n\n\nLatest Changes: 2024-12-06 07:42:35 CET (pvr)"
   },
   {
     "objectID": "exercises.html",
     "href": "exercises.html",
     "title": "Exercises",
     "section": "",
-    "text": "Latest Changes: 2024-09-16 16:13:14 CEST (pvr)"
+    "text": "Latest Changes: 2024-09-27 07:31:13 CEST (pvr)"
   },
   {
     "objectID": "solutions.html",
     "href": "solutions.html",
     "title": "Solutions",
     "section": "",
-    "text": "Latest Changes: 2024-09-16 16:13:19 CEST (pvr)"
+    "text": "Latest Changes: 2024-09-27 08:59:07 CEST (pvr)"
   },
   {
-    "objectID": "weekly_news.html#lbgfs2024-0.0.7",
-    "href": "weekly_news.html#lbgfs2024-0.0.7",
-    "title": "Week 0",
+    "objectID": "weekly_news.html",
+    "href": "weekly_news.html",
+    "title": "Week 12",
     "section": "",
-    "text": "Added stub-pages for exercises and solutions"
+    "text": "Exercise lbg_ex10\n\n\n\n\n\nOHP: ohp_l09"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.1.4",
+    "href": "weekly_news.html#lbgfs2024-0.1.4",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.1.4",
+    "text": "lbgfs2024 0.1.4\n\nStepwise migration of slides"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.1.3",
+    "href": "weekly_news.html#lbgfs2024-0.1.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.1.3",
+    "text": "lbgfs2024 0.1.3\n\nStart preparation of slides l01_intro"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.1.2",
+    "href": "weekly_news.html#lbgfs2024-0.1.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.1.2",
+    "text": "lbgfs2024 0.1.2\n\nLink to moodle page"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.1.1",
+    "href": "weekly_news.html#lbgfs2024-0.1.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.1.1",
+    "text": "lbgfs2024 0.1.1\nAdding links to the material of week 1\n\nCourse Notes: Introduction\nCourse Notes: Basics of Quantitative Genetics\nAppendix: Linear Algebra"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.1.0",
+    "href": "weekly_news.html#lbgfs2024-0.1.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.1.0",
+    "text": "lbgfs2024 0.1.0\n\nFirst release of website for week 1"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.9",
+    "href": "weekly_news.html#lbgfs2024-0.0.9",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.9",
+    "text": "lbgfs2024 0.0.9"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.8",
     "href": "weekly_news.html#lbgfs2024-0.0.8",
-    "title": "Week 0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.8",
+    "text": "lbgfs2024 0.0.8\n\nStarted deployment to Github pages"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.7",
+    "href": "weekly_news.html#lbgfs2024-0.0.7",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.7",
+    "text": "lbgfs2024 0.0.7\n\nAdded stub-pages for exercises and solutions"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.6",
+    "href": "weekly_news.html#lbgfs2024-0.0.6",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.6",
+    "text": "lbgfs2024 0.0.6\n\nModified structure of weekly news"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.5",
+    "href": "weekly_news.html#lbgfs2024-0.0.5",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.5",
+    "text": "lbgfs2024 0.0.5\n\nRefactored quarto render script for the website to make it possible to be called from any directory in the main course repo"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.4",
+    "href": "weekly_news.html#lbgfs2024-0.0.4",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.4",
+    "text": "lbgfs2024 0.0.4\n\nImplemented new package structure"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.3",
+    "href": "weekly_news.html#lbgfs2024-0.0.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.3",
+    "text": "lbgfs2024 0.0.3\n\nAdded about page"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.2",
+    "href": "weekly_news.html#lbgfs2024-0.0.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.2",
+    "text": "lbgfs2024 0.0.2\n\nStart to add weekly news"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.0.1",
+    "href": "weekly_news.html#lbgfs2024-0.0.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.0.1",
+    "text": "lbgfs2024 0.0.1\n\nInitial draft version of lecture material.\n\n\nLatest Changes: 2024-12-06 07:42:22 CET (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.1.5",
+    "href": "weekly_news.html#lbgfs2024-0.1.5",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.1.5",
+    "text": "lbgfs2024 0.1.5\n\nAdded slides for l02"
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html",
+    "href": "topics_msc_intern/topics_msc_intern.html",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
     "section": "",
-    "text": "Started deployment to Github pages"
+    "text": "An analysis comparable to https://doi.org/10.3168/jds.2018-15858 is to be developed."
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#first-steps-towards-a-genetic-evaluation-for-conception-rate",
+    "href": "topics_msc_intern/topics_msc_intern.html#first-steps-towards-a-genetic-evaluation-for-conception-rate",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "",
+    "text": "An analysis comparable to https://doi.org/10.3168/jds.2018-15858 is to be developed."
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#relationship-between-myostatin-status-with-calving-traits",
+    "href": "topics_msc_intern/topics_msc_intern.html#relationship-between-myostatin-status-with-calving-traits",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "Relationship between Myostatin-Status with Calving Traits",
+    "text": "Relationship between Myostatin-Status with Calving Traits\nSome beef cattle breeds (Charolais, Limousin, …) are looking into the genetic basis of the myostatin-gene (double-muscle). Recent developments in genomic selection of beef cattle in Switzerland give the possibility to analyse the status of the myostatin-gene in the Swiss beef cattle breeds. A specific emphasis is to be put to the relationship with other important characteristics of the animals such as calving traits."
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#early-first-calving-evaluation",
+    "href": "topics_msc_intern/topics_msc_intern.html#early-first-calving-evaluation",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "Early first calving evaluation",
+    "text": "Early first calving evaluation\nThis trait is associated with efficiency and with environmental footprint of animals. A number of publications already exist on this topic. Tasks would consist of"
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#psb-measures",
+    "href": "topics_msc_intern/topics_msc_intern.html#psb-measures",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "PSB-Measures",
+    "text": "PSB-Measures\nThe Swiss Federal government has decided on measures to reduce the amount of phosphoros (P) and nitrogen (N) that is released to the environment due to livestock production. The possible impact of such measures is to be investigated."
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#feed-efficiency",
+    "href": "topics_msc_intern/topics_msc_intern.html#feed-efficiency",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "Feed Efficiency",
+    "text": "Feed Efficiency\nIn the more recent past huge efforts are undertaken to improve feed efficiency of dairy cows. Thies is due to the fact that the economic pressure for dairy farms have dramatically increased during the past few years and also because of the higher awareness of the impact of livestock production on the environment. In this project the possibilities to improve feed efficiency at the genetic level are to be researched, discussed and if possible evaluated."
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#methan---swiss-initiative",
+    "href": "topics_msc_intern/topics_msc_intern.html#methan---swiss-initiative",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "Methan - Swiss Initiative",
+    "text": "Methan - Swiss Initiative\nThis project is still in its starting phase, but possibilities to work in this area should be available."
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#index-to-rank-beef-bulls-for-their-use-on-dairy-cows",
+    "href": "topics_msc_intern/topics_msc_intern.html#index-to-rank-beef-bulls-for-their-use-on-dairy-cows",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "Index to Rank Beef Bulls for their Use on Dairy Cows",
+    "text": "Index to Rank Beef Bulls for their Use on Dairy Cows\n\nSwiss AI Industry has expressed a long standing interest for a tool that provides a solid ranking of beef bulls for use on dairy cows. The reason for this requirement is the strong interest of dairy farmers in beef bulls (Beef on Dairy)\nBerry et al (2019) have proposed such an index for the dairy and beef industry in Ireland.\nThe approach by Berry et al (2019) would need to be adapted to the Swiss context\nAfter a literature search on the topic of using beef bulls on dairy cows from the same authors, a ranking index for the Swiss context is to be proposed"
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#factors-influencing-stability-of-predicted-genomic-breeding-values",
+    "href": "topics_msc_intern/topics_msc_intern.html#factors-influencing-stability-of-predicted-genomic-breeding-values",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "Factors Influencing Stability of Predicted Genomic Breeding Values",
+    "text": "Factors Influencing Stability of Predicted Genomic Breeding Values\n\nExample: BVCH\nReference:\n\nPatry, C. and Ducrocq, V. (2011) ‘Evidence of biases in genetic evaluations due to genomic preselection in dairy cattle’, Journal of Dairy Science. Elsevier, 94(2), pp. 1011–1020. doi: 10.3168/jds.2010-3804.\nPatry, C. and Ducrocq, V. (2011) ‘Accounting for genomic pre-selection in national BLUP evaluations in dairy cattle’, Genetics Selection Evolution, 43(1), pp. 1–9. doi: 10.1186/1297-9686-43-30.\nTyrisevä, A.-M. M. et al. (2018) ‘Detection of evaluation bias caused by genomic preselection’, Journal of Dairy Science. American Dairy Science Association, 101(4), pp. 3155–3163. doi: 10.3168/jds.2017-13527.\nUemoto, Y., Osawa, T. and Saburi, J. (2017) ‘Effect of genotyped cows in the reference population on the genomic evaluation of Holstein cattle’, Animal, 11(3), pp. 382–393. doi: 10.1017/S1751731116001762."
+  },
+  {
+    "objectID": "topics_msc_intern/topics_msc_intern.html#aspects-in-single-step-genomic-blup",
+    "href": "topics_msc_intern/topics_msc_intern.html#aspects-in-single-step-genomic-blup",
+    "title": "Topics for Master Thesis and Internships with Qualitas AG",
+    "section": "Aspects in Single-Step Genomic BLUP",
+    "text": "Aspects in Single-Step Genomic BLUP\nExamples:\n\nreliabilities\nblending\n\ncomparison of marker-effect models and breeding-value based models.\n\nAn important aspect of a change from a two-step marker-effect model to a single-step GBLUP-procedure is that the latter often assume that all SNP contribute a very small amount to the genetic variance. This violates the generic model of quantitative genetics which states that only a few QTL are responsible for the expression of a quantitative trait. The advantage of the single-step GBLUP-procedure is that it is stable across evaluations which is most likely due to its shrinkage feature.\nGenetic variance of a trait of interest can usually not be explained completely by markers linked to QTL (cf. “missing heritability”). In single step genomic evaluations, where genomic and phenotypic information are combined in a single evaluation, this issue is commonly addressed by including a residual polygenic (RPG) term in the used models. This term is derived from pedigree information and included in the H-Matrix, the relationship matrix for single step evaluations. A weight is assigned to the RPG in comparison to the genetic part of the matrix. Commonly this term is set to a value between 0.1 and 0.3. A possible reference for this problem is Liu, Z., Goddard, M. E., Hayes, B. J., Reinhardt, F., & Reents, R. (2016). Technical note: Equivalent genomic models with a residual polygenic effect. Journal of Dairy Science, 99(3), 2016–2025. Technical note: Equivalent genomic models with a residual polygenic effect (available in Mendeley). In order to implement single step genomic evaluation a definition of RPG is required. During the project the problem of RPG will be adressed. The central task of the project will be to investigate and understand the effect of different RPG on single step breeding values and their reliabilities. Different criteria such as validation reliabilities will be used in order to investigate this question."
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.1.6",
+    "href": "weekly_news.html#lbgfs2024-0.1.6",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.1.6",
+    "text": "lbgfs2024 0.1.6\n\nTopics for MSC and internships"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.1.7",
+    "href": "weekly_news.html#lbgfs2024-0.1.7",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.1.7",
+    "text": "lbgfs2024 0.1.7\nLinks to available material for week 1:\n\nCourse Notes: Introduction\nCourse Notes: Basics of Quantitative Genetics\nAppendix: Linear Algebra\nSlides l01: Introduction\nSlides l02: Basics of Quantitative Genetics"
+  },
+  {
+    "objectID": "ohp/ohp.html",
+    "href": "ohp/ohp.html",
+    "title": "Overhead Pictures",
+    "section": "",
+    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-04\nGenotypic Values\n\n\n4\n2024-10-11\nGenotypic Value Decomposition\n\n\n5\n2024-11-01\nBLUP\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-15\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-22\nHenderson’s Rule\n\n\n9\n2024-11-29\nAdditional Aspects of BLUP\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:41:51 CET (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.2.1",
+    "href": "weekly_news.html#lbgfs2024-0.2.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.2.1",
+    "text": "lbgfs2024 0.2.1\n\nFirst version of ohp document"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.2.0",
+    "href": "weekly_news.html#lbgfs2024-0.2.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.2.0",
+    "text": "lbgfs2024 0.2.0\n\nStarted overhead pictures"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.2.2",
+    "href": "weekly_news.html#lbgfs2024-0.2.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.2.2",
+    "text": "lbgfs2024 0.2.2\n\nOutsource pdf-result of ohp document"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.2.3",
+    "href": "weekly_news.html#lbgfs2024-0.2.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.2.3",
+    "text": "lbgfs2024 0.2.3\n\nStarted exercise"
+  },
+  {
+    "objectID": "exercises/exercises.html",
+    "href": "exercises/exercises.html",
+    "title": "Exercises",
+    "section": "",
+    "text": "List of exercises\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-10-25\nFixed linear model\n\n\n5\n2024-11-01\nSire model\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-10\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-23\nHendersons Rule\n\n\n9\n2024-11-29\nBLUP Animal Model\n\n\n10\n2024-12-06\nReliability\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:42:42 CET (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.2.4",
+    "href": "weekly_news.html#lbgfs2024-0.2.4",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.2.4",
+    "text": "lbgfs2024 0.2.4\nLinks to available material for week 2:\n\nExercise Genotype Data\nOverhead Pictures: Introduction"
+  },
+  {
+    "objectID": "solutions/solutions.html",
+    "href": "solutions/solutions.html",
+    "title": "Solutions",
+    "section": "",
+    "text": "List of Solutions\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-11-15\nFixed linear model\n\n\n5\n2024-11-15\nSire Model\n\n\n6\n2024-11-15\nNumerator Relationship Matrix\n\n\n7\n2024-11-24\nInverse Numerator Relationship Matrix\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:42:12 CET (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.3.0",
+    "href": "weekly_news.html#lbgfs2024-0.3.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.3.0",
+    "text": "lbgfs2024 0.3.0\n\nFirst version of solutions lbg_sol01\nRe-designed exercise and solutions qmd documents"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.3.1",
+    "href": "weekly_news.html#lbgfs2024-0.3.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.3.1",
+    "text": "lbgfs2024 0.3.1\n\nOHP l02"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.3.2",
+    "href": "weekly_news.html#lbgfs2024-0.3.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.3.2",
+    "text": "lbgfs2024 0.3.2\n\nExercise lbg_ex02"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.3.3",
+    "href": "weekly_news.html#lbgfs2024-0.3.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.3.3",
+    "text": "lbgfs2024 0.3.3\nMaterial for week 3:\n\nExercise lbg_ex02\nOHP l02"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.4.0",
+    "href": "weekly_news.html#lbgfs2024-0.4.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.4.0",
+    "text": "lbgfs2024 0.4.0\n\nOHP l03"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.4.1",
+    "href": "weekly_news.html#lbgfs2024-0.4.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.4.1",
+    "text": "lbgfs2024 0.4.1\n\nSlides sl_l03"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.4.2",
+    "href": "weekly_news.html#lbgfs2024-0.4.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.4.2",
+    "text": "lbgfs2024 0.4.2\n\nExercise lbg_ex03"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.4.3",
+    "href": "weekly_news.html#lbgfs2024-0.4.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.4.3",
+    "text": "lbgfs2024 0.4.3\nMaterial for week 4:\n\nExercise lbg_ex03\nSlides sl_l03\nOHP ohp_l03"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.5.0",
+    "href": "weekly_news.html#lbgfs2024-0.5.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.5.0",
+    "text": "lbgfs2024 0.5.0\n\nOHP l04"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.5.1",
+    "href": "weekly_news.html#lbgfs2024-0.5.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.5.1",
+    "text": "lbgfs2024 0.5.1\n\nSolutions lbg_sol02"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.5.2",
+    "href": "weekly_news.html#lbgfs2024-0.5.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.5.2",
+    "text": "lbgfs2024 0.5.2\n\nAppendix 3: Computing with Variances"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.5.3",
+    "href": "weekly_news.html#lbgfs2024-0.5.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.5.3",
+    "text": "lbgfs2024 0.5.3\n\nSolutions lbg_sol03"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.5.4",
+    "href": "weekly_news.html#lbgfs2024-0.5.4",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.5.4",
+    "text": "lbgfs2024 0.5.4\n\nSlides l04"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.6.0",
+    "href": "weekly_news.html#lbgfs2024-0.6.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.6.0",
+    "text": "lbgfs2024 0.6.0\n\nZoom-link"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.6.2",
+    "href": "weekly_news.html#lbgfs2024-0.6.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.6.2",
+    "text": "lbgfs2024 0.6.2\n\nCourse notes cn_04-blup"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.6.1",
+    "href": "weekly_news.html#lbgfs2024-0.6.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.6.1",
+    "text": "lbgfs2024 0.6.1\n\nSlides l05"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.6.3",
+    "href": "weekly_news.html#lbgfs2024-0.6.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.6.3",
+    "text": "lbgfs2024 0.6.3\n\nSlides l06"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.6.4",
+    "href": "weekly_news.html#lbgfs2024-0.6.4",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.6.4",
+    "text": "lbgfs2024 0.6.4\n\nExercise lbg_ex04"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.6.5",
+    "href": "weekly_news.html#lbgfs2024-0.6.5",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.6.5",
+    "text": "lbgfs2024 0.6.5\nMaterial for week 6:\n\nCourse notes 04_blup\nExercise lbg_ex04\nSlides l05_blup"
+  },
+  {
+    "objectID": "video/video.html",
+    "href": "video/video.html",
+    "title": "Video",
+    "section": "",
+    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nLecture 6\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:42:05 CET (pvr)"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.7.0",
+    "href": "weekly_news.html#lbgfs2024-0.7.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.7.0",
+    "text": "lbgfs2024 0.7.0\n\nZoom-video of lecture\nSlides with annotations"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.7.1",
+    "href": "weekly_news.html#lbgfs2024-0.7.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.7.1",
+    "text": "lbgfs2024 0.7.1\n\nAdapted chapter 04 of cn\nAdded appendix 4.6 to cn"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.7.2",
+    "href": "weekly_news.html#lbgfs2024-0.7.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.7.2",
+    "text": "lbgfs2024 0.7.2\n\nExercise lbg_ex05"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.7.3",
+    "href": "weekly_news.html#lbgfs2024-0.7.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.7.3",
+    "text": "lbgfs2024 0.7.3\nMaterial for week 7:\n\nAdapted Course notes 04_blup\nCourse Notes Appendix 4.6\nAdapted slides l05_blup\nExercise lbg_ex05"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.8.0",
+    "href": "weekly_news.html#lbgfs2024-0.8.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.8.0",
+    "text": "lbgfs2024 0.8.0\n\nOHP-L05"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.8.1",
+    "href": "weekly_news.html#lbgfs2024-0.8.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.8.1",
+    "text": "lbgfs2024 0.8.1\n\nCourse Notes 05_gencov"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.8.2",
+    "href": "weekly_news.html#lbgfs2024-0.8.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.8.2",
+    "text": "lbgfs2024 0.8.2\n\nExercise lbg_ex06"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.8.3",
+    "href": "weekly_news.html#lbgfs2024-0.8.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.8.3",
+    "text": "lbgfs2024 0.8.3\n\nSlides l07_num_rel_mat"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.9.0",
+    "href": "weekly_news.html#lbgfs2024-0.9.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.9.0",
+    "text": "lbgfs2024 0.9.0\n\nOHP-L06"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.9.1",
+    "href": "weekly_news.html#lbgfs2024-0.9.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.9.1",
+    "text": "lbgfs2024 0.9.1\n\nSolutions lbg_05\nSolutions lbg_04"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.9.3",
+    "href": "weekly_news.html#lbgfs2024-0.9.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.9.3",
+    "text": "lbgfs2024 0.9.3\n\nExercise lbg_ex07"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.9.2",
+    "href": "weekly_news.html#lbgfs2024-0.9.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.9.2",
+    "text": "lbgfs2024 0.9.2\n\nSolutions lbg_06"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.10.0",
+    "href": "weekly_news.html#lbgfs2024-0.10.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.10.0",
+    "text": "lbgfs2024 0.10.0\n\nOHP-L07"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.10.1",
+    "href": "weekly_news.html#lbgfs2024-0.10.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.10.1",
+    "text": "lbgfs2024 0.10.1\n\nCourse notes chapter 6"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.10.2",
+    "href": "weekly_news.html#lbgfs2024-0.10.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.10.2",
+    "text": "lbgfs2024 0.10.2\n\nSlides l09"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.10.3",
+    "href": "weekly_news.html#lbgfs2024-0.10.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.10.3",
+    "text": "lbgfs2024 0.10.3\n\nSlides l10"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.11.0",
+    "href": "weekly_news.html#lbgfs2024-0.11.0",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.11.0",
+    "text": "lbgfs2024 0.11.0\n\nOHP_L08"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.10.4",
+    "href": "weekly_news.html#lbgfs2024-0.10.4",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.10.4",
+    "text": "lbgfs2024 0.10.4\n\nExercise lbg_ex08"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.11.1",
+    "href": "weekly_news.html#lbgfs2024-0.11.1",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.11.1",
+    "text": "lbgfs2024 0.11.1\n\nSolution lbg_ex07"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.11.2",
+    "href": "weekly_news.html#lbgfs2024-0.11.2",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.11.2",
+    "text": "lbgfs2024 0.11.2\n\nCorrected link to ohp_l07"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.11.3",
+    "href": "weekly_news.html#lbgfs2024-0.11.3",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.11.3",
+    "text": "lbgfs2024 0.11.3\n\nExercise lbg_ex09"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.11.4",
+    "href": "weekly_news.html#lbgfs2024-0.11.4",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.11.4",
+    "text": "lbgfs2024 0.11.4\n\nCourse notes chapter 7"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.11.5",
+    "href": "weekly_news.html#lbgfs2024-0.11.5",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.11.5",
+    "text": "lbgfs2024 0.11.5\n\nSlides l11_gensel"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.11.6",
+    "href": "weekly_news.html#lbgfs2024-0.11.6",
+    "title": "Week 12",
+    "section": "lbgfs2024 0.11.6",
+    "text": "lbgfs2024 0.11.6\nMaterial for week 11:\n\nSlides l11_gensel\nCourse Notes 07_gen_sel\nExercise lbg_ex09\nCorrection ohp_l07\nCorrection l08_ainv\nSolution lbg_ex07\nOHP ohp_l08"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.12.0",
+    "href": "weekly_news.html#lbgfs2024-0.12.0",
+    "title": "Week 12",
+    "section": "",
+    "text": "OHP: ohp_l09"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.12.1",
+    "href": "weekly_news.html#lbgfs2024-0.12.1",
+    "title": "Week 12",
+    "section": "",
+    "text": "Exercise lbg_ex10"
   }
 ]
