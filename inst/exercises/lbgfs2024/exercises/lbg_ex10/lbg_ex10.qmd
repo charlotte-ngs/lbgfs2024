@@ -1,0 +1,109 @@
+---
+title: "LBG - FS2024 -- Exercise 10"
+author: Peter von Rohr
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+    - pedigreemm
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{r}
+#| echo: false
+n_h2_weight <- 0.25
+```
+
+
+## Problem 1: Reliability of Predicted Breeding Values
+Use the dataset given below to predict breeding values for the response variable `Weight` using a BLUP animal model. The model contains `Herd` as fixed effect and `BreastCircumference` as regression covariate. Compute reliabilities ($B\%$) for all predicted breeding values. 
+
+
+### Hints
+* The phenotypic variance $\sigma_p^2$ can be computed from the variance of the weight values given in the dataset. 
+* Heritability ($h^2$) is assumed to be `r n_h2_weight` for the trait `Weight`. 
+
+
+### Data
+The dataset is available from
+
+```{webr}
+#| message: false
+#| warning: false 
+#| edit: false
+s_beef_dat <- "https://charlotte-ngs.github.io/lbgfs2024/data/beef_data_blup.csv"
+tbl_beef <- readr::read_delim(s_beef_dat, delim = ",")
+tbl_beef
+```
+
+
+
+### Solution 
+
+* Setup the mixed model equations (MME). Start with design matrix $X$ for fixed effects
+
+```{webr}
+# design matrix X
+
+```
+
+* Design matrix $Z$ for random breeding values
+
+```{webr}
+# extract pedigree
+
+
+# get animals without observations / founders
+
+# construct matrix Z
+
+```
+
+* Inverse numerator relationship matrix
+
+```{webr}
+# A inverse using pedigreemm
+
+```
+
+* Setting up mixed model equations
+
+```{webr}
+# put together X, Z, lambda and A inverse to coefficient matrix
+
+# setup right-hand-side
+
+# compute solutions
+
+```
+
+* Compute accuracies from inverse of coefficient matrix of MME
+
+```{webr}
+# Compute phenotypic and residual variances
+
+# get original non-simplified form of coefficient matrix
+
+# compute inverse coefficient matrix
+
+# extract diagonal elements of C22
+
+# get inbreeding of animals using pedigreemm
+
+# get genetic additive variances of animals
+
+# compute reliability
+
+```
+
+* Convert numbers to $B%$
+
+```{webr}
+# convert to percentages and round
+
+```
+
+
+
