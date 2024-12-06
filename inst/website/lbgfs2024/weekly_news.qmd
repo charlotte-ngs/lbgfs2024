@@ -1,4 +1,8 @@
 # Week 12 
+## lbgfs2024 0.12.2
+
+* Test exam: https://charlotte-ngs.github.io/lbgfs2024/test_exam/20231222_sol_exam.pdf
+
 ## lbgfs2024 0.12.1
 
 * Exercise lbg_ex10
@@ -322,4 +326,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-12-06 07:57:36 CET (pvr)_
+ _Latest Changes: 2024-12-06 09:05:12 CET (pvr)_
