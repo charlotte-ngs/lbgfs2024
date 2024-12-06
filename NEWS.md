@@ -1,3 +1,7 @@
+# lbgfs2024 0.12.2
+
+* Test exam: https://charlotte-ngs.github.io/lbgfs2024/test_exam/20231222_sol_exam.pdf
+
 # lbgfs2024 0.12.1
 
 * Exercise lbg_ex10
