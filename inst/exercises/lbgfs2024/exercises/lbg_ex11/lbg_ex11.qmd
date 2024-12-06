@@ -1,0 +1,181 @@
+---
+title: "LBG - FS2024 -- Exercise 11"
+author: Peter von Rohr
+format: live-html
+engine: knitr
+webr:
+  packages:
+    - readr
+---
+
+{{< include ../../_extensions/r-wasm/live/_knitr.qmd >}}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+s_data_url_path <- "https://charlotte-ngs.github.io/lbgfs2024/data/geno_data.csv"
+tbl_all_data <- readr::read_delim(s_data_url_path, delim = ",")
+n_nr_animal <- nrow(tbl_all_data)
+n_nr_snp <- length(grep("SNP", colnames(tbl_all_data), fixed = T))
+lambda_g <- 3
+```
+
+
+## Problem 1: Marker Effect Model
+We are given the dataset that is shown in the table below. This dataset contains gentyping results of `r n_nr_animal` animals for `r n_nr_snp` SNP loci.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false 
+#| results: asis
+cat("```{webr}\n")
+cat("#| message: false\n")
+cat("#| warning: false\n") 
+cat("#| edit: false\n")
+cat(paste0("s_data_url_path <- '", s_data_url_path, "'\n"))
+cat("tbl_all_data <- readr::read_delim(s_data_url_path, delim = ',')\n")
+cat("tbl_all_data\n")
+cat("```\n")
+```
+
+
+
+### Task
+* The goal of this problem is to estimate SNP marker effects using a `marker effect model`. Because we have just `r n_nr_snp` SNP loci, you can use a fixed effects linear model with the `r n_nr_snp` loci as fixed effects. Furthermore you can also include a fixed intercept into the model.
+* You can use the R-function `lm()` to get the solutions for estimates of the unknown SNP effects.
+* Compute genomic breeding values for all animals with genotypic data
+
+
+### Solution 
+
+* Use a regression model for the SNP-effects
+
+```{webr}
+# fit regression model to get marker effects
+
+```
+
+
+* Use marker effects to compute genomic breeding values, start by extracting estimates of marker effects
+
+```{webr}
+# extract marker effects from summary of lm
+
+```
+
+* Compute direct genomic breeding values
+
+```{webr}
+# extract matrix with SNP-genotypes from dataset
+
+# compute genomic breeding values
+
+```
+
+* Rank animals according to genomic breeding values
+
+```{webr}
+# order animals according to genomic breeding values
+
+```
+
+
+
+## Problem 2: Breeding Value Model
+Use the same data as in Problem 1 to estimate genomic breeding values using a `breeding value model`.
+
+
+### Hints
+* The only fixed effect in this model is the mean $\mu$ which is the same for all observations.
+* You can use the following function to compute the inverse genomic relationship matrix
+
+```{webr}
+#| edit: false
+#' Compute genomic relationship matrix based on data matrix
+computeMatGrmInv <- function(pmatData) {
+  matData <- pmatData
+  # check the coding, if matData is -1, 0, 1 coded, then add 1 to get to 0, 1, 2 coding
+  if (min(matData) < 0) matData <- matData + 1
+  # Allele frequencies, column vector of P and sum of frequency products
+  freq <- apply(matData, 2, mean) / 2
+  P <- 2 * (freq - 0.5)
+  sumpq <- sum(freq*(1-freq))
+  # Changing the coding from (0,1,2) to (-1,0,1) and subtract matrix P
+  Z <- matData - 1 - matrix(P, nrow = nrow(matData), 
+                             ncol = ncol(matData), 
+                             byrow = TRUE)
+  # Z%*%Zt is replaced by tcrossprod(Z)
+  matG <- tcrossprod(Z)/(2*sumpq)
+  matG_result <- matG + 0.05 * diag(nrow = nrow(matG))
+  # more regularization, if needed
+  n_max_count <- 10
+  n_cur_count <- 0
+  n_lim_min_eig <- .Machine$double.eps^0.25
+  while (min(eigen(matG_result, only.values = T)$values) < n_lim_min_eig && n_cur_count < n_max_count){
+    matG_result <- matG_result + 0.025 * diag(nrow = nrow(matG))
+    n_cur_count <- n_cur_count + 1
+  }
+  if (min(eigen(matG_result, only.values = T)$values) < n_lim_min_eig) 
+    stop(" *** ERROR: CANNOT FIND invertible matrix, min. eigen: ", min(eigen(matG_result, only.values = T)$values))
+  return(solve(matG_result))
+}
+```
+
+
+### Solution
+
+* Design matrix $X$ for fixed effects
+
+```{webr}
+# design matrix X
+
+```
+
+* Design matrix $W$ for random genomic breeding values
+
+```{webr}
+# design matrix W
+
+```
+
+* Get genomic relationship matrix
+
+```{webr}
+# compute inverse genomic relationship matrix
+
+```
+
+* Set up coefficient matrix assuming a value of $\lambda = \sigma_e^2 / \sigma_u^2 = `r lambda_g`$
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| results: asis
+cat("```{webr}\n")
+cat("# initialise lambda\n")
+cat(paste0("lambda_g <- ", lambda_g, "\n"))
+cat("# set up coefficient matrix of mme\n")
+cat("\n")
+cat("# set up right-hand side\n")
+cat("\n")
+cat("```\n")
+```
+
+* Get list of genomic breeding values
+
+```{webr}
+# select solutions for genomic breeding values
+
+```
+
+* Ranking animals according to their genomic breeding values
+
+```{webr}
+# rank animals
+
+```
+
+
