@@ -1,4 +1,8 @@
 # Week 13 
+## lbgfs2024 0.13.2
+
+* Solution lbg_sol08
+
 ## lbgfs2024 0.13.1
 
 * Exercise lbg_ex11
@@ -337,4 +341,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2024-12-06 17:52:18 CET (pvr)_
+ _Latest Changes: 2024-12-07 07:05:51 CET (pvr)_
