@@ -1,26 +1,13 @@
-# lbgfs2024 0.13.5
+# lbgfs2024 0.13.6
 
-* Solution lbg_sol11
+Material for week 13:
 
-# lbgfs2024 0.13.4
-
-* Solution lbg_sol10
-
-# lbgfs2024 0.13.3
-
-* Solution lbg_sol09
-
-# lbgfs2024 0.13.2
-
-* Solution lbg_sol08
-
-# lbgfs2024 0.13.1
-
-* Exercise lbg_ex11
-
-# lbgfs2024 0.13.0
-
-* OHP: ohp_l10
+* Solution [lbg_sol11](https://charlotte-ngs.github.io/lbgfs2024/solutions/lbg_sol11/lbg_sol11.html)
+* Solution [lbg_sol10](https://charlotte-ngs.github.io/lbgfs2024/solutions/lbg_sol10/lbg_sol10.html)
+* Solution [lbg_sol09](https://charlotte-ngs.github.io/lbgfs2024/solutions/lbg_sol09/lbg_sol09.html)
+* Solution [lbg_sol08](https://charlotte-ngs.github.io/lbgfs2024/solutions/lbg_sol08/lbg_sol08.html)
+* Exercise [lbg_ex11](https://charlotte-ngs.github.io/lbgfs2024/exercises/lbg_ex11/lbg_ex11.html)
+* OHP: [ohp_l10](https://drive.google.com/file/d/1-jvhU_7HE2A2JEaVElrqREY6RsWgSkXX/view?usp=sharing)
 
 # lbgfs2024 0.12.2
 
