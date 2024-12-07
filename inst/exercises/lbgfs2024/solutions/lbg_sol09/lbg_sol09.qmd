@@ -91,6 +91,7 @@ pem_beef <- pedigreemm::pedigree(sire = tbl_ped_ext$Sire,
                                  dam = tbl_ped_ext$Dam,
                                  label = tbl_ped_ext$Animal)
 mat_A_inv <- as.matrix(pedigreemm::getAInv(ped = pem_beef))
+mat_A_inv
 ```
 
 
