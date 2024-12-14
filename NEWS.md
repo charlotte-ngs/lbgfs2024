@@ -1,3 +1,8 @@
+# lbgfs2024 0.14.1
+
+* Corrected solutions of test-exam:
+    + [Solutions](https://charlotte-ngs.github.io/lbgfs2024/test_exam/20231222_sol_exam.pdf)
+
 # lbgfs2024 0.14.0
 
 * OHP: [ohp_l11](https://drive.google.com/file/d/1-mmsOja6GRajmtbguyNu5rFh6xytC1ls/view?usp=sharing)
