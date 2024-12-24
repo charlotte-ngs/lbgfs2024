@@ -1,0 +1,267 @@
+---
+title: "Exam LBGFS2023 -- Problem 5: Genomic Breeding Values"
+output: html_notebook
+---
+
+
+## Data Simulation
+Genomic data is simulated using the package `sequoia` (https://cran.r-project.org/web/packages/sequoia/index.html). 
+
+
+## Package Installation
+
+```{r}
+s_req_pkg <- "sequoia"
+if (!is.element(s_req_pkg, installed.packages()))
+  install.packages(s_req_pkg) 
+```
+
+
+## Examples
+Examples are taken from the vignette (https://cran.r-project.org/web/packages/sequoia/vignettes/quick_start_example1.html)
+
+```{r}
+# Load the package. This is required at the start of every new R session.
+library(sequoia) 
+
+# Load the example pedigree and life history data
+data(Ped_HSg5, LH_HSg5)
+```
+
+Have a look at data
+
+```{r}
+# Take a look at the data structure
+head(Ped_HSg5)
+tail(Ped_HSg5)
+```
+
+```{r}
+head(LH_HSg5)
+```
+
+Show data in RStudio
+
+```{r}
+# or, in Rstudio, view the full dataframe:
+# View(Ped_HSg5)
+```
+
+
+## Data Simulation
+
+```{r}
+Geno <- SimGeno(Ped = Ped_HSg5, nSnp = 200)
+```
+
+Structure of simulated data
+
+```{r}
+str(Geno)
+```
+
+
+## Data Simulation
+Start by simulating a pedigree
+
+```{r}
+library(pedtools)
+# ancestral pedigree with two parental generations
+anc_ped_p5 <- ancestralPed(g=2)
+# plot(anc_ped_p5)
+# halfsib pedigree with one mother two fathers and one offspring per halfsib group
+hsb_ped_p5 <- halfSibPed()
+# plot(hsb_ped_p5)
+# merge
+mrg_ped_p5 <- mergePed(anc_ped_p5, hsb_ped_p5, by = c("7" = "2"), relabel = TRUE)
+# add offspring with parents 10 and 11
+mrg_ped_p5 <- mrg_ped_p5 |> swapSex("11")
+mrg_ped_p5 <- mrg_ped_p5 |> 
+  addDaughter(parents = c(10,11)) |> 
+  addDaughter(parents = c(9,10)) |>
+  addDaughter(parents = c(8,11)) |>
+  addDaughter(parents = c(5,7)) |>
+  addDaughter(parents = c(6,8))
+# add parents for 7 and 9
+mrg_ped_p5$FIDX[7] <- 1
+mrg_ped_p5$FIDX[9] <- 3
+mrg_ped_p5$MIDX[7] <- 4
+mrg_ped_p5$MIDX[9] <- 2
+```
+
+Check
+
+```{r}
+mrg_ped_p5
+```
+
+
+
+Plot pedigree
+
+```{r}
+plot(mrg_ped_p5)
+```
+
+Use the above pedigree to simulate genotypes
+
+```{r}
+#class(mrg_ped_p5)
+#str(mrg_ped_p5)
+tbl_mrg_ped_p5 <- data.frame(id = as.factor(mrg_ped_p5$ID),
+                                 dam = as.factor(mrg_ped_p5$MIDX),
+                                 sire = as.factor(mrg_ped_p5$FIDX))
+mat_geno_p5 <- SimGeno(Pedigree = tbl_mrg_ped_p5, nSnp = 15, ParMis = 0, CallRate = 1)
+mat_geno_p5
+```
+
+
+## Marker Simulation
+Use package forrel (https://magnusdv.github.io/pedsuite/articles/pedsuite.html)
+
+```{r}
+library(forrel)
+n_nr_mrk <- 15
+vec_mrk_freq <- c(0.52, 0.48)
+l_sim_geno = markerSim(mrg_ped_p5, N = n_nr_mrk, alleles = c("A", "B"), afreq = vec_mrk_freq, seed = 2023)
+l_sim_geno
+```
+
+
+## Re-Mapping Simulated Data
+The following data are re-mapped. 
+
+* Genotypes to 0-1-2 encoding
+* Setting missing parents to NA
+* Rename columns
+
+
+### Column Names
+
+```{r}
+names(l_sim_geno)
+```
+
+```{r}
+str(l_sim_geno)
+```
+
+Loop over the markers and re-code the marker genotypes
+
+```{r}
+midx <- 1
+l_sim_geno$MARKERS[[midx]][]
+```
+
+Get new genotype codes via sum of allele codes
+
+```{r}
+rowSums(l_sim_geno$MARKERS[[midx]][]) - 2
+```
+
+Create a tibble with all genotypes
+
+```{r}
+tbl_geno_p5 <- NULL
+n_nr_mrk <- length(l_sim_geno$MARKERS)
+for (midx in 1:n_nr_mrk){
+  tbl_cur_mrk <- tibble::tibble(cur_mrk = rowSums(l_sim_geno$MARKERS[[midx]][]) - 2)
+  # generate current colname
+  s_cur_coln <- paste0("S", midx)
+  # merge current marker to results
+  if (is.null(tbl_geno_p5)){
+    tbl_geno_p5 <- tbl_cur_mrk
+    colnames(tbl_geno_p5) <- s_cur_coln
+  } else {
+    tbl_geno_p5 <- dplyr::bind_cols(tbl_geno_p5, tbl_cur_mrk)
+    colnames(tbl_geno_p5)[length(colnames(tbl_geno_p5))] <- s_cur_coln
+  }
+}
+tbl_geno_p5
+```
+
+Add other data
+
+```{r}
+library(dplyr)
+tbl_ped_p5 <- tibble::as.tibble(mrg_ped_p5)
+tbl_ped_p5 <- tbl_ped_p5 %>% 
+  rename(sire = fid, dam = mid) %>%
+  filter(sire != "0" & dam != "0")
+tbl_ped_p5
+```
+
+Add breast circumference to pedigree
+
+```{r}
+set.seed(2023)
+n_mean_bc <- 152
+n_sd_bc <- 1.83
+tbl_ped_p5$BC <- round(rnorm(nrow(tbl_ped_p5), mean = n_mean_bc, sd = n_sd_bc), digits = 0)
+```
+
+
+Combine pedigree and genotypes
+
+```{r}
+n_nr_ani_geno <- nrow(tbl_geno_p5)
+n_nr_obs <- nrow(tbl_ped_p5)
+n_nr_fnd_p5 <- n_nr_ani_geno - n_nr_obs
+tbl_ped_geno_p5 <- dplyr::bind_cols(tbl_ped_p5, tbl_geno_p5[(n_nr_fnd_p5+1):n_nr_ani_geno,])
+tbl_ped_geno_p5
+```
+
+
+## Generate Observations
+
+```{r}
+# residual standard deviation
+n_res_sd <- 7.99
+# fixed effects, sex
+vec_fixed_effect_sex <- c(17.9, -5.3)
+mat_design_sex <- model.matrix(lm(BC ~ 0 + as.factor(sex), data = tbl_ped_geno_p5))
+attr(mat_design_sex, "assign") <- NULL
+attr(mat_design_sex, "contrasts") <- NULL
+dimnames(mat_design_sex) <- NULL
+# covariate bc
+n_intercept_bc <- -935
+n_slope_bc <- 8.7
+# marker effects and genotypes with codes -1/0/1
+n_mean_mrk_eff <- 15.3
+n_sd_mrk_eff <- 0.7
+vec_mrk_eff <- rnorm(n_nr_mrk, mean = n_mean_mrk_eff, sd = n_sd_mrk_eff)
+mat_geno_p5 <- as.matrix(dplyr::select(tbl_ped_geno_p5, dplyr::starts_with("S", ignore.case = FALSE))) - 1
+# observations
+mat_obs_p5 <- n_intercept_bc + n_slope_bc * tbl_ped_geno_p5$BC + 
+  crossprod(t(mat_design_sex),vec_fixed_effect_sex) + 
+  crossprod(t(mat_geno_p5), vec_mrk_eff) +
+  rnorm(n_nr_obs, sd = n_res_sd)
+tbl_ped_geno_p5$weight <- round(mat_obs_p5[,1], digits = 0)
+summary(tbl_ped_geno_p5$weight)
+```
+
+
+## Write Data To File
+
+```{r}
+s_ped_geno_p5_path <- here::here("docs", "data", "exam_geno_p5.csv")
+s_delim_char <- ","
+readr::write_delim(tbl_ped_geno_p5, s_ped_geno_p5_path, delim = s_delim_char)
+```
+
+
+## Test Reading Data
+
+```{r}
+s_data_url_root <- "https://charlotte-ngs.github.io/lbgfs2023/data"
+s_data_url_p5 <- file.path(s_data_url_root, "exam_geno_p5.csv")
+tbl_p5 <- readr::read_delim(s_data_url_p5, delim = s_delim_char)
+dim(tbl_p5)
+```
+
+The data read is 
+
+```{r}
+tbl_p5
+```
+
