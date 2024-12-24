@@ -1,13 +1,13 @@
-Date;Text;Filename
-2024-09-20;Introduction;l01_intro_lbg.pdf
-2024-09-27;Basics of Quantitative Genetics;l02_basics_qg.pdf
-2024-10-11;Multiple Loci;l03_qg_multiple_loci.pdf
-2024-10-18;Genetic Evaluation;l04_gen-eval.pdf
-2024-10-25;BLUP;l05_blup.pdf
-2024-11-01;Covariance between Animals;l06_gen_cov.pdf
-2024-11-08;Numerator Relationship Matrix;l07_num_rel_mat.pdf
-2024-11-15;Inverse A;l08_ainv.pdf
-2024-11-22;Hendersons Rule;l09_Hendersons_rule.pdf
-2024-11-22;Additional Aspects of BLUP;l10_add_asp_blup.pdf
-2024-11-29;Genomic Selection;l11_geno_sel.pdf
-2024-12-13;Digital Twin;l12_digital_twin.html
+Date;Text;Filename;SrcFmt
+2024-09-20;Introduction;l01_intro_lbg.pdf;Rmd
+2024-09-27;Basics of Quantitative Genetics;l02_basics_qg.pdf;Rmd
+2024-10-11;Multiple Loci;l03_qg_multiple_loci.pdf;Rmd
+2024-10-18;Genetic Evaluation;l04_gen-eval.pdf;Rmd
+2024-10-25;BLUP;l05_blup.pdf;Rmd
+2024-11-01;Covariance between Animals;l06_gen_cov.pdf;Rmd
+2024-11-08;Numerator Relationship Matrix;l07_num_rel_mat.pdf;Rmd
+2024-11-15;Inverse A;l08_ainv.pdf;Rmd
+2024-11-22;Hendersons Rule;l09_Hendersons_rule.pdf;Rmd
+2024-11-22;Additional Aspects of BLUP;l10_add_asp_blup.pdf;Rmd
+2024-11-29;Genomic Selection;l11_geno_sel.pdf;Rmd
+2024-12-13;Digital Twin;l12_digital_twin.html;qmd
