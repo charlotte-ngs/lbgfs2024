@@ -1,0 +1,212 @@
+---
+title: "LBGFS2024 - Problem 3: Inbreeding"
+output: html_notebook
+---
+
+
+```{r setup, include=FALSE}
+params <- list(seed = 2417)
+```
+
+## Required Package `pedsuite`
+
+```{r}
+if (!is.element("pedsuite", installed.packages()))
+  install.packages("pedsuite", dependencies = TRUE)
+```
+
+
+## Random Pedigree 
+Start with a random pedigree
+
+```{r}
+ped_p3 <- pedtools::randomPed(8, founders = 3, seed = params$seed)
+ped_p3
+```
+
+Show the plot
+
+```{r}
+plot(ped_p3)
+```
+
+
+Add more animals, start wit a son
+
+```{r}
+ped_p3 <- ped_p3 |>
+  addSon(parents = c(7,8))
+plot(ped_p3)
+```
+
+Add a daughter
+
+```{r}
+ped_p3 <- ped_p3 |>
+  addDaughter(parents = c(9,6))
+plot(ped_p3)
+```
+
+
+## Convert To tibble
+
+```{r}
+tbl_ped_p3 <- tibble::as.tibble(ped_p3)
+tbl_ped_p3
+```
+
+## Convert To pedigreemm
+
+```{r}
+# replace MVC from 0 to NA
+tbl_ped_p3$fid[tbl_ped_p3$fid == 0] <- NA
+tbl_ped_p3$mid[tbl_ped_p3$mid == 0] <- NA
+# convert to pedigreemm
+pem_p3 <- pedigreemm::pedigree(sire = as.integer(tbl_ped_p3$fid),
+                               dam = as.integer(tbl_ped_p3$mid),
+                               label = tbl_ped_p3$id)
+pem_p3
+```
+
+## Inbreeding
+
+```{r}
+pedigreemm::inbreeding(ped = pem_p3)
+```
+
+
+## Write Pedigree to Data File
+Filter to write only rows with non-founders
+
+```{r}
+library(dplyr)
+tbl_ped_p3_data <- tbl_ped_p3 %>%
+  filter(!is.na(fid)) %>%
+  filter(!is.na(mid)) %>%
+  rename(Animal = id) %>%
+  rename(Sire = fid) %>%
+  rename(Dam = mid) %>%
+  rename(Sex = sex) %>%
+  select(Animal, Sire, Dam)
+tbl_ped_p3_data
+```
+
+
+```{r}
+s_ped_p3_data <- here::here("docs", "data", "exam_pedigree_p3.csv")
+readr::write_delim(tbl_ped_p3_data, s_ped_p3_data, delim = ",")
+```
+
+
+## Restart Analysis from Data Read from File
+
+```{r, message=FALSE, warning=FALSE}
+rm(list = ls())
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_ped_p3 <- file.path(s_data_root, "exam_pedigree_p3.csv")
+tbl_ped_p3 <- readr::read_delim(s_ped_p3, delim = ",")
+tbl_ped_p3
+```
+
+
+### Augment Pedigree
+The pedigree augmentation consist of two steps, first find founders and then add records using the following two functions
+
+```{r}
+# function to get founder animals
+get_founders <- function(ptbl_ped){
+  # sire founders
+  vec_sire_fnd <- setdiff(ptbl_ped$Sire, ptbl_ped$Animal)
+  # dam founders
+  vec_dam_fnd <- setdiff(ptbl_ped$Dam, ptbl_ped$Animal)
+  # combine
+  vec_founders <- c(vec_sire_fnd, vec_dam_fnd)
+  # remove NA
+  vec_founders <- vec_founders[!is.na(vec_founders)]
+  # order
+  vec_founders <- vec_founders[order(vec_founders)]
+  # return
+  return(vec_founders)
+}
+# add founders to pedigree
+augment_pedigree <- function(ptbl_ped){
+  # get founders
+  vec_founders <- get_founders(ptbl_ped = ptbl_ped)
+  n_nr_founders <- length(vec_founders)
+  # add founder records
+  tbl_aug_ped <- dplyr::bind_rows(
+    tibble::tibble(Animal = vec_founders,
+                   Sire = rep(NA, n_nr_founders),
+                   Dam = rep(NA, n_nr_founders)),
+    ptbl_ped)
+  # return result
+  return(tbl_aug_ped)
+}
+```
+
+The autmented form
+
+```{r}
+tbl_ped_p3_aug <- augment_pedigree(ptbl_ped = tbl_ped_p3)
+tbl_ped_p3_aug
+```
+
+### Pedigreemm-Format
+
+```{r}
+pem_p3 <- pedigreemm::pedigree(sire = tbl_ped_p3_aug$Sire,
+                              dam = tbl_ped_p3_aug$Dam,
+                              label = tbl_ped_p3_aug$Animal)
+pem_p3
+```
+
+Inbreeding coefficients are computed as 
+
+```{r}
+(vec_inb <- pedigreemm::inbreeding(ped = pem_p3))
+```
+
+The table for the task
+
+```{r}
+vec_status <- sapply(vec_inb, function(x) ifelse(x > 0, "Y", "N"), USE.NAMES = F)
+tbl_inb_sol <- tibble::tibble(Animal = tbl_ped_p3_aug$Animal,
+                              Inbred = vec_status,
+                             `Inbreeding Coefficient` = vec_inb)
+tbl_inb_sol
+```
+
+
+## Problem 3b: Min Inbreeding
+For every sire, find the dam such that the inbreeding coefficient of the resulting offspring is minimal
+
+This is easiest done by looking at the numerator relationship matrix
+
+```{r}
+mat_A <- as.matrix(pedigreemm::getA(ped = pem_p3))
+mat_A
+```
+
+* vector of sires and dams
+
+```{r}
+vec_sire <- unique(tbl_ped_p3$Sire)
+(vec_sire <- vec_sire[order(vec_sire)])
+vec_dam <- unique(tbl_ped_p3$Dam)
+(vec_dam <- vec_dam[order(vec_dam)])
+```
+
+Check for each sire which dam has minimal relationship coef
+
+```{r}
+n_inb_limit <- 0.25
+for (sidx in vec_sire){
+  vec_dam_mates <- which(mat_A[sidx,vec_dam]/2 < n_inb_limit)
+  if (length(vec_dam_mates) > 0){
+    cat (" * Mates for sire ", sidx, ": ", paste0(vec_dam[vec_dam_mates], collapse = ", "), "\n")
+  } else {
+    cat (" * No mates found for sire: ", sidx, "\n")
+  }
+}
+```
+
