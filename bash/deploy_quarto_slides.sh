@@ -162,7 +162,7 @@ deploy_material () {
 write_data_table_entry () {
   # check whether previous entry exists
   local l_PRIM_KEY="${LINK_TITLE};${QSL_NAME}.html"
-  local l_DATA_ENTRY="${DEPLOY_DATE};${l_PRIM_KEY}"
+  local l_DATA_ENTRY="${DEPLOY_DATE};${l_PRIM_KEY};qmd"
   # check whether identical entry exists
   if [[ $(grep "$l_DATA_ENTRY" $DATA_TABLE_PATH | wc -l) -gt 0 ]];then
     log_msg write_data_table_entry " * Found $l_DATA_ENTRY in $DATA_TABLE_PATH ..."
@@ -176,10 +176,10 @@ write_data_table_entry () {
       log_msg write_data_table_entry " * Update deployment date to: $DEPLOY_DATE ..."
     fi
     grep -v "$l_PRIM_KEY" $DATA_TABLE_PATH > tmp_data_path
-    (cat tmp_data_path;echo "${DEPLOY_DATE};${l_PRIM_KEY}") > $DATA_TABLE_PATH
+    (cat tmp_data_path;echo "${DEPLOY_DATE};${l_PRIM_KEY};qmd") > $DATA_TABLE_PATH
     rm tmp_data_path
   else
-    echo "${DEPLOY_DATE};${l_PRIM_KEY}" >> $DATA_TABLE_PATH
+    echo "${DEPLOY_DATE};${l_PRIM_KEY};qmd" >> $DATA_TABLE_PATH
   fi
 }
 
