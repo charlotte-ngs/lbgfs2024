@@ -1,0 +1,149 @@
+---
+title: "LBGFS 2024 -- Problem 5: PBLUP"
+output: html_notebook
+---
+
+```{r setup}
+set.seed(1403)
+```
+
+## Generate Pedigree
+Start by simulating a pedigree
+
+
+```{r}
+library(pedtools)
+ped_p5_hs <- halfSibPed(nch1 = 3, nch2 = 2, sex1 = c(1,2,2), sex2 = c(1,2))
+plot(ped_p5_hs)
+```
+
+Ancestral pedigree
+
+```{r}
+ped_p5_ap <- ancestralPed(g = 2)
+plot(ped_p5_ap)
+```
+
+Merge pedigrees
+
+```{r}
+merge_ped_p5 <- mergePed(ped_p5_hs, ped_p5_ap, by = c("7" = "1", "6" = "2"), relabel = T)
+plot(merge_ped_p5)
+```
+
+Add parents for 9 and 10
+
+```{r}
+merge_ped_p5$FIDX[9] <- 4
+merge_ped_p5$MIDX[9] <- 3
+merge_ped_p5$FIDX[10] <- 2
+merge_ped_p5$MIDX[10] <- 5
+plot(merge_ped_p5)
+```
+
+Show pedigree
+
+```{r}
+merge_ped_p5
+```
+
+Convert to tibble and rename
+
+```{r}
+# tibble
+tbl_ped_p5 <- tibble::as.tibble(merge_ped_p5)
+# rename
+library(dplyr)
+tbl_ped_p5 <- tbl_ped_p5 %>% 
+  rename(Animal = id) %>%
+  rename(Sire = fid) %>%
+  rename(Dam = mid) %>%
+  rename(Sex = sex)
+# change MVS for parents
+tbl_ped_p5$Sire[tbl_ped_p5$Sire == "0"] <- NA
+tbl_ped_p5$Dam[tbl_ped_p5$Dam == "0"] <- NA
+tbl_ped_p5
+```
+
+
+## Data Simulation
+Height as regression
+
+```{r}
+n_hei_mean <- 153
+n_hei_sd <- 5.3
+vec_hei <- round(rnorm(nrow(tbl_ped_p5), mean = n_hei_mean, sd = n_hei_sd))
+```
+
+Add regression to data set
+
+```{r}
+tbl_data_p5 <- tbl_ped_p5
+tbl_data_p5$Height <- vec_hei
+tbl_data_p5
+```
+
+Prepare fixed effects
+
+```{r}
+# sex effect
+vec_sex_eff <- c(23.3 , -17.2)
+mat_X_sex <- model.matrix(Height ~ 0 + as.factor(Sex), data = tbl_data_p5)
+attr(mat_X_sex, "assign") <- NULL
+attr(mat_X_sex, "contrasts") <- NULL
+mat_X_sex
+```
+
+Add regression
+
+```{r}
+n_intercept_weight <- -853
+n_slope <- 8.7
+
+```
+
+Random effects
+
+```{r}
+# residual standard deviation
+n_res_sd <- 17.29
+# h2
+n_h2 <- 0.16
+n_var_p <- (1-n_h2) * n_res_sd^2
+n_var_u <- n_h2 * n_var_p
+# breeding values
+pem_p5 <- pedigreemm::pedigree(sire = as.integer(tbl_ped_p5$Sire),
+                               dam = as.integer(tbl_ped_p5$Dam),
+                               label = tbl_ped_p5$Animal)
+mat_A <- as.matrix(pedigreemm::getA(ped = pem_p5))
+mat_R_t <- chol(mat_A)
+mat_u <- crossprod(mat_R_t, rnorm(nrow(tbl_data_p5), mean = 0, sd = sqrt(n_var_u)))
+# put observations together
+mat_obs <- n_intercept_weight + n_slope * tbl_data_p5$Height + 
+  crossprod(t(mat_X_sex), vec_sex_eff) + 
+  mat_u + 
+  rnorm(nrow(tbl_data_p5), mean = 0, sd = n_res_sd)
+# add observations to tibble
+tbl_data_p5$Weight <- round(mat_obs[,1], digits = 0)
+tbl_data_p5
+```
+
+## Write Data to File
+Filter data such that founders are excluded
+
+```{r}
+library(dplyr)
+tbl_obs_p5 <- tbl_data_p5 %>%
+  filter(!is.na(Sire)) %>%
+  filter(!is.na(Dam))
+tbl_obs_p5
+```
+
+Write data
+
+```{r}
+s_data_root <- file.path(here::here(), "docs", "data")
+s_data_p5 <- file.path(s_data_root, "exam_data_p5.csv")
+readr::write_delim(tbl_obs_p5, s_data_p5, delim = ",")
+```
+
