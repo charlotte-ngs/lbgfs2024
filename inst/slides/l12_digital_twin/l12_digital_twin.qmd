@@ -1,0 +1,86 @@
+---
+title: "Digital Twin"
+author: "Peter von Rohr"
+format: revealjs
+---
+
+## Background
+
+::::: columns
+::: {.column width="65%"}
+![](png/farm_context.png)
+:::
+
+::: {.column width="35%"}
+-   Economic context of (dairy) farms
+
+-   Legislative restrictions
+
+-   Environmental impact
+:::
+:::::
+
+## Digital Tools
+
+-   Aim: Tools helpful for user reducing time required for certain task
+
+-   Many of current projects
+
+    -   Paper is replaced by smart phone, tablet or PC
+
+    -   Increase of time spent for administrative tasks
+
+## Example Projects
+
+-   Sesam: Sensor Based Alpine Milk Production (EU Interreg B Project: 2018-2023)
+
+-   CFIT: Video based prediction of feed intake of cows
+
+## SESAM I
+
+Sensor-based activity of cows
+
+![](png/sesam-infrastruktur-farm.png)
+
+## SESAM II
+
+Activity data used to predict behavior
+
+![](png/sesam-infrastruktur-prediction.png)
+
+## CFIT
+
+-   Prediction of feed intake based on video data
+
+-   See at: <https://youtu.be/XDC-C33HpEw?si=jB3-rgxHT11x-au1>
+
+## Digital Twin I
+
+-   Integrate all available data from a farm and from environment into a simulation system
+
+-   Comprehensive digital twin solutions for dairy farms are still in development
+
+
+## Digital Twin II
+
+-   Companies like
+
+    -   xFarm Technologies, in collaboration with Precision Farming Network (<https://xfarm.ag/en/blog-posts/xfarm-technologies-e-precision-farming-network-pfn-costruiscono-il-primo-digital-twin-per-attrezzature-agricole-sempre-piu-connesse-it>)
+
+    -   FORCE Technology, in partnership with Alexandra Institute, Arla Foods, and SPX FLOW (<https://forcetechnology.com/en/cases/kold-college-digital-twin-pasteurisation-plant>)
+
+    
+## Digital Twin III
+
+![](png/digital_twin.png)
+
+
+## Conclusions
+
+-   Real benefit results only from changing systems
+
+-   Digitalisation is not the replacement of paper by devices
+
+-   Large projects require large financial power
+
+-   Politics needs to be supportive
