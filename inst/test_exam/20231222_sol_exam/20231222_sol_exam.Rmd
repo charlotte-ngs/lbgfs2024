@@ -1,0 +1,1079 @@
+---
+output:
+  pdf_document:
+    includes:
+      in_header: tex/header.tex
+    fig_caption: no
+    keep_tex: no
+  html_document:
+    df_print: paged
+output_file: "20231222_sol_exam.pdf"
+params:
+  seed: 2023
+  name: "Student"
+  firstname: "Test"
+  leginr: "23-987-123"
+  examdate: "2023-12-22"
+  alias: test
+--- 
+
+\newcommand{\points}[1]
+{\begin{flushright}\textbf{#1}\end{flushright}}
+
+```{r ChunkOptions, echo=FALSE}
+# knitr::opts_chunk$set(echo = FALSE, results = 'hide')
+#knitr::opts_chunk$set(concordance=TRUE)
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE)
+knitr::knit_hooks$set(hook_convert_odg = rmdhelp::hook_convert_odg)
+# write the parameters to file
+b_params_to_file <- FALSE
+# check whether seed is set and output it to a file
+s_this_rmd_file = basename(ifelse(rstudioapi::isAvailable(), 
+                         rstudioapi::getSourceEditorContext()$path, 
+                         whereami::thisfile()))
+if (is.null(params$seed)){
+  stop(" ** Error parameter seed has not been set.")
+} else {
+  set.seed(params$seed)
+  s_params_file <- paste0(format(Sys.time(), '%Y%m%d%H%M%S'), "_params_", s_this_rmd_file, ".txt", collapse = "")
+  if (b_params_to_file) dput(params, file = s_params_file)
+}
+s_data_url_root <- "https://charlotte-ngs.github.io/lbgfs2023/data"
+```
+
+```{r PointsQ1, echo=FALSE}
+# Assign Points for Q1
+lPointsQ1 <- list(TaskA = 12,
+                  TaskB = 22,
+                  TaskC = 14,
+                  TaskD = 0)
+nPointQ1Total <- sum(unlist(lPointsQ1))
+```
+
+```{r PointsQ2, echo=FALSE}
+# Assign Points for Q2
+lPointsQ2 <- list(TaskA = 10,
+                  TaskB = 6,
+                  TaskC = 2,
+                  TaskD = 0)
+nPointQ2Total <- sum(unlist(lPointsQ2))
+```
+
+```{r PointsQ3, echo=FALSE}
+# Assign Points for Q3
+lPointsQ3 <- list(TaskA = 4,
+                  TaskB = 4,
+                  TaskC = 4,
+                  TaskD = 0)
+nPointQ3Total <- sum(unlist(lPointsQ3))
+```
+
+```{r PointsQ4, echo=FALSE}
+# Assign Points for Q4
+lPointsQ4 <- list(TaskA = 25,
+                  TaskB = 10,
+                  TaskC = 0,
+                  TaskD = 0)
+nPointQ4Total <- sum(unlist(lPointsQ4))
+```
+
+```{r PointsQ5, echo=FALSE}
+# Assign Points for Q4
+lPointsQ5 <- list(TaskA = 25,
+                  TaskB = 25,
+                  TaskC = 0,
+                  TaskD = 0)
+nPointQ5Total <- sum(unlist(lPointsQ5))
+```
+
+```{r PointsTotal, echo=FALSE}
+nPointOverallTotal <- nPointQ1Total + nPointQ2Total + nPointQ3Total + nPointQ4Total + nPointQ5Total
+```
+
+
+\thispagestyle{empty}
+
+\fcolorbox{white}{white}{
+	\centering \parbox[t]{1.0\linewidth}{
+		\fontsize{12pt}{20pt}\selectfont % 
+		\vspace*{0.5cm} % 
+
+   	Peter von Rohr \\ Institute of Agricultural Sciences\\ D-USYS\\ ETH Zurich
+
+		\vspace*{0.5cm} 
+	}
+}
+
+\vspace*{2cm}
+
+\fcolorbox{white}{white}{
+	\parbox[t]{1.0\linewidth}{
+		\centering \fontsize{25pt}{40pt}\selectfont %
+		\vspace*{0.2cm}
+		 751-7602-00 V \\
+     Solutions for Exam in    \\
+     Livestock Breeding \\
+     and Genomics \\
+     Fall Semester 2023
+
+		\vspace*{0.7cm} % Space between the end of the title and the bottom of the grey box
+	}
+}
+
+
+\vspace*{1cm}
+
+<!-- % Table with Name -->
+\begin{tabular}{p{3cm}p{6cm}}
+Date:     &  `r params$examdate` \\
+          &  \\
+          &  \\
+Name:     &  \\
+          &  \\
+          &  \\
+Legi-Nr:  &  \\
+\end{tabular}
+
+<!-- % Table with Points -->
+
+\vspace{5ex}
+\begin{center}
+\begin{tabular}{|p{3cm}|c|c|}
+\hline
+Problem  &  Maximum Number of Points  &  Number of Points Reached\\
+\hline
+1        &  `r nPointQ1Total`  & \\
+\hline
+2        &  `r nPointQ2Total`  & \\
+\hline
+3        &  `r nPointQ3Total`  & \\
+\hline
+4        &  `r nPointQ4Total`  & \\
+\hline
+5        &  `r nPointQ5Total`  & \\
+\hline
+Total    &  `r nPointOverallTotal` & \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\clearpage
+\pagebreak
+
+
+## Problem 1: Numerator Relationship Matrix, Inbreeding and Pedigree
+```{r setup-problem1, echo=FALSE}
+s_p1_pedigree_path <- file.path(s_data_url_root, "exam_pedigree_p1.csv")
+tbl_pedigree_p1 <- readr::read_delim(s_p1_pedigree_path, delim = ",")
+```
+
+Given is the pedigree shown in the Table below. 
+
+
+\textit{Geben ist das Pedigree in der nachfolgenden Tabelle}
+
+```{r, echo=FALSE}
+knitr::kable(tbl_pedigree_p1, booktabs = TRUE, longtable = TRUE)
+```
+
+```{r, echo=FALSE}
+cat(s_p1_pedigree_path, "\n")
+```
+
+
+\begin{enumerate}
+\item[a)] Setup the numerator relationship matrix $A$ for the above given pedigree
+
+\textit{Stellen Sie die additive-genetische Verwandtschaftsmatrix $A$ auf für das oben gegebene Pedigree}
+
+\end{enumerate}
+\points{`r lPointsQ1$TaskA`}
+
+
+### Solution
+
+* Read pedigree from given path
+
+```{r setup-problem1, echo=TRUE}
+```
+
+* Augment pedigree with founder animals, start by determine vector of founder animals
+
+```{r}
+vec_fnd_sire <- setdiff(tbl_pedigree_p1$sire, tbl_pedigree_p1$animal)
+vec_fnd_dam <- setdiff(tbl_pedigree_p1$dam, tbl_pedigree_p1$animal)
+vec_founder <- c(vec_fnd_sire, vec_fnd_dam)
+vec_founder <- vec_founder[order(vec_founder)]
+vec_founder
+```
+
+* Add records for founder animals at the top
+
+```{r}
+n_nr_fnd <- length(vec_founder)
+tbl_pedigree_p1_aug <- dplyr::bind_rows(tibble::tibble(animal = vec_founder, 
+                                                       sire = rep(NA, n_nr_fnd),
+                                                       dam = rep(NA, n_nr_fnd)),
+                                        tbl_pedigree_p1)
+tbl_pedigree_p1_aug
+```
+
+* Use `pedigreemm::getA()` to compute numerator relationship matrix
+
+```{r}
+ped <- pedigreemm::pedigree(sire = tbl_pedigree_p1_aug$sire, 
+                            dam = tbl_pedigree_p1_aug$dam,
+                            label = tbl_pedigree_p1_aug$animal)
+(mat_A <- as.matrix(pedigreemm::getA(ped = ped)))
+```
+
+
+\clearpage
+\pagebreak
+
+\begin{enumerate}
+\item[b)] Specify which of the animals given in the above pedigree is inbred and compute the inbreeding coefficient $F$ for each animal. Please fill out the table below.
+
+\textit{Geben Sie an, welches der Tiere im oben gegebenen Pedigree ingezüchtet ist und berechnen Sie für jedes Tier den Inzuchtkoeffizienten $F$. Füllen Sie dazu die unten angegebenen Tabelle aus.}
+
+\end{enumerate}
+\points{`r lPointsQ1$TaskB`}
+
+```{r sol-tab-p1b, echo=FALSE}
+vec_founder <- c(setdiff(tbl_pedigree_p1$sire, tbl_pedigree_p1$animal),
+                 setdiff(tbl_pedigree_p1$dam, tbl_pedigree_p1$animal))
+vec_founder <- vec_founder[order(vec_founder)]
+n_nr_animal <- length(vec_founder) + nrow(tbl_pedigree_p1)
+tbl_inb <- tibble::tibble(Animal = 1:n_nr_animal,
+                          `Inbred (Y/N)` = rep("",n_nr_animal),
+                          `Inbreeding Coefficient` = rep("",n_nr_animal))
+knitr::kable(tbl_inb, booktabs = TRUE, longtable = TRUE)
+```
+
+
+### Solution 
+
+```{r solved-tab-p1b, echo=FALSE}
+vec_inb_coef <- diag(mat_A) - 1
+vec_inbred <- rep("N", n_nr_animal)
+vec_inbred[vec_inb_coef > 0] <- "Y"
+
+n_nr_animal <- nrow(tbl_pedigree_p1_aug)
+tbl_inb <- tibble::tibble(Animal = tbl_pedigree_p1_aug$animal,
+                          `Inbred (Y/N)` = vec_inbred,
+                          `Inbreeding Coefficient` = vec_inb_coef)
+knitr::kable(tbl_inb, booktabs = TRUE, longtable = TRUE)
+```
+
+\clearpage
+\pagebreak
+
+\begin{enumerate}
+\item[c)] Construct the pedigree from the numerator relationship matrix $A$ shown below.
+
+\textit{Erstellen Sie das Pedigree basierend auf der unten gegebenen additive-genetischen Verwandtschaftsmatrix $A$}
+
+\end{enumerate}
+\points{`r lPointsQ1$TaskC`}
+
+```{r setup-problem-1c, echo=FALSE, results='asis'}
+s_p1_num_rel_mat_path <- file.path(s_data_url_root, "exam_num_rel_mat_p1.csv")
+tbl_mat_A <- readr::read_delim(s_p1_num_rel_mat_path, delim = ",")
+mat_mat_A <- as.matrix(tbl_mat_A)
+```
+
+```{r show-matrix-problem-1c, echo=FALSE, results='asis'}
+cat(paste(rmdhelp::bmatrix(mat_mat_A, ps_name = "A", ps_env = "$$"),collapse = '\n'), '\n')
+```
+
+```{r, echo=FALSE}
+cat(s_p1_num_rel_mat_path, "\n")
+```
+
+
+
+### Solution 
+
+* Read the matrix from the csv-file first as tibble, then convert it to a matrix
+
+```{r setup-problem-1c, echo=TRUE}
+```
+
+* Compute cholesky decomposition of $A$
+
+```{r}
+mat_R <- chol(mat_mat_A)
+mat_R
+```
+
+* Compute matrix $L$ which is $R\cdot S^{-1}$, but with a diagonal of all ones
+
+```{r}
+mat_S_inv <- diag(1/diag(mat_R))
+mat_L <- crossprod(mat_R, mat_S_inv)
+mat_L
+```
+
+* From the inverse $L^{-1}$, we get the matrix $P = I - L^{-1}$ which specifies the offspring parent relations
+
+```{r}
+mat_L_inv <- solve(mat_L)
+mat_P <- diag(nrow = nrow(mat_L)) - mat_L_inv
+mat_P
+```
+
+* Extract elements relevant elements
+
+```{r}
+mat_rel_elem <- which(mat_P > sqrt(.Machine$double.eps), arr.ind = TRUE)
+```
+
+```{r}
+anim_with_par <- unique(mat_rel_elem[, "row"])
+anim_with_par <- anim_with_par[order(anim_with_par)]
+anim_with_par
+```
+
+The parents can be extracted from 
+
+```{r}
+for (i in anim_with_par){
+  cat("Animal: ", i, " has parents: ", paste(mat_rel_elem[mat_rel_elem[,"row"] == i,"col"], 
+                                             sep = " and "), "\n")  
+}
+```
+
+All other animals are founders. 
+
+
+\clearpage
+\pagebreak
+
+## Problem 2: Quantitative Genetics
+```{r p02-setup, echo=FALSE}
+s_data_p2 <- file.path(s_data_url_root, "exam_qg_single_locus_p2.csv")
+tbl_p2 <- readr::read_delim(s_data_p2, delim = ",")
+```
+
+The following dataset shows the influence of a single locus on the pigmentation of a number of animals.
+
+\textit{Der unten gezeigte Datensatz zeigt den Einfluss eines einzelnen Locus auf die Pigemntierung von Tieren.}
+
+
+```{r tbl-p02-show, echo=FALSE}
+knitr::kable(tbl_p2, booktabs = TRUE, longtable = TRUE)
+```
+
+```{r, echo=FALSE}
+cat(s_data_p2, "\n")
+```
+
+\clearpage
+\pagebreak
+
+
+\begin{enumerate}
+\item[a)] Compute the allele frequencies ($p$ and $q$) and the genotypic values ($a$ and $d$) from the above shown dataset assuming that the number in column `LocusC` counts the number of alleles with a positive effect on pigmentation. 
+
+\textit{Berechnen Sie die Allelfrequenzen ($p$ und $q$) und die genotypischen Werten ($a$ und $d$) aufgrund des oben gezeigten Datensatzes. Die Zahlen in der Kolonne mit der Überschrift `LocusC` entspricht der Anzahl Allele mit positiver Wirkung auf die Pigmentierung}
+
+\end{enumerate}
+\points{`r lPointsQ2$TaskA`}
+
+
+### Solution
+
+* Read the data
+
+```{r p02-setup, echo=TRUE}
+```
+
+The minor allele frequency $p$ is computed as 
+
+```{r}
+n_maf_est <- mean(tbl_p2$LocusC)/2
+```
+
+Hence $p = `r n_maf_est`$ and $q = 1 - p = `r 1-n_maf_est`$. 
+
+The genotypic value $a$ is computed from fitting a linear regression to all homozygous animals. Hence, we first have to filter the dataset for the homozygous animals.
+
+```{r}
+library(dplyr)
+tbl_p2_homo <- tbl_p2 %>%
+  filter(LocusC != 1)
+```
+
+Then a linear regression is fitted
+
+```{r}
+lm_pig_geno_val_a <- lm(Pigmentation ~ LocusC, data = tbl_p2_homo)
+(smry_pig_geno_val_a <- summary(lm_pig_geno_val_a))
+```
+
+The genotypic value $a$ is obtained from the slope
+
+```{r}
+n_geno_val_a_est <- smry_pig_geno_val_a$coefficients["LocusC","Estimate"]
+```
+
+Then $a = `r n_geno_val_a_est`$
+
+To get to the value $d$, we have to subtract from the mean of the homozygous animals the intercept and $a$. 
+
+```{r}
+n_intercept_est <- smry_pig_geno_val_a$coefficients["(Intercept)","Estimate"]
+n_mean_het <- mean(tbl_p2$Pigmentation[tbl_p2$LocusC == 1])
+n_geno_val_d_est <- n_mean_het - n_intercept_est - n_geno_val_a_est
+```
+
+Hence $d = `r n_geno_val_d_est`$
+
+
+
+\clearpage
+\pagebreak
+
+
+\begin{enumerate}
+\item[b)] Compute the breeding values and the dominance deviations for the genotypes of `LocusC` based on the above given dataset.
+
+\textit{Berechnen Sie die Zuchtwerte und die Dominanzabweichungen für die Genotypen von `LocusC` basierend auf den oben gegebenen Daten.}
+
+\end{enumerate}
+\points{`r lPointsQ2$TaskB`}
+
+
+### Solution
+
+* Breeding values are computed as
+
+```{r, echo=FALSE}
+tbl_bv <- tibble::tibble(Genotype = c(0:2),
+                         `Breeding Value` = c("$-2p\\alpha$",
+                                              "$(q-p)\\alpha$",
+                                              "$2q\\alpha$"))
+knitr::kable(tbl_bv, booktabs = TRUE, longtable = TRUE, escape = FALSE)
+```
+
+The components for the breeding values are taken from the solution of Problem a)
+
+```{r}
+n_alpha <- n_geno_val_a_est + (1-2*n_maf_est) * n_geno_val_d_est
+vec_bv <- c(-2*n_maf_est * n_alpha, 
+            (1-2*n_maf_est) * n_alpha, 
+            2*(1-n_maf_est) * n_alpha)
+n_nr_genotype <- length(vec_bv)
+vec_bv_animal <- rep(NA, nrow(tbl_p2))
+for (idx in 1:n_nr_genotype){
+  vec_bv_animal[tbl_p2$LocusC == (idx-1)] <- vec_bv[idx]
+}
+vec_bv_animal
+```
+
+* Dominance deviations are given by
+
+```{r, echo=FALSE}
+tbl_dom_dev <- tibble::tibble(Genotype = c(0:2),
+                              `Dominance Deviation` = c("$-2p^2d$",
+                                                        "$2pqd$",
+                                                        "$-2q^2d$"))
+knitr::kable(tbl_dom_dev, booktabs = TRUE, longtable = TRUE, escape = FALSE)
+```
+
+The computation for each animal leads to 
+
+```{r}
+vec_dom_dev <- c(-2*n_maf_est^2*n_geno_val_d_est, 
+                 2*n_maf_est*(1-n_maf_est)*n_geno_val_d_est,
+                 -2*(1-n_maf_est)^2*n_geno_val_d_est)
+n_nr_genotype <- length(vec_dom_dev)
+vec_dom_dev_animal <- rep(NA, nrow(tbl_p2))
+for (idx in 1:n_nr_genotype){
+  vec_dom_dev_animal[tbl_p2$LocusC == (idx-1)] <- vec_dom_dev[idx]
+}
+vec_dom_dev_animal
+```
+
+Summary table of results
+
+```{r}
+tbl_result_p2 <- tibble::tibble(Animal = tbl_p2$Animal,
+                                `Breeding Value` = vec_bv_animal,
+                                `Dominance Deviation` = vec_dom_dev_animal)
+knitr::kable(tbl_result_p2, booktabs = TRUE, longtable = TRUE)
+```
+
+
+
+
+
+\clearpage
+\pagebreak
+
+\begin{enumerate}
+\item[c)] Compute the additive-genetic variance, the dominance variance and the total genetic variance for the data given above.
+
+\textit{Berechnen Sie die additive-genetische Varianz, die Dominanz-Varianz und die totale genetische Varianz für die oben angegeben Daten.}
+
+\end{enumerate}
+\points{`r lPointsQ2$TaskC`}
+
+
+### Solution 
+
+* The additive genetic variance ($\sigma_A^2$) is given by
+
+$$\sigma_A^2 = 2pq\alpha^2$$
+
+```{r}
+n_sigma_a2 <- 2 * n_maf_est * (1-n_maf_est) * n_alpha^2
+cat(" * Genetic additive variance: ", n_sigma_a2, "\n")
+```
+
+* Dominance variance
+
+$$\sigma_D^2 = (2pqd)^2$$
+
+```{r}
+n_sigma_d2 <- (2*n_maf_est*(1-n_maf_est)*n_geno_val_d_est)^2
+cat(" * Dominance variance: ", n_sigma_d2, "\n")
+```
+
+
+\clearpage
+\pagebreak
+
+
+## Problem 3: Variance and Inbreeding
+```{r p3-setup, echo=FALSE}
+n_exile_year <- 1953
+n_export_year <- 2023
+n_nr_sub_pop <- 4
+n_nr_dam_per_sub_pop <- 10^4
+n_nr_dams_total <- n_nr_sub_pop * n_nr_dam_per_sub_pop
+n_gen_int <- 5
+```
+
+Starting in the year `r n_exile_year` the cattle breed Simmental was divided into `r n_nr_sub_pop` subpopulations of equal size. Since the separations the subpopulations stayed isolated without any exchange of genetic material. Before the separation the number of dams in the Simmental breed was `r n_nr_dams_total`. The generation interval can be assumed to be `r n_gen_int` years. The males in the populations can be ignored in this problem.
+
+\textit{Seit `r n_exile_year` wurde die Rinderrasse Simmental in `r n_nr_sub_pop` gleich grosse Subpopulationen unterteilt. Seit der Aufteilung gab es keinen Austausch von genetischem Material zwischen den Subpopulationen. Vor der Aufteilung umfasste die Rasse Simmental `r n_nr_dams_total` Kühe. Das Generationeninterval wird mit `r n_gen_int` Jahren angegeben. Die Stiere in der Population werden in dieser Aufgabe nicht berücksichtigt.}
+
+\begin{enumerate}
+\item[a)] Compute the inbreeding coefficient $F_t$ in the subpopulations that can be expected today. 
+
+\textit{Berechnen Sie den Inzuchtkoeffizienten $F_t$ in den Subpopulationen, welchen wir heute erwarten können.}
+
+\end{enumerate}
+\points{`r lPointsQ3$TaskA`}
+
+
+### Solution
+The inbreeding coefficient $F_t$ can be computed as 
+
+$$F_t = 1 - (1 - \Delta F)^t$$
+where $t$ is the number of generations and $\Delta F = {1\over 2N}$
+
+```{r}
+n_nr_gen <- (n_export_year-n_exile_year) / n_gen_int
+Delta_F <- 1/(2*n_nr_dam_per_sub_pop)
+Ft <- 1 - (1 - Delta_F)^n_nr_gen
+```
+
+Inserting this
+
+$$F_t = 1 - (1 - \Delta F)^t = 1 - (1 - `r Delta_F`)^{`r n_nr_gen`} = `r Ft`$$
+
+
+
+
+\clearpage
+\pagebreak
+
+```{r p3b-setup, echo=FALSE}
+n_maf <- 0.325
+n_geno_val_a <- 50
+n_geno_val_d <- 35
+n_two_pqd <- 2 * n_maf * (1-n_maf) * n_geno_val_d
+Ft_assumed <- 0.001
+```
+
+\begin{enumerate}
+\item[b)] Breeders try to avoid inbreeding because they want to prevent inbreeding depression. For a quantitative trait influenced by a single locus inbreeding depression is to be computed. The allele frequency is $p = `r n_maf`$ and the genotypic values are $a = `r n_geno_val_a`$ and $d = `r n_geno_val_d`$. The inbreeding coefficient can be taken from the result of problem a. (In case problem a) was not solved, an inbreeding coefficient $F_t = `r Ft_assumed`$ can be assumed.)
+
+\textit{ZüchterInnen sind bestrebt Inzucht zu begrenzen, da Inzuchtdepression vermieden werden soll. Für ein quantitatives Merkmal, welches von einem Locus beeinflusst wird, soll die Inzuchtdepression berechnet werden. Die Allelfrequenz beträgt $p = `r n_maf`$ und die genotypischen Werte sind $a = `r n_geno_val_a`$ und $d = `r n_geno_val_d`$. Der Inzuchtkoeffizient kann aus der Lösung von Aufgabe a übernommen werden. (Falls Aufgabe a) nicht gelöst wurde, dann kann ein Inzuchtkoeffizient von $F_t = `r Ft_assumed`$ angenommen werden.)}
+
+\end{enumerate}
+\points{`r lPointsQ3$TaskB`}
+
+
+
+### Solution
+```{r}
+DeltaM <- n_two_pqd * Ft
+```
+
+Inbreeding depression is computed as 
+
+$$\Delta M = M_F - M_0 = 2pqdF = `r DeltaM`$$
+
+With assumed value of inbreeding of `r Ft_assumed`
+
+```{r}
+DeltaM_assumed <- n_two_pqd * Ft_assumed
+```
+
+$$\Delta M = M_F - M_0 = 2pqdF = `r DeltaM_assumed`$$
+
+\clearpage
+\pagebreak
+
+```{r p3c-setup, echo=FALSE}
+DeltaM_target <- 0.1
+```
+
+\begin{enumerate}
+\item[c)] How many generations does it take until the inbreeding depression as computed under Problem b) is larger than `r DeltaM_target`? 
+
+\textit{Wie viele Generationen wird es dauern bis die Inzuchtdepression, so wie sie in Aufgabe b) berechnet wurde grösser ist als `r DeltaM_target`?}
+\end{enumerate}
+\points{`r lPointsQ3$TaskC`}
+
+
+### Solution
+In breeding coefficient such that inbreeding depression reaches `r DeltaM_target`
+
+```{r}
+F_target <- DeltaM_target/n_two_pqd
+```
+
+
+$$F = \frac{\Delta M}{2pqd} = \frac{`r DeltaM_target`}{2 * `r n_maf` * `r 1-n_maf` * `r n_geno_val_d`} =  `r F_target`$$
+
+The number of generations ($t$) it takes to reach a certain level of inbreeding 
+
+$$t = \frac{log(1-F)}{log(1-\Delta F)} = \frac{log(1-(\Delta M/2pqd))}{log(1-\Delta F)}$$
+
+```{r}
+n_nr_gen <- (log(1 - (DeltaM_target/n_two_pqd))) / (log(1 - Delta_F))
+cat(" ==> it takes ", ceiling(n_nr_gen), 
+    " generations until inbreeding depression is larger than ", 
+    DeltaM_target, "\n")
+```
+
+
+\clearpage
+\pagebreak
+
+
+## Problem 4: BLUP 
+```{r p4-setup, echo=FALSE}
+s_data_url_p4 <- file.path(s_data_url_root, "exam_blup_p4.csv")
+s_delim_char <- ","
+tbl_p4 <- readr::read_delim(s_data_url_p4, delim = s_delim_char)
+```
+```{r p4-assumptions, echo=FALSE}
+s_response_var <- "weight"
+l_fixed_effects <- list(names = c("sex", "Breast Circumference"), abbreviations = c("sex", "BC"))
+n_h2_weight <- 0.36
+```
+
+
+The following dataset is to be used to predict breeding values for the response variable `weight`. Use a linear mixed model with `sex` and `Breast Circumference` (BC) as fixed effects. The heritability ($h^2$) for weight is assumed to be $h^2 = `r n_h2_weight`$. The phenotypic variance can directly be computed based on the given observations in the dataset. 
+
+\textit{Der folgende Datensatz soll für die Schätzung von Zuchtwerten für das Merkmal `weight` verwendet werden. Verwenden Sie ein gemischtes lineares Modell mit `sex` und `Brustumfang` (BC) als fixe Effekte. Die Erblichkeit ($h^2$) für das Merkmal `weight` wird mit  $h^2 = `r n_h2_weight`$ angenommen. Die phänotypische Varianz kann aus den beobachteten Daten berechnet werden.}
+
+```{r tbl-p4-show, echo=FALSE}
+knitr::kable(tbl_p4, booktabs = TRUE, longtable = TRUE)
+```
+
+```{r, echo=FALSE}
+cat(s_data_url_p4, "\n")
+```
+
+
+\clearpage
+\pagebreak
+
+\begin{enumerate}
+\item[a)] Predict breeding values for the response variable `weight` using a BLUP animal model. Specify the model with a formula using matrix-vector notation. Explain all the symbols used and insert the information from the dataset to the known model components. For all random effects in the model,  specify the expected values and the variance-covariance matrices.
+
+\textit{Schätzen Sie Zuchtwerte für die Zielgrösse `weight` mit einem BLUP-Tiermodell. Geben Sie das Modell mit einer Formel in Matrix-Vektor-Schreibweise an. Erläutern Sie die verwendeten Symbole im Modell und setzen Sie die Informationen aus dem Datensatz in die bekannten Modellkomponenten ein. Für all zufälligen Effekte im Modell, geben Sie bitte die Erwartungswerte und die Varianz-Kovarianz-Matrizen an.}
+
+\end{enumerate}
+\points{`r lPointsQ4$TaskA`}
+
+
+### Solution
+The data is read using 
+
+```{r p4-setup, echo=TRUE}
+```
+
+The model is 
+
+$$y = Xb + Zu + e$$
+
+* with the vectors 
+    + $y$: of length $n$ with observations 
+    + $b$: fixed effects of `sex` - differnces, slope and intercept for `BC`
+    + $u$: of length $q$ with random breeding values
+    + $e$: of length $n$ random residual effects
+
+* where $n$ is the number of observations in the dataset and $q$ the number of animals in the pedigree.
+
+* with design Matrices $X$ and $Z$ linking fixed effects and breeding values to observations, respectively
+
+* Expected values of random components are given as 
+
+$$E\left[\begin{array}{c} y \\ u \\ e \end{array}\right] = \left[\begin{array}{c} Xb \\ 0 \\ 0 \end{array}\right]$$
+
+* Variance-Covariance matrices
+
+$$var\left[\begin{array}{c} y \\ u \\ e \end{array}\right] 
+  = \left[\begin{array}{ccc} V    & ZG & R \\
+                             GZ^T & G  & 0 \\
+                             R    & 0  & R
+    \end{array}\right]$$
+
+* with $var(u) = G = A\sigma_u^2$, where $A$ is the numerator relationship matrix of the animals in the pedigree and $\sigma_u^2$ is the additive-genetic variance, 
+* with $var(e) = R = I\sigma_e^2$ where $I$ is the identity matrix and $\sigma_e^2$ is the residual variance
+* with $var(y) = V = ZGZ^T + R$
+
+* Known components in the model are 
+
+```{r design-mat}
+# design matrix X
+matX <- model.matrix(lm(weight ~ BC + as.factor(sex), data = tbl_p4))
+attr(matX,"assign") <- NULL
+attr(matX,"contrasts") <- NULL
+colnames(matX) <- NULL
+# design matrix Z
+vec_fnds <- c(setdiff(tbl_p4$sire, tbl_p4$id), setdiff(tbl_p4$dam, tbl_p4$id))
+vec_fnds <- vec_fnds[order(vec_fnds)]
+n_nr_fnds <- length(vec_fnds)
+n_nr_obs <- nrow(tbl_p4)
+n_nr_ani <- n_nr_fnds + n_nr_obs
+matZ <- cbind(matrix(0, nrow = n_nr_obs, ncol = n_nr_fnds), 
+              diag(nrow = n_nr_obs))
+```
+
+```{r, echo=FALSE, results='asis'}
+cat("$$\n")
+cat(paste0(rmdhelp::bcolumn_vector(pvec = tbl_p4$weight, ps_name = "y"), collapse = "\n"), "\n")
+cat("\\text{, }\n")
+cat(paste0(rmdhelp::bmatrix(matX, ps_name = "X"), collapse = "\n"), "\n")
+#cat("\\text{, }\n")
+#cat(paste0(rmdhelp::bmatrix(matZ, ps_name = "Z"), collapse = "\n"), "\n")
+cat("$$\n")
+```
+
+Compute the inverse numerator relationship matrix
+
+```{r}
+ped_p4 <- pedigreemm::pedigree(sire = c(rep(NA, n_nr_fnds), tbl_p4$sire),
+                               dam  = c(rep(NA, n_nr_fnds), tbl_p4$dam),
+                               label = 1:n_nr_ani)
+matA_inv <- as.matrix(pedigreemm::getAInv(ped = ped_p4))
+```
+
+Setting up mixed model equations
+
+```{r}
+lambda <- (1-n_h2_weight)/n_h2_weight
+mat_xtx <- crossprod(matX)
+mat_xtz <- crossprod(matX, matZ)
+mat_ztx <- t(mat_xtz)
+mat_ztz_lainv <- crossprod(matZ) + lambda * matA_inv
+mat_coef <- rbind(cbind(mat_xtx, mat_xtz), cbind(mat_ztx,mat_ztz_lainv))
+mat_rhs <- rbind(crossprod(matX, tbl_p4$weight),
+                 crossprod(matZ, tbl_p4$weight))
+mat_sol <- solve(mat_coef, mat_rhs)
+mat_sol
+```
+
+From this we get: 
+
+```{r}
+cat(" * Intercept: ", mat_sol[1,1], "\n")
+cat(" * Slope: ", mat_sol[2,1], "\n")
+cat(" * Sex-diff: ", mat_sol[3,1], "\n" )
+cat(" * Breeding values:\n")
+mat_sol[4:(nrow(mat_sol)),]
+```
+
+
+
+\clearpage
+\pagebreak
+
+\begin{enumerate}
+\item[b)] Compute the reliabilities ($B\%$) for the predicted breeding values from problem a). 
+
+\textit{Berechnen Sie die Bestimmtheitsmasse ($B\%$) für die unter Aufgabe a) geschätzten Zuchtwerte.}
+
+\end{enumerate}
+\points{`r lPointsQ4$TaskB`}
+
+
+### Solution
+Reliabilities are computed from the inverse of the general form of the mixed-models coefficients matrix. The general form is obtained by dividing the coefficient matrix by $\sigma_e^2$. This has to be computed first based on the phenotypic variance $\sigma_p^2$ which is obtained from the observations. 
+
+```{r}
+# determine variance components
+sigma_p <- var(tbl_p4$weight)
+sigma_u <- n_h2_weight * sigma_p
+sigma_e <- sigma_p - sigma_u
+# inverse of general form of coefficient matrix
+mat_coef_gen_inv <- solve(mat_coef / sigma_e)
+# extract lower right corner of coefficient matrix
+mat_C22 <- mat_coef_gen_inv[(ncol(matX)+1):nrow(mat_coef_gen_inv),
+                            (ncol(matX)+1):ncol(mat_coef_gen_inv)]
+# compute inbreeding coefficient
+vec_inb <- pedigreemm::inbreeding(ped = ped_p4)
+# get reliability B
+vec_B <- 1 - diag(mat_C22) / ((1+vec_inb) * sigma_u)
+cat(" * Reliabilities in % are: \n")
+100*vec_B
+```
+
+  
+\clearpage
+\pagebreak
+
+
+## Problem 5: Genomic Breeding Values
+```{r p5-setup, echo=FALSE}
+s_data_url_p5 <- file.path(s_data_url_root, "exam_geno_p5.csv")
+s_delim_char <- ","
+tbl_p5 <- readr::read_delim(s_data_url_p5, delim = s_delim_char)
+```
+
+The following dataset is given to predict genomic breeding values. The column with the header `BC` contains the covariable `Breast Circumference` in cm. The response variable ($y$) is in the column with the header `weight`. 
+
+\textit{Der folgende Datensatz wird verwendet um genomische Zuchtwerte zu schätzen. Die Kolonne mit der Überschrift enthält die Kovariable `Brustumfang`. Die Zielgrösse ($y$) befindet sich in der Kolonne mit der Überschrift `weight`.}
+
+```{r p5-tbl-show, echo=FALSE}
+knitr::kable(tbl_p5, booktabs = TRUE, longtable = TRUE)
+```
+
+```{r, echo=FALSE}
+cat(s_data_url_p5, "\n")
+```
+
+\clearpage
+\pagebreak
+
+```{r p5a-setup, echo=FALSE}
+lambda_q <- 3
+```
+
+\begin{enumerate}
+\item[a)] Use a marker-effects model to predict genomic breeding values for the response variable `weight`. Use `BC` and `sex` as fixed effects. The columns `S1`-`S15` contain marker genotypes to be used in the prediction of genomic breeding values. The ratio $\lambda_q = \sigma_e^2/\sigma_q^2$ is assumed to be $\lambda_q = `r lambda_q`$.
+
+\textit{Verwenden Sie ein Marker-Effekt Modell zur Schätzung von genomischen Zuchtwerten für die Zielgrösse `weight`. Verwenden Sie `BC` und `sex` als fixe Effekte. Die Kolonnen `S1`-`S15` enthalten Markergenotypen, welche für die genomische Zuchtwertschätzung verwendet werden sollen. Das Verhältnis $\lambda_q = \sigma_e^2/\sigma_q^2$ soll den Wert $\lambda_q = `r lambda_q`$ haben.}
+
+\end{enumerate}
+\points{`r lPointsQ5$TaskA`}
+
+
+### Solution
+The marker effect model is given by 
+
+$$y = Xb + Wq + e$$
+
+* with the vectors 
+    + $y$: of length $n$ with observations 
+    + $b$: fixed effects of `sex` - differnces, slope and intercept for `BC`
+    + $q$: of length $l$ with random marker effects
+    + $e$: of length $n$ random residual effects
+
+* where $n$ is the number of observations in the dataset and $l$ the number of marker loci.
+
+* with design Matrices $X$ and $W$ linking fixed effects and marker effects to observations, respectively
+
+* Expected values of random components are given as 
+
+$$E\left[\begin{array}{c} y \\ q \\ e \end{array}\right] = \left[\begin{array}{c} Xb \\ 0 \\ 0 \end{array}\right]$$
+
+* Variance-Covariance matrices
+
+$$var\left[\begin{array}{c} y \\ q \\ e \end{array}\right] 
+  = \left[\begin{array}{ccc} V    & ZQ & R \\
+                             QZ^T & Q  & 0 \\
+                             R    & 0  & R
+    \end{array}\right]$$
+
+* with $var(q) = Q = I\sigma_q^2$, where $I$ is the identity matrix and $\sigma_q^2$ is the marker-effects variance, 
+* with $var(e) = R = I\sigma_e^2$ where $I$ is the identity matrix and $\sigma_e^2$ is the residual variance
+* with $var(y) = V = ZQZ^T + R$
+
+* Known components in the model are 
+
+```{r}
+# design matrix X
+matX <- model.matrix(lm(weight ~ BC + as.factor(sex), data = tbl_p5))
+attr(matX,"assign") <- NULL
+attr(matX,"contrasts") <- NULL
+colnames(matX) <- NULL
+matX
+```
+
+Genotype matrix
+
+```{r}
+# matrix W is the genotype matrix in -1/0/1 coding 
+mat_geno <- as.matrix(dplyr::select(tbl_p5, dplyr::starts_with("S", ignore.case = FALSE)))
+matW <- mat_geno - 1
+matW
+```
+
+Mixed model equations
+
+```{r}
+mat_xtx <- crossprod(matX)
+mat_xtw <- crossprod(matX,matW)
+mat_wtx <- t(mat_xtw)
+mat_wtw_linv <- crossprod(matW) + lambda_q * diag(nrow = ncol(matW))
+mat_coef <- rbind(cbind(mat_xtx, mat_xtw),cbind(mat_wtx, mat_wtw_linv))
+mat_rhs <- rbind(crossprod(matX, tbl_p5$weight),
+                 crossprod(matW, tbl_p5$weight))
+mat_sol <- solve(mat_coef, mat_rhs)
+```
+
+Solutions for marker effects are 
+
+```{r}
+(mat_mrk_sol <- mat_sol[(ncol(matX)+1):nrow(mat_sol),])
+```
+
+The genomic breeding values are computed by multiplying the genotype matrix with the marker solutions
+
+```{r}
+crossprod(t(matW), mat_mrk_sol)
+```
+
+
+\clearpage
+\pagebreak
+
+```{r p5b-setup, echo=FALSE}
+lambda_g <- 5
+```
+\begin{enumerate}
+\item[b)] Use a breeding-value based genomic BLUP model to predict genomic breeding values for the response variable `weight`. Use `BC` and `sex` as fixed effects. The columns `S1`-`S15` contain marker genotypes to be used in the prediction of genomic breeding values. The ratio $\lambda_g = \sigma_e^2/\sigma_g^2$ is assumed to be $\lambda_g = `r lambda_g`$.
+
+\textit{Verwenden Sie ein Zuchtwert-basiertes genomisches BLUP Modell für die Schätzung von genomischen Zuchtwerten für die Zielgrösse `weight`. Verwenden Sie `BC` und `sex` als fixe Effekte. Die Kolonnen `S1`-`S15` enthalten Markergenotypen, welche für die genomische Zuchtwertschätzung verwendet werden sollen. Das Verhältnis $\lambda_g = \sigma_e^2/\sigma_g^2$ soll den Wert $\lambda_g = `r lambda_g`$ haben.}
+
+\end{enumerate}
+\points{`r lPointsQ5$TaskB`}
+
+
+### Solution
+The breeding value based model is 
+
+$$y = Xb + Zg + e$$
+
+* with the vectors 
+    + $y$: of length $n$ with observations 
+    + $b$: fixed effects of `sex` - differnces, slope and intercept for `BC`
+    + $g$: of length $q$ with random genomic breeding values
+    + $e$: of length $n$ random residual effects
+
+* where $n$ is the number of observations in the dataset and $q$ the number of animals with genotypes.
+
+* with design Matrices $X$ and $Z$ linking fixed effects and genomic breeding values to observations, respectively
+
+* Expected values of random components are given as 
+
+$$E\left[\begin{array}{c} y \\ g \\ e \end{array}\right] = \left[\begin{array}{c} Xb \\ 0 \\ 0 \end{array}\right]$$
+
+* Variance-Covariance matrices
+
+$$var\left[\begin{array}{c} y \\ g \\ e \end{array}\right] 
+  = \left[\begin{array}{ccc} V    & ZH & R \\
+                             HZ^T & H  & 0 \\
+                             R    & 0  & R
+    \end{array}\right]$$
+
+* with $var(g) = H = G\sigma_g^2$, where $G$ is the genomic relationship matrix and $\sigma_g^2$ is the genomic variance, 
+* with $var(e) = R = I\sigma_e^2$ where $I$ is the identity matrix and $\sigma_e^2$ is the residual variance
+* with $var(y) = V = ZHZ^T + R$
+
+* Known components in the model are 
+
+```{r}
+# design matrix X
+matX <- model.matrix(lm(weight ~ BC + as.factor(sex), data = tbl_p5))
+attr(matX,"assign") <- NULL
+attr(matX,"contrasts") <- NULL
+colnames(matX) <- NULL
+matX
+```
+
+```{r}
+# design matrix Z
+n_nr_obs <- nrow(tbl_p5)
+matZ <- diag(nrow = n_nr_obs)
+matZ
+```
+
+* Genomic relationship matrix
+
+```{r}
+#' Compute genomic relationship matrix based on data matrix
+computeMatGrm <- function(pmatData, pn_max_iter = 10, pn_min_eig_val = 0.0001) {
+  matData <- pmatData
+  # check the coding, if matData is -1, 0, 1 coded, then add 1 to get to 0, 1, 2 coding
+  if (min(matData) < 0) matData <- matData + 1
+  # Allele frequencies, column vector of P and sum of frequency products
+  freq <- apply(matData, 2, mean) / 2
+  P <- 2 * (freq - 0.5)
+  sumpq <- sum(freq*(1-freq))
+  # Changing the coding from (0,1,2) to (-1,0,1) and subtract matrix P
+  Z <- matData - 1 - matrix(P, nrow = nrow(matData), 
+                             ncol = ncol(matData), 
+                             byrow = TRUE)
+  # Z%*%Zt is replaced by tcrossprod(Z)
+  matG_result <- tcrossprod(Z)/(2*sumpq)
+  # check for positive definiteness
+  n_min_eig_matG_result <- min(eigen(matG_result, only.values = TRUE)$values)
+  n_iter_idx <- 0
+  while (n_min_eig_matG_result < pn_min_eig_val & n_iter_idx < pn_max_iter){
+    matG_result <- matG_result + 0.01 * diag(nrow = nrow(matG_result))
+    n_min_eig_matG_result <- min(eigen(matG_result, only.values = TRUE)$values)
+    n_iter_idx <- n_iter_idx + 1
+  }
+  # check for convergence
+  if (n_iter_idx > pn_max_iter){
+    stop(" *** ERROR: No convergence of bending genomic relationship matrix")
+  }
+  return(matG_result)
+}
+mat_geno <- as.matrix(dplyr::select(tbl_p5, dplyr::starts_with("S", ignore.case = FALSE)))
+mat_grm_inv <- solve(computeMatGrm(pmatData = mat_geno))
+```
+
+* set up mixed model equations
+
+```{r}
+mat_xtx <- crossprod(matX)
+mat_xtz <- crossprod(matX, matZ)
+mat_ztx <- t(mat_xtz)
+mat_ztz_lgrm_inv <- crossprod(matZ) + lambda_g * mat_grm_inv
+mat_coef <- rbind(cbind(mat_xtx,mat_xtz),
+                  cbind(mat_ztx,mat_ztz_lgrm_inv))
+mat_rhs <- rbind(crossprod(matX,tbl_p5$weight),
+                 crossprod(matZ,tbl_p5$weight))
+mat_sol <- solve(mat_coef,mat_rhs)
+```
+
+* Show the solutions for breeding values
+
+```{r}
+cat(" * Genomic breeding values: \n")
+mat_sol[(ncol(matX)+1):nrow(mat_sol),]
+```
+
