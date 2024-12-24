@@ -1,0 +1,159 @@
+---
+title: "LBGFS 2024 - Problem 4: Genomic Breeding Values"
+output: html_notebook
+---
+
+```{r setup, echo=FALSE}
+n_seed <- 1912L
+set.seed(n_seed)
+```
+
+
+## Generate Pedigree According to Problem 5
+
+```{r}
+library(pedtools)
+ped_p4_hs <- halfSibPed(nch1 = 3, nch2 = 2, sex1 = c(1,2,2), sex2 = c(1,2))
+ped_p4_ap <- ancestralPed(g = 2)
+merge_ped_p4 <- mergePed(ped_p4_hs, ped_p4_ap, by = c("7" = "1", "6" = "2"), relabel = T)
+# add parents
+merge_ped_p4$FIDX[9] <- 4
+merge_ped_p4$MIDX[9] <- 3
+merge_ped_p4$FIDX[10] <- 2
+merge_ped_p4$MIDX[10] <- 5
+```
+
+
+
+## Marker Simulation
+Use package forrel (https://magnusdv.github.io/pedsuite/articles/pedsuite.html)
+
+```{r}
+library(forrel)
+n_nr_mrk <- 17
+vec_mrk_freq <- c(0.54, 0.46)
+l_sim_geno = markerSim(merge_ped_p4, N = n_nr_mrk, alleles = c("A", "B"), afreq = vec_mrk_freq, seed = n_seed)
+l_sim_geno
+```
+
+
+## Convert Simulated Genotype Data
+Create a tibble with all genotypes
+
+```{r}
+tbl_geno_p4 <- NULL
+n_nr_mrk <- length(l_sim_geno$MARKERS)
+for (midx in 1:n_nr_mrk){
+  tbl_cur_mrk <- tibble::tibble(cur_mrk = rowSums(l_sim_geno$MARKERS[[midx]][]) - 2)
+  # generate current colname
+  s_cur_coln <- paste0("S", midx)
+  # merge current marker to results
+  if (is.null(tbl_geno_p4)){
+    tbl_geno_p4 <- tbl_cur_mrk
+    colnames(tbl_geno_p4) <- s_cur_coln
+  } else {
+    tbl_geno_p4 <- dplyr::bind_cols(tbl_geno_p4, tbl_cur_mrk)
+    colnames(tbl_geno_p4)[length(colnames(tbl_geno_p4))] <- s_cur_coln
+  }
+}
+tbl_geno_p4
+```
+
+
+## Pedigree Data
+
+```{r}
+library(dplyr)
+tbl_ped_p4 <- tibble::as.tibble(merge_ped_p4)
+tbl_ped_p4 <- tbl_ped_p4 %>% 
+  rename(sire = fid, dam = mid)
+tbl_ped_p4
+```
+
+
+## Combine Genotypes and Pedigree
+From pedigree, only columns `id` and `sex` are taken
+
+```{r}
+library(dplyr)
+tbl_ped_geno_p4 <- bind_cols(tbl_ped_p4[,c("id", "sex")],
+                             tbl_geno_p4)
+# rename columns
+
+tbl_ped_geno_p4 <- tbl_ped_geno_p4 %>%
+  rename(Animal = id) %>%
+  rename(Sex = sex)
+tbl_ped_geno_p4
+```
+
+
+## Generate Observations
+
+Height as regression
+
+```{r}
+n_hei_mean <- 153
+n_hei_sd <- 5.3
+vec_hei <- round(rnorm(nrow(tbl_ped_geno_p4), mean = n_hei_mean, sd = n_hei_sd))
+tbl_ped_geno_p4$Height <- vec_hei
+tbl_ped_geno_p4
+```
+
+Prepare fixed effects
+
+```{r}
+# sex effect
+vec_sex_eff <- c(23.3 , -17.2)
+mat_X_sex <- model.matrix(Height ~ 0 + as.factor(Sex), data = tbl_ped_geno_p4)
+attr(mat_X_sex, "assign") <- NULL
+attr(mat_X_sex, "contrasts") <- NULL
+mat_X_sex
+```
+
+Add regression
+
+```{r}
+n_intercept_weight <- -753
+n_slope <- 8.7
+```
+
+
+Simulation of weight values
+
+```{r}
+n_nr_obs <- nrow(tbl_ped_geno_p4)
+# residual standard deviation
+n_res_sd <- 9.29
+# marker effects and genotypes with codes -1/0/1
+n_mean_mrk_eff <- 23.9
+n_sd_mrk_eff <- 2.9
+vec_mrk_eff <- rnorm(n_nr_mrk, mean = n_mean_mrk_eff, sd = n_sd_mrk_eff)
+# extract genotype matrix
+library(dplyr)
+tbl_geno_p4 <- tbl_ped_geno_p4 %>%
+  select(starts_with("S", ignore.case = FALSE)) %>%
+  select(-Sex)
+mat_geno_p4 <- as.matrix(tbl_geno_p4) - 1
+# observations
+mat_obs_p4 <- n_intercept_weight + n_slope * tbl_ped_geno_p4$Height + 
+  crossprod(t(mat_X_sex),vec_sex_eff) + 
+  crossprod(t(mat_geno_p4), vec_mrk_eff) +
+  rnorm(n_nr_obs, sd = n_res_sd)
+tbl_ped_geno_p4$Weight <- round(mat_obs_p4[,1], digits = 0)
+summary(tbl_ped_geno_p4$Weight)
+```
+
+Show data
+
+```{r}
+tbl_ped_geno_p4
+```
+
+
+## Write data
+
+```{r}
+s_data_root <- file.path(here::here(), "docs", "data")
+s_data_p4 <- file.path(s_data_root, "exam_data_p4.csv")
+readr::write_delim(tbl_ped_geno_p4, s_data_p4, delim = ",")
+```
