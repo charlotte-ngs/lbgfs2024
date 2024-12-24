@@ -17,7 +17,11 @@ s_sl_path <- "slides.dat"
 tbl_sl <- readr::read_delim(file = s_sl_path, delim = ";")
 tbl_sl$Nr <- 1:nrow(tbl_sl)
 # create topic from text and filename
-tbl_sl <- dplyr::mutate(tbl_sl, Topic = paste0("[", Text, "](", s_slides_url, Filename,")"))
+tbl_sl <- dplyr::mutate(tbl_sl, 
+                        Topic = 
+                          dplyr::case_when(
+    SrcFmt == 'Rmd' ~ paste0("[", Text, "](", s_slides_url, Filename,")"),
+    SrcFmt == 'qmd' ~ paste0("[", Text, "](", s_slides_url, fs::path_ext_remove(Filename), "/", Filename,")")))
 # select relevant columns
 tbl_sl <- dplyr::select(tbl_sl,Nr,Date,Topic)
 # show knitr
