@@ -1,0 +1,90 @@
+---
+title: "Exam Datasets"
+author: "Peter von Rohr"
+date: "2024-12-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+## Disclaimer
+This document provides R code-chunks that read the datasets used in the exam 2024.
+
+
+## Problem 1
+
+The datasets for the two populations can be read as shown below
+
+* Population A
+
+```{r}
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_p1_data_path_popA <- file.path(s_data_root, "exam_p1_popA.csv")
+tbl_popA <- readr::read_delim(file = s_p1_data_path_popA, delim = ",")
+dim(tbl_popA)
+```
+
+* Population B
+
+```{r}
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_p1_data_path_popB <- file.path(s_data_root, "exam_p1_popB.csv")
+tbl_popB <- readr::read_delim(file = s_p1_data_path_popB, delim = ",")
+dim(tbl_popB)
+```
+
+
+## Problem 2
+
+* Pedigree for 2a)
+
+```{r}
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_ped_p2 <- file.path(s_data_root, "exam_pedigree_p2.csv")
+tbl_ped_p2 <- readr::read_delim(s_ped_p2, delim = ",")
+dim(tbl_ped_p2)
+```
+
+* Inverse numerator relationship for 2b)
+
+```{r}
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_mat_p2 <- file.path(s_data_root, "exam_inv_num_rel_mat_p2.csv")
+tbl_mat_p2 <- readr::read_delim(s_mat_p2, delim = ",")
+mat_p2 <- as.matrix(tbl_mat_p2)
+dim(mat_p2)
+```
+
+
+## Problem 3
+
+```{r}
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_ped_p3 <- file.path(s_data_root, "exam_pedigree_p3.csv")
+tbl_ped_p3 <- readr::read_delim(s_ped_p3, delim = ",")
+dim(tbl_ped_p3)
+```
+
+
+
+## Problem 4
+
+```{r}
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_data_p4 <- file.path(s_data_root, "exam_data_p4.csv")
+tbl_data_p4 <- readr::read_delim(s_data_p4, delim = ",")
+dim(tbl_data_p4)
+```
+
+
+## Problem 5
+
+```{r}
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_data_p5 <- file.path(s_data_root, "exam_data_p5.csv")
+tbl_data_p5 <- readr::read_delim(s_data_p5, delim = ",")
+dim(tbl_data_p5)
+```
+
