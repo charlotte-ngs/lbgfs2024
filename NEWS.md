@@ -1,5 +1,7 @@
 # lbgfs2024 0.15.1
 
+* Slides on [Digital Twin](https://charlotte-ngs.github.io/lbgfs2024/slides/l12_digital_twin/l12_digital_twin.html)
+
 # lbgfs2024 0.15.0
 
 * Links to exam [Datasets](https://charlotte-ngs.github.io/lbgfs2024/exam/20241220_exam_datasets.html)
