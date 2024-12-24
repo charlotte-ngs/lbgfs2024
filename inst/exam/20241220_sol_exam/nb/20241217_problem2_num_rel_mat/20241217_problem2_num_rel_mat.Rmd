@@ -1,0 +1,353 @@
+---
+title: "LBGFS2024 - Problem 2: Numerator Relationship Matrix"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+params <- list(seed = 2417)
+```
+
+## Required Package `pedsuite`
+
+```{r}
+if (!is.element("pedsuite", installed.packages()))
+  install.packages("pedsuite", dependencies = TRUE)
+```
+
+
+## Create A complex family tree as a test
+Start with a half-sib pedirgee
+
+```{r}
+library(pedtools)
+ped_p2a <- halfSibPed(nch1 = 2, nch2 = 3, sex1 = 2:1, sex2 = c(2, 1, 1)) |> 
+  addDaughter(parents = 5:6) |>
+  addSon(parents = c(4,7)) |>
+  addDaughter(parents = c(7,9)) |>
+  addDaughter(parents = c(8,11))
+plot(ped_p2a)
+```
+
+Convert the pedigree to a tibble
+
+```{r}
+tbl_ped_p2a <- tibble::as.tibble(ped_p2a)
+tbl_ped_p2a
+```
+
+Rename columns to 
+
+```{r}
+tbl_ped_p2a <- dplyr::rename(tbl_ped_p2a, Animal = id, Sire = fid, Dam = mid)
+tbl_ped_p2a
+```
+
+Remove founder animals
+
+```{r}
+library(dplyr)
+tbl_ped_p2a_data <- tbl_ped_p2a %>% 
+  filter(Sire != "0") %>%
+  filter(Dam != "0") %>% 
+  select(Animal, Sire, Dam)
+tbl_ped_p2a_data
+```
+
+## Write Data To File
+
+```{r}
+s_ped_p2_data <- here::here("docs", "data", "exam_pedigree_p2.csv")
+readr::write_delim(tbl_ped_p2a_data, s_ped_p2_data, delim = ",")
+```
+
+
+## Random Pedigree 
+For problem 2b, we use a random pedigree. 
+
+```{r}
+ped_p2b <- pedtools::randomPed(11, founders = 4, seed = params$seed)
+ped_p2b
+```
+
+Show the graphical presentation
+
+```{r}
+plot(ped_p2b)
+```
+
+Change unknown parents from "*" to NA 
+
+```{r}
+# change "*" for unknown parents
+tbl_ped_p2b <- tibble::as.tibble(ped_p2b)
+tbl_ped_p2b$fid[tbl_ped_p2b$fid == "0"] <- NA
+tbl_ped_p2b$mid[tbl_ped_p2b$mid == "0"] <- NA
+tbl_ped_p2b
+```
+
+Get inverse of $A$
+
+```{r}
+pem_p2b <- pedigreemm::pedigree(sire = as.integer(tbl_ped_p2b$fid),
+                               dam = as.integer(tbl_ped_p2b$mid),
+                               label = tbl_ped_p2b$id)
+mat_A_inv <- pedigreemm::getAInv(pem_p2b)
+mat_A_inv
+```
+
+
+## Write Matrix To File
+
+```{r}
+tbl_mat_A_inv <- tibble::as.tibble(as.matrix(mat_A_inv))
+s_mat_p2 <- here::here("docs", "data", "exam_inv_num_rel_mat_p2.csv")
+readr::write_delim(tbl_mat_A_inv, s_mat_p2, delim = ",")
+```
+
+
+## Matrix Decomposition of $A$
+The cholesky decomposition of $A$ is given by
+
+$$A = R\cdot R^T$$
+where $R$ is a lower diagonal matrix. This can be obtained with
+
+```{r}
+mat_A <- as.matrix(pedigreemm::getA(pem_p2b))
+mat_R <- t(chol(mat_A))
+mat_R
+```
+
+Check
+
+```{r}
+round(mat_R %*% t(mat_R) - mat_A, digits = 8)
+```
+
+
+The matrix $R$ can be decomposed into 
+
+$$R = L\cdot S$$
+where $L$ is a lower triangular matrix with a diagonal of all ones and $S$ is the diagonal matrix with diagonal elements which are the same as the matrix $R$. Hence $S$ is obtained by 
+
+```{r}
+mat_S <- diag(diag(mat_R), nrow = nrow(mat_R))
+mat_S
+```
+
+Matrix $L$ can be computed as 
+
+$$L = R \cdot S^{-1}$$
+
+```{r}
+mat_L = mat_R %*% solve(mat_S)
+mat_L
+```
+
+The matrix $P$ is obtained as $P = I - L^{-1}$
+
+```{r}
+mat_P <- diag(nrow = nrow(mat_L)) - solve(mat_L)
+round(mat_P, digits = 6)
+```
+
+
+### Port to $A^{-1}$
+Solution via decomposition of $A^{-1}$ does not work. The following sections show why. 
+
+Based on the cholesky decomposition of $A = R \cdot R^T$, we get 
+
+$$A^{-1} = (R^T)^{-1} \cdot R^{-1}$$
+
+which is a valid decomposition, but it is not a cholesky decomposition, because $(R^T)^{-1}$ is not a lower triangular matrix. 
+
+The cholesky decomposition of $A^{-1}$ corresponds to
+
+$$A^{-1} = Q \cdot Q^T$$
+where $Q$ is lower triangular. But this matrix cannot be set equal to $(R^T)^{-1}
+
+This leads to the relationship between matrices $Q$ and $R$ as 
+
+$$Q \ne (R^T)^{-1} = (R^{-1})^T$$
+
+
+
+```{r}
+mat_A_inv <- as.matrix(pedigreemm::getAInv(pem_p2b))
+mat_A_inv
+```
+
+The cholesky decomposition factor $Q$ of $A^{-1}$ is then
+
+```{r}
+mat_Q <- t(chol(mat_A_inv))
+mat_Q
+```
+
+which is clearly lower triangular. The following shows that $(R^T)^{-1}$ is upper triangular and hence cannot be equal to $Q$. 
+
+```{r}
+solve(t(mat_R))
+```
+
+
+Check
+
+```{r}
+round(mat_Q %*% t(mat_Q) - mat_A_inv, digits = 8)
+```
+
+```{r}
+round(solve(t(mat_R)) %*% solve(mat_R) - mat_A_inv, digits = 8)
+```
+
+
+
+```{r}
+round(mat_Q - solve(t(mat_R)), digits = 8)
+```
+
+```{r}
+round(mat_Q - solve(mat_R), digits = 8)
+```
+
+
+
+Decomposition of $Q$ into 
+
+```{r}
+mat_S_inv <- diag(diag(mat_Q), nrow = nrow(mat_Q))
+mat_S_inv
+```
+
+Getting $(L^T)^{-1} = Q \cdot S$ as 
+
+```{r}
+mat_L_inv_t <- mat_Q %*% solve(mat_S_inv)
+mat_L_inv_t
+```
+
+
+The cholesky decomposition is given by 
+
+$$A^{-1} = RR^T$$
+
+A triangular matrix $R$ can be decomposed into a diagonal matrix $S$ and a triangular matrix $L$. 
+
+$$R = LS$$
+
+The matrix $S$ is the diagonal elements of $R^T$, then $L$ is computed as 
+
+$$L = RS^{-1}$$
+
+
+$$A^{-1} = LDL^T$$
+
+```{r}
+mat_A_inv <- as.matrix(mat_A_inv)
+mat_A_inv
+```
+
+The cholesky decomposition of $A^{-1}$ is 
+
+
+```{r}
+mat_R <- t(chol(mat_A_inv))
+mat_R
+```
+
+
+The matrix $S$ is 
+
+```{r}
+mat_S <- diag(diag(mat_R), nrow = nrow(mat_R))
+mat_S
+```
+
+The matrix $L^{-1}$ is computed as 
+
+```{r}
+mat_L <- mat_R %*% solve(mat_S)
+mat_L
+```
+
+```{r}
+mat_P <- diag(nrow = nrow(mat_A_inv)) - solve(mat_L)
+mat_P
+```
+
+Check whether it works with matrix $A = L \cdot D \cdot L^T$
+
+```{r}
+mat_A <- as.matrix(pedigreemm::getA(ped = pem_p2b))
+mat_A
+```
+
+The cholesky decomposition of $A$ is: $A = RR^T$
+
+```{r}
+mat_R <- t(chol(mat_A))
+mat_R
+```
+
+The decomposition of $R = L\cdot S$
+
+```{r}
+mat_S <- diag(diag(mat_R), nrow = nrow(mat_A))
+mat_S
+```
+
+The $L$ is given by $L = R \cdot S^{-1}$
+
+```{r}
+mat_L <- mat_R %*% solve(mat_S)
+mat_L
+```
+
+Check
+
+```{r}
+mat_D <- mat_S %*% mat_S
+mat_A_comp <- mat_L %*% mat_D %*% t(mat_L)
+mat_A_comp
+```
+
+```{r}
+mat_A - mat_A_comp
+```
+
+```{r}
+mat_P = diag(nrow = nrow(mat_A)) - solve(mat_L)
+round(mat_P, digits = 6)
+```
+
+Check
+
+```{r}
+mat_L_inv <- solve(mat_L)
+mat_L_inv
+```
+
+Multiply back
+
+```{r}
+mat_D_inv <- solve(mat_D)
+mat_D_inv
+```
+
+```{r}
+1/pedigreemm::Dmat(ped = pem_p2b)
+```
+
+
+```{r}
+mat_A_inv_comp <- t(mat_L_inv) %*% mat_D_inv %*% mat_L_inv
+mat_A_inv_comp
+```
+
+Compare
+
+```{r}
+round(mat_A_inv - mat_A_inv_comp, digits = 6)
+```
+
+
