@@ -107,7 +107,7 @@ log_msg () {
 #' Entry for table on website is written to data table
 #+ write-data-table-entry-fun
 write_data_table_entry () {
-  local l_TBL_ENTRY="${DEPLOY_DATE};${LINK_TITLE};$(basename $SRC_PATH)"
+  local l_TBL_ENTRY="${DEPLOY_DATE};${LINK_TITLE};$(basename $SRC_PATH);Rmd"
   if [[ $VERBOSE == 'true' ]];then log_msg write_data_table_entry " * Cn table entry: $l_TBL_ENTRY ...";fi
   # check whether entry exists
   if [[ $(grep "$l_TBL_ENTRY" $DATA_TABLE_DAT | wc -l ) -eq 0 ]];then
