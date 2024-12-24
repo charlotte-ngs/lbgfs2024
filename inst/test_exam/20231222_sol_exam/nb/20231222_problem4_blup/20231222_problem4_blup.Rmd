@@ -1,0 +1,94 @@
+---
+title: "Exam LBGFS2023 -- Problem 4: BLUP"
+output: html_notebook
+---
+
+
+The dataset is based on the data used for genomic prediction. 
+
+```{r}
+s_data_url_root <- "https://charlotte-ngs.github.io/lbgfs2023/data"
+s_data_url_p5 <- file.path(s_data_url_root, "exam_geno_p5.csv")
+tbl_p5 <- readr::read_delim(s_data_url_p5, delim = s_delim_char)
+tbl_p5
+```
+
+```{r}
+library(dplyr)
+tbl_blup_p4 <- tbl_p5 %>%
+  select(!starts_with("S", ignore.case = FALSE))
+tbl_blup_p4
+```
+
+Re-simulate the weight values
+
+```{r}
+set.seed(2023)
+# pedigree
+vec_fnds <- c(setdiff(tbl_blup_p4$sire, tbl_blup_p4$id), setdiff(tbl_blup_p4$dam, tbl_blup_p4$id))
+vec_fnds <- vec_fnds[order(vec_fnds)]
+n_nr_fnds <- length(vec_fnds)
+ped_p4 <- pedigreemm::pedigree(sire = c(rep(NA, n_nr_fnds), tbl_blup_p4$sire),
+                               dam  = c(rep(NA, n_nr_fnds), tbl_blup_p4$dam),
+                               label = 1:n_nr_ani)
+matA <- as.matrix(pedigreemm::getA(ped=ped_p4))
+matA_chol <- chol(matA)
+```
+
+* Generate observations
+
+```{r}
+# residual standard deviation
+n_res_sd <- 7.99
+# covariate bc
+n_intercept_bc <- -935
+n_slope_bc <- 8.7
+# fixed effects, sex
+vec_fixed_effect_sex <- c(17.9, -5.3)
+# fixed effects, sex
+vec_fixed_effect_sex <- c(17.9, -5.3)
+n_h2_weight <- 0.36
+n_sigma_p <- n_res_sd^2 / (1-n_h2_weight)
+matX_sex <- model.matrix(lm(weight ~ 0 + as.factor(sex), data = tbl_blup_p4))
+attr(matX_sex,"assign") <- NULL
+attr(matX_sex,"contrasts") <- NULL
+colnames(matX_sex) <- NULL
+# matrix Z
+n_nr_obs <- nrow(tbl_blup_p4)
+matZ <- cbind(matrix(0, nrow = n_nr_obs, ncol = n_nr_fnds), 
+              diag(nrow = n_nr_obs))
+```
+
+```{r}
+# observations
+mat_weight <- n_intercept_bc + n_slope_bc * tbl_blup_p4$BC + 
+  crossprod(t(matX_sex),vec_fixed_effect_sex) + 
+  crossprod(t(matZ),crossprod(matA_chol, rnorm(nrow(matA), sd = sqrt(n_h2_weight*n_sigma_p)))) + 
+  rnorm(nrow(tbl_blup_p4), sd = n_res_sd)
+mat_weight
+```
+
+Replace weights
+
+```{r}
+tbl_blup_p4$weight <- round(mat_weight[,1], digits = 0)
+```
+
+
+Write data to file
+
+```{r}
+s_blup_p4_path <- here::here("docs", "data", "exam_blup_p4.csv")
+s_delim_char <- ","
+readr::write_delim(tbl_blup_p4, s_blup_p4_path, delim = s_delim_char)
+```
+
+Test to read data
+
+```{r}
+s_data_url_root <- "https://charlotte-ngs.github.io/lbgfs2023/data"
+s_data_url_p4 <- file.path(s_data_url_root, "exam_blup_p4.csv")
+tbl_p4 <- readr::read_delim(s_data_url_p4, delim = s_delim_char)
+tbl_p4
+```
+
