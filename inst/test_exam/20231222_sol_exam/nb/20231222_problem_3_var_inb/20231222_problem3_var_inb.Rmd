@@ -1,0 +1,59 @@
+---
+title: "Exam LBGFS 2023 -- Problem 3: Variance and Inbreeding"
+output: html_notebook
+---
+
+
+```{r}
+n_exile_year <- 1963
+n_export_year <- 2023
+n_nr_sub_pop <- 4
+n_nr_dam_per_sub_pop <- 10^4
+n_nr_dams_total <- n_nr_sub_pop * n_nr_dam_per_sub_pop 
+n_gen_int <- 5
+# computation
+n_nr_gen <- (n_export_year-n_exile_year) / n_gen_int
+Delta_F <- 1/(2*n_nr_dam_per_sub_pop)
+Ft <- 1 - (1 - Delta_F)^n_nr_gen
+Ft
+```
+
+
+Inbreeding depression is computed as 
+
+$$\Delta M = M_F - M_0 = 2pqdF$$
+
+
+For a quantitative trait with 
+
+```{r}
+n_maf <- 0.325
+n_geno_val_a <- 50
+n_geno_val_d <- 35
+n_two_pqd <- 2 * n_maf * (1-n_maf) * n_geno_val_d
+DeltaM <- n_two_pqd * Ft
+DeltaM
+```
+
+```{r}
+DeltaM_target <- 0.1
+```
+
+How many generation does it take until $\Delta M$ is larger than `r DeltaM_target`
+
+$$F = \frac{\Delta M}{2pqd}$$
+
+With 
+
+$$F = 1 - (1 - \Delta F)^t$$
+
+we get 
+
+$$t = \frac{log(1-F)}{log(1-\Delta F)} = \frac{log(1-(\Delta M/2pqd))}{log(1-\Delta F)}$$
+
+```{r}
+n_nr_gen <- (log(1 - (DeltaM_target/n_two_pqd))) / (log(1 - Delta_F))
+n_nr_gen
+```
+
+
