@@ -1,0 +1,232 @@
+---
+title: "Design of Problem 1 of Exam - LBGFS 2023"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+params <- list(seed = 2023)
+```
+
+
+## Required Package `pedsuite`
+
+```{r}
+if (!is.element("pedsuite", installed.packages()))
+  install.packages("pedsuite", dependencies = TRUE)
+```
+
+
+## Create A complex family tree as a test
+
+```{r}
+library(pedtools)
+
+# Top part
+x = ancestralPed(g = 2) # bottom person is "7"
+
+# Bottom part
+y = halfCousinPed(degree = 1) # top person is "2"
+y = swapSex(y, 4)
+#> Changing sex of spouses as well: 5
+
+# Merge
+z = mergePed(x, y, by = c("7" = "2"), relabel = TRUE)
+```
+
+
+
+Analyse the single pedigrees
+
+```{r}
+# Top part
+x = ancestralPed(g = 2) # bottom person is "7"
+plot(x)
+```
+
+The second part
+
+```{r}
+# Bottom part
+y = halfCousinPed(degree = 1) # top person is "2"
+y = swapSex(y, 4)
+#> Changing sex of spouses as well: 5
+plot(y)
+```
+
+Merge the two pedigrees
+
+```{r}
+# Merge
+z = mergePed(x, y, by = c("7" = "2"), relabel = TRUE)
+plot(z)
+```
+
+
+Example with half-sib pedigrees
+
+```{r}
+ped_p1 <- halfSibPed(nch1 = 2, nch2 = 3)
+plot(ped_p1)
+```
+
+```{r}
+ped_p1 <- swapSex(ped_p1,5)
+plot(ped_p1)
+```
+
+```{r}
+ped_p1 <- ped_p1 |> addSon(parents = c(4,5)) |> addDaughter(parents = c(6,5))
+plot(ped_p1)
+```
+
+More offspring
+
+```{r}
+ped_p1 <- ped_p1 |> addDaughter(parents = c(9,10))
+plot(ped_p1)
+```
+
+
+## Pedigree As Table To Compute Additive Genetic Relationship
+
+```{r}
+tbl_ped_p1 <- tibble::as_tibble(ped_p1)
+tbl_ped_p1
+```
+
+Filter out founder animals
+
+```{r}
+library(dplyr)
+tbl_ped_p1_data <- tbl_ped_p1 %>% 
+  select(id, fid, mid) %>%
+  filter(fid != 0 & mid != 0) %>%
+  rename(animal = id, sire = fid, dam = mid)
+tbl_ped_p1_data
+```
+
+
+## Write Pedigree Data To File
+
+```{r}
+s_ped_p1_data <- here::here("docs", "data", "exam_pedigree_p1.csv")
+readr::write_delim(tbl_ped_p1_data, s_ped_p1_data, delim = ",")
+```
+
+
+## Create Random Pedigree
+
+```{r}
+ped_p1c <- pedtools::randomPed(7, founders = 4, seed = params$seed)
+#ped_p1c <- pedtools::ancestralPed(g=2)
+plot(ped_p1c)
+```
+
+
+The constructed pedigree
+
+```{r}
+library(dplyr)
+tbl_ped_p1c <- tibble::as_tibble(ped_p1c)
+tbl_ped_p1c <- tbl_ped_p1c %>% 
+  select(id, fid, mid) %>%  
+  mutate(fid = na_if(fid, "0"),
+         mid = na_if(mid, "0"))
+tbl_ped_p1c
+```
+
+
+Convert the pedigree to numerator relationship. matrix
+
+```{r}
+ped <- pedigreemm::pedigree(sire = as.integer(tbl_ped_p1c$fid),
+                            dam = as.integer(tbl_ped_p1c$mid),
+                            label = tbl_ped_p1c$id)
+mat_A <- as.matrix(pedigreemm::getA(ped = ped))
+mat_A
+```
+
+Write matrix to file
+
+```{r}
+s_num_rel_mat_p1 <- here::here("docs", "data", "exam_num_rel_mat_p1.csv")
+readr::write_delim(tibble::as_tibble(mat_A), s_num_rel_mat_p1, delim = ",")
+```
+
+
+## Verify
+
+The matrix $P$ is obtained by 
+
+```{r}
+nr_animal <- nrow(tbl_ped_p1c)
+P = matrix(0, nrow = nr_animal, ncol = nr_animal)
+for (i in 1:nr_animal){
+  s <- as.integer(tbl_ped_p1c$fid[i])
+  d <- as.integer(tbl_ped_p1c$mid[i])
+  if (!is.na(s)){
+    P[i,s] <- 0.5
+  }
+  if(!is.na(d)){
+    P[i,d] <- 0.5
+  }
+}
+P
+```
+
+```{r}
+diag_D <- pedigreemm::Dmat(ped = ped)
+diag_D
+```
+
+The inverse $D^{-1}$
+
+```{r}
+mat_D_inv <- diag(1/diag_D)
+mat_D_inv
+```
+
+The inverse $L^{-1}$ is given by $I-P$
+
+```{r}
+mat_L_inv <- diag(nrow = nr_animal) - P
+mat_L_inv
+```
+
+The matrix $L$ is 
+
+```{r}
+mat_L <- solve(mat_L_inv)
+mat_L
+```
+
+The cholesky decomposition is 
+
+```{r}
+mat_R <- chol(mat_A)
+mat_R
+```
+
+Check
+
+```{r}
+crossprod(mat_R) - mat_A
+```
+
+```{r}
+t(mat_L) %*% diag(diag_D) %*% mat_L - mat_A
+```
+
+
+
+```{r}
+t(mat_L) %*% mat_D %*% mat_L - mat_A
+```
+
+
+
+```{r}
+nr_animal
+s
+```
+
