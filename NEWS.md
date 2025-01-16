@@ -1,3 +1,7 @@
+# lbgfs2024 0.16.0
+
+* Aural exam questions
+
 # lbgfs2024 0.15.1
 
 * Slides on [Digital Twin](https://charlotte-ngs.github.io/lbgfs2024/slides/l12_digital_twin/l12_digital_twin.html)
