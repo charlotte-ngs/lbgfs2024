@@ -1,0 +1,28 @@
+---
+format: html
+---
+
+# Pedigree-Based Prediction of Breeding Values
+Below is a dataset with a pedigree.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_pbv_p03 <- file.path(s_data_root, "aural_exam_pbv_p03.csv")
+tbl_pbv_p03 <- readr::read_delim(s_pbv_p03, 
+                                 delim = ",", 
+                                 show_col_types = FALSE)
+```
+
+The dataset shown as table
+
+```{r}
+#| echo: true
+knitr::kable(tbl_pbv_p03)
+```
+
+a. Use the above shown dataset to predict breeding values for all animals in the pedigree using a BLUP animal model. Use ‘herd‘ as fixed effect and compute estimates for all the levels of the fixed effect. The column entitled $y$ contains the values for an observed trait of interest. Specify the model as mathematical formula and list the meaning of all model components. Write down the expected values and the variance-covariance matrices for all random effects in the model. Assume the phenotypic variance to be $\sigma_p^2 = 64$ and the heritability to be $h^2 = 0.16$.
+
+b. Compute the reliabilities for the predicted breeding values of all animals under Problem a.
