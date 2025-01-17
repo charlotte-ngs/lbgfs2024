@@ -1,0 +1,32 @@
+---
+title: "LBGFS -- Aural Exam: Problem 2: Quantitative Genetics"
+output: html_notebook
+---
+
+
+The following dataset is taken from https://charlotte-ngs.github.io/lbgfs2022/data/lbgfs2022_exam_problem1.csv and only one SNP location is selected. 
+
+```{r}
+s_old_data_path <- "https://charlotte-ngs.github.io/lbgfs2022/data/lbgfs2022_exam_problem1.csv"
+tbl_old_data <- readr::read_delim(s_old_data_path, delim = ",")
+tbl_old_data
+```
+
+Remove SNP_2
+
+
+```{r}
+library(dplyr)
+tbl_data_p02 <- tbl_old_data %>%
+  select(Animal, SNP_1, Observation)
+tbl_data_p02
+```
+
+
+## Write Data To File
+
+```{r}
+s_data_p02 <- here::here("docs", "data", "aural_exam_qg_p02.csv")
+readr::write_delim(tbl_data_p02, s_data_p02, delim = ",")
+```
+
