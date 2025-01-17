@@ -80,7 +80,7 @@ Three options are available
     + [Datasets](https://charlotte-ngs.github.io/lbgfs2024/exam/20241220_exam_datasets.html) for written exam
 - Aural exam
     + Date: 17.01.2025 - 10:00 - 11:00
-    + Exam Problems
+    + [Exam Problems](https://charlotte-ngs.github.io/lbgfs2024/aural_exam)
 
 
 ## Questions
