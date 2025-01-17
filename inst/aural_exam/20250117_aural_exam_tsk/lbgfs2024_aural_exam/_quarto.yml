@@ -1,0 +1,21 @@
+project:
+  type: manuscript
+  render:
+    - index.qmd
+    - p01_num_rel_mat.qmd
+    - p02_qg.qmd
+    - p03_pbv.qmd
+    - p04_pgbv.qmd
+
+manuscript:
+  article: index.qmd
+
+format:
+  html: default
+  pdf: default
+
+execute:
+  freeze: true
+
+
+
