@@ -1,0 +1,39 @@
+---
+format: html
+---
+
+
+# Numerator Relationship Matrix
+Given is the following pedigree
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_ped_p01 <- file.path(s_data_root, "aural_exam_pedigree_p01.csv")
+tbl_ped_p01 <- readr::read_delim(s_ped_p01, 
+                                 delim = ",", 
+                                 show_col_types = FALSE)
+```
+
+Pedigree shown as table
+
+```{r}
+#| echo: true
+knitr::kable(tbl_ped_p01)
+```
+
+
+Use the above pedigree to compute 
+
+a. the numerator relationship matrix $A$ and 
+b. the inbreeding coefficients of each animal
+c. the expected inbreeding coefficients of potential offspring of animal 1 when mated to all possible mates in the pedigree
+
+Given a numerator relationship $A$, how can be determined which animals has which parents?
+
+
+
+
+
