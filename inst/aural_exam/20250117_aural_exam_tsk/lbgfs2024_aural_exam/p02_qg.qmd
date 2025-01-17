@@ -1,0 +1,36 @@
+---
+format: html
+---
+
+# Quantitative Genetics
+Given is the following dataset on a single locus with one observation
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_qg_p02 <- file.path(s_data_root, "aural_exam_qg_p02.csv")
+tbl_qg_p02 <- readr::read_delim(s_qg_p02, 
+                                 delim = ",", 
+                                 show_col_types = FALSE)
+```
+
+The dataset shown as table
+
+```{r}
+#| echo: true
+knitr::kable(tbl_qg_p02)
+```
+
+Use the above dataset to compute 
+
+a. the genotypic values $a$ and $d$
+b. the breeding values for all genotypes
+c. the dominance deviations for all genotypes
+d. the genetic additive variance
+e. the dominance variance
+
+
+
+
