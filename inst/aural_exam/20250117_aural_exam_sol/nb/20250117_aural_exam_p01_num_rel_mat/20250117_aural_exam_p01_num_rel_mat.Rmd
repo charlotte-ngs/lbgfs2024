@@ -1,0 +1,107 @@
+---
+title: "LBGFS2024 - Problem 1: Numerator Relationship Matrix"
+output: html_notebook
+---
+
+This follows the setup of Problem 2 of the written exam
+
+```{r}
+set.seed(5117)
+```
+
+## Required Package `pedsuite`
+
+```{r}
+if (!is.element("pedsuite", installed.packages()))
+  install.packages("pedsuite", dependencies = TRUE)
+```
+
+
+## Pedigree
+The pedigree is set up with 
+
+```{r}
+library(pedtools)
+hc_ped <- halfCousinPed(1, child = T)
+plot(hc_ped)
+```
+
+Add offspring
+
+```{r}
+hc_ped <- hc_ped |>
+  addDaughter(parents = c(10,7))
+
+plot(hc_ped)
+```
+
+
+## Convert to Tibble
+
+```{r}
+tbl_ped_p01 <- tibble::as.tibble(hc_ped)
+tbl_ped_p01
+```
+
+Re-order
+
+```{r}
+tbl_ped_p01 <- tbl_ped_p01[c(1:3,5,7,4,6,8:11),]
+tbl_ped_p01
+```
+
+Add animal ids
+
+```{r}
+tbl_ped_p01$Animal <- as.character(1:nrow(tbl_ped_p01))
+tbl_ped_p01
+```
+
+## Remap IDs
+IDs in parent columns are remapped from `id` to `Animal`
+
+```{r}
+tbl_ped_p01$fid
+```
+
+```{r}
+tbl_ped_p01$Sire <- sapply(tbl_ped_p01$fid, 
+       function(x) ifelse(x == "0", "0", tbl_ped_p01$Animal[tbl_ped_p01$id == x]), 
+       USE.NAMES = F)
+tbl_ped_p01$Dam <- sapply(tbl_ped_p01$mid, 
+       function(x) ifelse(x == "0", "0", tbl_ped_p01$Animal[tbl_ped_p01$id == x]), 
+       USE.NAMES = F)
+tbl_ped_p01
+```
+
+
+
+## Select Columns 
+
+```{r}
+library(dplyr)
+tbl_ped_p01 <- tbl_ped_p01 %>% 
+  select(Animal, Sire, Dam)
+tbl_ped_p01
+```
+
+
+## Filter Founders
+Founders are not shown in pedigree
+
+```{r}
+tbl_ped_no_founders_p01 <- tbl_ped_p01 %>%
+  filter(Sire != "0") %>%
+  filter(Dam != "0")
+tbl_ped_no_founders_p01
+```
+
+
+## Write Data To File
+
+```{r}
+s_ped_p01_data <- here::here("docs", "data", "aural_exam_pedigree_p01.csv")
+readr::write_delim(tbl_ped_no_founders_p01, s_ped_p01_data, delim = ",")
+
+```
+
