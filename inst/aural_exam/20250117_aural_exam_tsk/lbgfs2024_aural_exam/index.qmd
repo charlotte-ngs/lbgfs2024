@@ -1,0 +1,38 @@
+---
+title: LBGFS2024 -- Aural Exam
+authors:
+  - name: Peter von Rohr
+    affiliation: ETH Zurich
+    roles: writing
+    corresponding: true
+bibliography: references.bib
+---
+
+## Exercise Platform
+The Webr platform is available: [https://webr.r-wasm.org/latest](https://webr.r-wasm.org/latest)
+
+
+## Problem 1: Numerator Relationship Matrix
+A given pedigree is to be used to compute the numerator relationship matrix and the inbreeding coefficients.
+
+* See the given [pedigree](p01_num_rel_mat-preview.html)
+
+
+## Problem 2: Quantitative Genetics
+Use the given dataset on one locus and one phenotypic observation for a set of animals to compute parameters of the one-locus model.
+
+* See the given [dataset](p02_qg-preview.html)
+
+
+## Problem 3: Pedigree-Based Prediction of Breeding Values
+The given dataset is to be used to predict breeding values using a BLUP-based model.
+
+* See the given [dataset](p03_pbv-preview.html)
+
+
+## Problem 4: Prediction of Genomic Breeding Values
+The given dataset is used to predict genomic breeding values.
+
+* See the given [dataset](p04_pgbv-preview.html)
+
+
