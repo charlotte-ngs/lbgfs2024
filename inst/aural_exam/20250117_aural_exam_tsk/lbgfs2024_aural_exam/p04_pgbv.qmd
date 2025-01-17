@@ -1,0 +1,29 @@
+---
+format: html
+---
+
+# Prediction of Genomic Breeding Values
+The following dataset is used to predict genomic breeding values. The column $y$ contains the observations and columns S1 to S15 contain genotypes of 15 SNP marker loci.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+s_data_root <- "https://charlotte-ngs.github.io/lbgfs2024/data"
+s_pgbv_p04 <- file.path(s_data_root, "aural_exam_pgbv_p04.csv")
+tbl_pgbv_p04 <- readr::read_delim(s_pgbv_p04, 
+                                 delim = ",", 
+                                 show_col_types = FALSE)
+```
+
+The dataset shown as table
+
+```{r}
+#| echo: true
+knitr::kable(tbl_pgbv_p04)
+```
+
+a. Use a marker effect model (MEM) to predict genomic breeding values for the animals given in the dataset shown above. Specify the marker effect model as a mathematical formula and list the meaning of all model components. Indicate the expected values and the variance-covariance matrices for all random effects in the model. You can assume $\lambda = \sigma_e^2 / \sigma_q^2 = 1$. 
+
+b. Predict genomic breeding values using a breeding value based model (BVM) for all animals in the above given dataset. Specify the model as a mathematical formula and list the meaning of all model components. Indicate the expected values and the variance-covariance matrices for all random effects in the model. You can assume $\lambda = \sigma_e^2 / \sigma_g^2 = 3$.
+
