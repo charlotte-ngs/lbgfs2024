@@ -62,7 +62,8 @@ usage () {
   echo '                                                   > default: $(date +"%Y-%m-%d") ...'
   echo '        -e <exercise_name>          --             exercise name ...'
   echo '        -h                          --  (optional) show usage message ...'
-  echo '        -l <link_title>             --             link name ...'
+  echo '        -l <link_title>             --             link name, if not specified no data table is written ...'
+  echo '                                                   > default: none'
   echo '        -q <quarto_yml>             --  (optional) quarto yml parameter file ...'
   echo '                                                   > default: _quarto.yml ...'
   echo '        -s <source_solution_dir>    --             source directory from where exercise is to be deployed ...'
@@ -226,7 +227,7 @@ else
   EXC_NAME=$(basename $SRC_SOL_DIR)
 fi
 if [[ $LINK_TITLE == '' ]];then
-  usage " *** ERROR: -l <link_title> required, but not defined ..."
+  log_msg $SCRIPT " *** WARNING: -l <link_title> not defined ==> no data table written ..."
 fi
 if [[ $TRG_DPL_DIR == '' ]];then
   TRG_DPL_DIR=$EVALREPO/docs/solutions
@@ -281,8 +282,10 @@ clean_up_exc_material
 #' ## Data Table Entry
 #' The deployed exercise needs an entry in the exercise data table
 #+ add-data-table-entry
-log_msg $SCRIPT " * Write data table entry ..."
-write_data_table_entry
+if [[ $LINK_TITLE != '' ]];then
+  log_msg $SCRIPT " * Write data table entry ..."
+  write_data_table_entry
+fi
 
 
 #' ## End of Script
