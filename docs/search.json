@@ -4,7 +4,7 @@
     "href": "course_notes/course_notes.html",
     "title": "Course Notes",
     "section": "",
-    "text": "Chapters of course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-20\nBasics in Quantitative Genetics\n\n\n3\n2024-10-18\nGenetic Evaluation\n\n\n4\n2024-10-24\nBLUP\n\n\n5\n2024-11-01\nDerivation of BLUP\n\n\n6\n2024-11-07\nGenetic Covariance\n\n\n7\n2024-11-22\nAdditional Aspects of BLUP\n\n\n8\n2024-11-29\nGenomic Selection\n\n\n\n\n\nAppendix to course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nLinear Algebra\n\n\n2\n2024-10-18\nVariance Computations\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:41:58 CET (pvr)"
+    "text": "Chapters of course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-20\nBasics in Quantitative Genetics\n\n\n3\n2024-10-18\nGenetic Evaluation\n\n\n4\n2024-10-24\nBLUP\n\n\n5\n2024-11-01\nDerivation of BLUP\n\n\n6\n2024-11-07\nGenetic Covariance\n\n\n7\n2024-11-22\nAdditional Aspects of BLUP\n\n\n8\n2024-11-29\nGenomic Selection\n\n\n\n\n\nAppendix to course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nLinear Algebra\n\n\n2\n2024-10-18\nVariance Computations\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:51:54 CEST (pvr)"
   },
   {
     "objectID": "index.html",
@@ -32,7 +32,7 @@
     "href": "index.html#information",
     "title": "Livestock Breeding and Genomics",
     "section": "Information",
-    "text": "Information\n\nLecturer: Peter von Rohr\nDate: Friday 9-12\nRoom: LFW C11\nMoodle: https://moodle-app2.let.ethz.ch/course/view.php?id=23928\nZoom: https://ethz.zoom.us/j/66360111190\n\n\nExercise Platform\nThree options are available\n\nWebr: https://webr.r-wasm.org/latest\nPosit cloud: https://posit.cloud\nRun your own platform: Follow steps on https://posit.co/download/rstudio-desktop\n\n\n\nExam\n\nWritten exam\nDate: 20.12.2024 - 09:15 - 11:15\nRoom: LFW C 11"
+    "text": "Information\n\nLecturer: Peter von Rohr\nDate: Friday 9-12\nRoom: LFW C11\nMoodle: https://moodle-app2.let.ethz.ch/course/view.php?id=23928\nZoom: https://ethz.zoom.us/j/66360111190\n\n\nExercise Platform\nThree options are available\n\nWebr: https://webr.r-wasm.org/latest\nPosit cloud: https://posit.cloud\nRun your own platform: Follow steps on https://posit.co/download/rstudio-desktop\n\n\n\nExam\n\nWritten exam\n\nDate: 20.12.2024 - 09:15 - 11:15\nRoom: LFW C 11\nDatasets for written exam\n\nAural exam\n\nDate: 17.01.2025 - 10:00 - 11:00\nExam Problems"
   },
   {
     "objectID": "index.html#questions",
@@ -46,21 +46,21 @@
     "href": "index.html#lecture-program",
     "title": "Livestock Breeding and Genomics",
     "section": "Lecture Program",
-    "text": "Lecture Program\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n20.09\nIntroduction to Livestock Breeding and Genomics\n\n\n2\n27.09\nReview of Quantitative Genetics/Single Locus\n\n\n3\n04.10\nGenetic Evaluation with Different Sources of Information\n\n\n4\n11.10\nGenetic Covariance Between Relatives\n\n\n5\n18.10\nBest Linear Unbiased Prediction (BLUP) - Univariate Analysis\n\n\n6\n25.10\nBLUP - Additional Aspects\n\n\n7\n01.11\nBLUP - Multiple Traits\n\n\n8\n08.11\nVariance and Inbreeding\n\n\n9\n15.11\nVariance Components Estimation\n\n\n10\n22.11\nGenomic Selection\n\n\n11\n29.11\nGenom-Wide Association Studies\n\n\n12\n06.12\nReview on Selection Index Theory\n\n\n13\n13.12\nTest-Exam and Questions\n\n\n14\n20.12\nExam\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:57:36 CET (pvr)"
+    "text": "Lecture Program\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n20.09\nIntroduction to Livestock Breeding and Genomics\n\n\n2\n27.09\nReview of Quantitative Genetics/Single Locus\n\n\n3\n04.10\nGenetic Evaluation with Different Sources of Information\n\n\n4\n11.10\nGenetic Covariance Between Relatives\n\n\n5\n18.10\nBest Linear Unbiased Prediction (BLUP) - Univariate Analysis\n\n\n6\n25.10\nBLUP - Additional Aspects\n\n\n7\n01.11\nBLUP - Multiple Traits\n\n\n8\n08.11\nVariance and Inbreeding\n\n\n9\n15.11\nVariance Components Estimation\n\n\n10\n22.11\nGenomic Selection\n\n\n11\n29.11\nGenom-Wide Association Studies\n\n\n12\n06.12\nReview on Selection Index Theory\n\n\n13\n13.12\nTest-Exam and Questions\n\n\n14\n20.12\nExam\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:15 CEST (pvr)"
   },
   {
     "objectID": "slides/slides.html",
     "href": "slides/slides.html",
     "title": "Slides",
     "section": "",
-    "text": "List of slides documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-11\nMultiple Loci\n\n\n4\n2024-10-18\nGenetic Evaluation\n\n\n5\n2024-10-25\nBLUP\n\n\n6\n2024-11-01\nCovariance between Animals\n\n\n7\n2024-11-08\nNumerator Relationship Matrix\n\n\n8\n2024-11-15\nInverse A\n\n\n9\n2024-11-22\nHendersons Rule\n\n\n10\n2024-11-22\nAdditional Aspects of BLUP\n\n\n11\n2024-11-29\nGenomic Selection\n\n\n\n\n\nSlides with annotations\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nMultiple Loci\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:42:29 CET (pvr)"
+    "text": "List of slides documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-11\nMultiple Loci\n\n\n4\n2024-10-18\nGenetic Evaluation\n\n\n5\n2024-10-25\nBLUP\n\n\n6\n2024-11-01\nCovariance between Animals\n\n\n7\n2024-11-08\nNumerator Relationship Matrix\n\n\n8\n2024-11-15\nInverse A\n\n\n9\n2024-11-22\nHendersons Rule\n\n\n10\n2024-11-22\nAdditional Aspects of BLUP\n\n\n11\n2024-11-29\nGenomic Selection\n\n\n12\n2024-12-13\nDigital Twin\n\n\n\n\n\nSlides with annotations\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nMultiple Loci\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:21 CEST (pvr)"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About the Course",
     "section": "",
-    "text": "The following content was taken from the course catalogue\n\nAbstract\nSwiss routine breeding value estimation/genetic evaluation systems of cattle, pig, sheep and goats are presented with methods and evaluated traits. Examples will be demonstrated using the statistical software R.\n\n\nLearning objective\nThe students know the theoretical and practical application of breeding value estimation in Switzerland for cattle, pig, sheep and goats. The students are able to interpret estimated breeding values.\n\n\nContent\n\nBasic principles of genetic evaluations\nApplied genetic evaluation in cattle (data, methods, traits, national and international genetic evaluations)\nApplied genetic evaluation in pigs (data, methods, traits)\nApplied genetic evaluation in sheep and goats (data, methods, traits)\n\n\nLatest Changes: 2024-12-06 07:42:35 CET (pvr)"
+    "text": "The following content was taken from the course catalogue\n\nAbstract\nSwiss routine breeding value estimation/genetic evaluation systems of cattle, pig, sheep and goats are presented with methods and evaluated traits. Examples will be demonstrated using the statistical software R.\n\n\nLearning objective\nThe students know the theoretical and practical application of breeding value estimation in Switzerland for cattle, pig, sheep and goats. The students are able to interpret estimated breeding values.\n\n\nContent\n\nBasic principles of genetic evaluations\nApplied genetic evaluation in cattle (data, methods, traits, national and international genetic evaluations)\nApplied genetic evaluation in pigs (data, methods, traits)\nApplied genetic evaluation in sheep and goats (data, methods, traits)\n\n\nLatest Changes: 2025-08-26 14:52:26 CEST (pvr)"
   },
   {
     "objectID": "exercises.html",
@@ -79,112 +79,112 @@
   {
     "objectID": "weekly_news.html",
     "href": "weekly_news.html",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "",
-    "text": "Exercise lbg_ex10\n\n\n\n\n\nOHP: ohp_l09"
+    "text": "Updated webr-live quarto extension\n\n\n\n\n\nLink to exam questions on website\n\n\n\n\n\nAural exam questions"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.4",
     "href": "weekly_news.html#lbgfs2024-0.1.4",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.1.4",
     "text": "lbgfs2024 0.1.4\n\nStepwise migration of slides"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.3",
     "href": "weekly_news.html#lbgfs2024-0.1.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.1.3",
     "text": "lbgfs2024 0.1.3\n\nStart preparation of slides l01_intro"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.2",
     "href": "weekly_news.html#lbgfs2024-0.1.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.1.2",
     "text": "lbgfs2024 0.1.2\n\nLink to moodle page"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.1",
     "href": "weekly_news.html#lbgfs2024-0.1.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.1.1",
     "text": "lbgfs2024 0.1.1\nAdding links to the material of week 1\n\nCourse Notes: Introduction\nCourse Notes: Basics of Quantitative Genetics\nAppendix: Linear Algebra"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.0",
     "href": "weekly_news.html#lbgfs2024-0.1.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.1.0",
     "text": "lbgfs2024 0.1.0\n\nFirst release of website for week 1"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.9",
     "href": "weekly_news.html#lbgfs2024-0.0.9",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.9",
     "text": "lbgfs2024 0.0.9"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.8",
     "href": "weekly_news.html#lbgfs2024-0.0.8",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.8",
     "text": "lbgfs2024 0.0.8\n\nStarted deployment to Github pages"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.7",
     "href": "weekly_news.html#lbgfs2024-0.0.7",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.7",
     "text": "lbgfs2024 0.0.7\n\nAdded stub-pages for exercises and solutions"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.6",
     "href": "weekly_news.html#lbgfs2024-0.0.6",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.6",
     "text": "lbgfs2024 0.0.6\n\nModified structure of weekly news"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.5",
     "href": "weekly_news.html#lbgfs2024-0.0.5",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.5",
     "text": "lbgfs2024 0.0.5\n\nRefactored quarto render script for the website to make it possible to be called from any directory in the main course repo"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.4",
     "href": "weekly_news.html#lbgfs2024-0.0.4",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.4",
     "text": "lbgfs2024 0.0.4\n\nImplemented new package structure"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.3",
     "href": "weekly_news.html#lbgfs2024-0.0.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.3",
     "text": "lbgfs2024 0.0.3\n\nAdded about page"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.2",
     "href": "weekly_news.html#lbgfs2024-0.0.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.2",
     "text": "lbgfs2024 0.0.2\n\nStart to add weekly news"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.0.1",
     "href": "weekly_news.html#lbgfs2024-0.0.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.0.1",
-    "text": "lbgfs2024 0.0.1\n\nInitial draft version of lecture material.\n\n\nLatest Changes: 2024-12-06 07:42:22 CET (pvr)"
+    "text": "lbgfs2024 0.0.1\n\nInitial draft version of lecture material.\n\n\nLatest Changes: 2025-08-26 14:52:15 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.5",
     "href": "weekly_news.html#lbgfs2024-0.1.5",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.1.5",
     "text": "lbgfs2024 0.1.5\n\nAdded slides for l02"
   },
@@ -261,14 +261,14 @@
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.6",
     "href": "weekly_news.html#lbgfs2024-0.1.6",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.1.6",
     "text": "lbgfs2024 0.1.6\n\nTopics for MSC and internships"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.7",
     "href": "weekly_news.html#lbgfs2024-0.1.7",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.1.7",
     "text": "lbgfs2024 0.1.7\nLinks to available material for week 1:\n\nCourse Notes: Introduction\nCourse Notes: Basics of Quantitative Genetics\nAppendix: Linear Algebra\nSlides l01: Introduction\nSlides l02: Basics of Quantitative Genetics"
   },
@@ -277,33 +277,33 @@
     "href": "ohp/ohp.html",
     "title": "Overhead Pictures",
     "section": "",
-    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-04\nGenotypic Values\n\n\n4\n2024-10-11\nGenotypic Value Decomposition\n\n\n5\n2024-11-01\nBLUP\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-15\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-22\nHenderson’s Rule\n\n\n9\n2024-11-29\nAdditional Aspects of BLUP\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:41:51 CET (pvr)"
+    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-04\nGenotypic Values\n\n\n4\n2024-10-11\nGenotypic Value Decomposition\n\n\n5\n2024-11-01\nBLUP\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-15\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-22\nHenderson’s Rule\n\n\n9\n2024-11-29\nAdditional Aspects of BLUP\n\n\n10\n2024-12-06\nGenomic Selection\n\n\n11\n2024-12-13\nTest Exam\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:51:48 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.2.1",
     "href": "weekly_news.html#lbgfs2024-0.2.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.2.1",
     "text": "lbgfs2024 0.2.1\n\nFirst version of ohp document"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.2.0",
     "href": "weekly_news.html#lbgfs2024-0.2.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.2.0",
     "text": "lbgfs2024 0.2.0\n\nStarted overhead pictures"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.2.2",
     "href": "weekly_news.html#lbgfs2024-0.2.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.2.2",
     "text": "lbgfs2024 0.2.2\n\nOutsource pdf-result of ohp document"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.2.3",
     "href": "weekly_news.html#lbgfs2024-0.2.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.2.3",
     "text": "lbgfs2024 0.2.3\n\nStarted exercise"
   },
@@ -312,12 +312,12 @@
     "href": "exercises/exercises.html",
     "title": "Exercises",
     "section": "",
-    "text": "List of exercises\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-10-25\nFixed linear model\n\n\n5\n2024-11-01\nSire model\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-10\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-23\nHendersons Rule\n\n\n9\n2024-11-29\nBLUP Animal Model\n\n\n10\n2024-12-06\nReliability\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:42:42 CET (pvr)"
+    "text": "List of exercises\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-10-25\nFixed linear model\n\n\n5\n2024-11-01\nSire model\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-10\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-23\nHendersons Rule\n\n\n9\n2024-11-29\nBLUP Animal Model\n\n\n10\n2024-12-06\nReliability\n\n\n11\n2024-12-06\nGenomic Breeding Values\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:32 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.2.4",
     "href": "weekly_news.html#lbgfs2024-0.2.4",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.2.4",
     "text": "lbgfs2024 0.2.4\nLinks to available material for week 2:\n\nExercise Genotype Data\nOverhead Pictures: Introduction"
   },
@@ -326,138 +326,138 @@
     "href": "solutions/solutions.html",
     "title": "Solutions",
     "section": "",
-    "text": "List of Solutions\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-11-15\nFixed linear model\n\n\n5\n2024-11-15\nSire Model\n\n\n6\n2024-11-15\nNumerator Relationship Matrix\n\n\n7\n2024-11-24\nInverse Numerator Relationship Matrix\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:42:12 CET (pvr)"
+    "text": "List of Solutions\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-11-15\nFixed linear model\n\n\n5\n2024-11-15\nSire Model\n\n\n6\n2024-11-15\nNumerator Relationship Matrix\n\n\n7\n2024-11-24\nInverse Numerator Relationship Matrix\n\n\n8\n2024-12-07\nHendersons Rule\n\n\n9\n2024-12-07\nBLUP Animal Model\n\n\n10\n2024-12-07\nReliability\n\n\n11\n2024-12-07\nGenomic Breeding Values\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:06 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.3.0",
     "href": "weekly_news.html#lbgfs2024-0.3.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.3.0",
     "text": "lbgfs2024 0.3.0\n\nFirst version of solutions lbg_sol01\nRe-designed exercise and solutions qmd documents"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.3.1",
     "href": "weekly_news.html#lbgfs2024-0.3.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.3.1",
     "text": "lbgfs2024 0.3.1\n\nOHP l02"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.3.2",
     "href": "weekly_news.html#lbgfs2024-0.3.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.3.2",
     "text": "lbgfs2024 0.3.2\n\nExercise lbg_ex02"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.3.3",
     "href": "weekly_news.html#lbgfs2024-0.3.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.3.3",
     "text": "lbgfs2024 0.3.3\nMaterial for week 3:\n\nExercise lbg_ex02\nOHP l02"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.4.0",
     "href": "weekly_news.html#lbgfs2024-0.4.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.4.0",
     "text": "lbgfs2024 0.4.0\n\nOHP l03"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.4.1",
     "href": "weekly_news.html#lbgfs2024-0.4.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.4.1",
     "text": "lbgfs2024 0.4.1\n\nSlides sl_l03"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.4.2",
     "href": "weekly_news.html#lbgfs2024-0.4.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.4.2",
     "text": "lbgfs2024 0.4.2\n\nExercise lbg_ex03"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.4.3",
     "href": "weekly_news.html#lbgfs2024-0.4.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.4.3",
     "text": "lbgfs2024 0.4.3\nMaterial for week 4:\n\nExercise lbg_ex03\nSlides sl_l03\nOHP ohp_l03"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.5.0",
     "href": "weekly_news.html#lbgfs2024-0.5.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.5.0",
     "text": "lbgfs2024 0.5.0\n\nOHP l04"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.5.1",
     "href": "weekly_news.html#lbgfs2024-0.5.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.5.1",
     "text": "lbgfs2024 0.5.1\n\nSolutions lbg_sol02"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.5.2",
     "href": "weekly_news.html#lbgfs2024-0.5.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.5.2",
     "text": "lbgfs2024 0.5.2\n\nAppendix 3: Computing with Variances"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.5.3",
     "href": "weekly_news.html#lbgfs2024-0.5.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.5.3",
     "text": "lbgfs2024 0.5.3\n\nSolutions lbg_sol03"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.5.4",
     "href": "weekly_news.html#lbgfs2024-0.5.4",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.5.4",
     "text": "lbgfs2024 0.5.4\n\nSlides l04"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.6.0",
     "href": "weekly_news.html#lbgfs2024-0.6.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.6.0",
     "text": "lbgfs2024 0.6.0\n\nZoom-link"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.6.2",
     "href": "weekly_news.html#lbgfs2024-0.6.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.6.2",
     "text": "lbgfs2024 0.6.2\n\nCourse notes cn_04-blup"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.6.1",
     "href": "weekly_news.html#lbgfs2024-0.6.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.6.1",
     "text": "lbgfs2024 0.6.1\n\nSlides l05"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.6.3",
     "href": "weekly_news.html#lbgfs2024-0.6.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.6.3",
     "text": "lbgfs2024 0.6.3\n\nSlides l06"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.6.4",
     "href": "weekly_news.html#lbgfs2024-0.6.4",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.6.4",
     "text": "lbgfs2024 0.6.4\n\nExercise lbg_ex04"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.6.5",
     "href": "weekly_news.html#lbgfs2024-0.6.5",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.6.5",
     "text": "lbgfs2024 0.6.5\nMaterial for week 6:\n\nCourse notes 04_blup\nExercise lbg_ex04\nSlides l05_blup"
   },
@@ -466,188 +466,293 @@
     "href": "video/video.html",
     "title": "Video",
     "section": "",
-    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nLecture 6\n\n\n\n\n\n\nLatest Changes: 2024-12-06 07:42:05 CET (pvr)"
+    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nLecture 6\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:00 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.7.0",
     "href": "weekly_news.html#lbgfs2024-0.7.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.7.0",
     "text": "lbgfs2024 0.7.0\n\nZoom-video of lecture\nSlides with annotations"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.7.1",
     "href": "weekly_news.html#lbgfs2024-0.7.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.7.1",
     "text": "lbgfs2024 0.7.1\n\nAdapted chapter 04 of cn\nAdded appendix 4.6 to cn"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.7.2",
     "href": "weekly_news.html#lbgfs2024-0.7.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.7.2",
     "text": "lbgfs2024 0.7.2\n\nExercise lbg_ex05"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.7.3",
     "href": "weekly_news.html#lbgfs2024-0.7.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.7.3",
     "text": "lbgfs2024 0.7.3\nMaterial for week 7:\n\nAdapted Course notes 04_blup\nCourse Notes Appendix 4.6\nAdapted slides l05_blup\nExercise lbg_ex05"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.8.0",
     "href": "weekly_news.html#lbgfs2024-0.8.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.8.0",
     "text": "lbgfs2024 0.8.0\n\nOHP-L05"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.8.1",
     "href": "weekly_news.html#lbgfs2024-0.8.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.8.1",
     "text": "lbgfs2024 0.8.1\n\nCourse Notes 05_gencov"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.8.2",
     "href": "weekly_news.html#lbgfs2024-0.8.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.8.2",
     "text": "lbgfs2024 0.8.2\n\nExercise lbg_ex06"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.8.3",
     "href": "weekly_news.html#lbgfs2024-0.8.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.8.3",
     "text": "lbgfs2024 0.8.3\n\nSlides l07_num_rel_mat"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.9.0",
     "href": "weekly_news.html#lbgfs2024-0.9.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.9.0",
     "text": "lbgfs2024 0.9.0\n\nOHP-L06"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.9.1",
     "href": "weekly_news.html#lbgfs2024-0.9.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.9.1",
     "text": "lbgfs2024 0.9.1\n\nSolutions lbg_05\nSolutions lbg_04"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.9.3",
     "href": "weekly_news.html#lbgfs2024-0.9.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.9.3",
     "text": "lbgfs2024 0.9.3\n\nExercise lbg_ex07"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.9.2",
     "href": "weekly_news.html#lbgfs2024-0.9.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.9.2",
     "text": "lbgfs2024 0.9.2\n\nSolutions lbg_06"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.10.0",
     "href": "weekly_news.html#lbgfs2024-0.10.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.10.0",
     "text": "lbgfs2024 0.10.0\n\nOHP-L07"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.10.1",
     "href": "weekly_news.html#lbgfs2024-0.10.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.10.1",
     "text": "lbgfs2024 0.10.1\n\nCourse notes chapter 6"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.10.2",
     "href": "weekly_news.html#lbgfs2024-0.10.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.10.2",
     "text": "lbgfs2024 0.10.2\n\nSlides l09"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.10.3",
     "href": "weekly_news.html#lbgfs2024-0.10.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.10.3",
     "text": "lbgfs2024 0.10.3\n\nSlides l10"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.11.0",
     "href": "weekly_news.html#lbgfs2024-0.11.0",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.11.0",
     "text": "lbgfs2024 0.11.0\n\nOHP_L08"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.10.4",
     "href": "weekly_news.html#lbgfs2024-0.10.4",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.10.4",
     "text": "lbgfs2024 0.10.4\n\nExercise lbg_ex08"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.11.1",
     "href": "weekly_news.html#lbgfs2024-0.11.1",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.11.1",
     "text": "lbgfs2024 0.11.1\n\nSolution lbg_ex07"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.11.2",
     "href": "weekly_news.html#lbgfs2024-0.11.2",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.11.2",
     "text": "lbgfs2024 0.11.2\n\nCorrected link to ohp_l07"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.11.3",
     "href": "weekly_news.html#lbgfs2024-0.11.3",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.11.3",
     "text": "lbgfs2024 0.11.3\n\nExercise lbg_ex09"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.11.4",
     "href": "weekly_news.html#lbgfs2024-0.11.4",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.11.4",
     "text": "lbgfs2024 0.11.4\n\nCourse notes chapter 7"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.11.5",
     "href": "weekly_news.html#lbgfs2024-0.11.5",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.11.5",
     "text": "lbgfs2024 0.11.5\n\nSlides l11_gensel"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.11.6",
     "href": "weekly_news.html#lbgfs2024-0.11.6",
-    "title": "Week 12",
+    "title": "Week 16",
     "section": "lbgfs2024 0.11.6",
     "text": "lbgfs2024 0.11.6\nMaterial for week 11:\n\nSlides l11_gensel\nCourse Notes 07_gen_sel\nExercise lbg_ex09\nCorrection ohp_l07\nCorrection l08_ainv\nSolution lbg_ex07\nOHP ohp_l08"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.12.0",
     "href": "weekly_news.html#lbgfs2024-0.12.0",
-    "title": "Week 12",
-    "section": "",
-    "text": "OHP: ohp_l09"
+    "title": "Week 16",
+    "section": "lbgfs2024 0.12.0",
+    "text": "lbgfs2024 0.12.0\n\nOHP: ohp_l09"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.12.1",
     "href": "weekly_news.html#lbgfs2024-0.12.1",
-    "title": "Week 12",
+    "title": "Week 16",
+    "section": "lbgfs2024 0.12.1",
+    "text": "lbgfs2024 0.12.1\n\nExercise lbg_ex10"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.12.2",
+    "href": "weekly_news.html#lbgfs2024-0.12.2",
+    "title": "Week 16",
+    "section": "lbgfs2024 0.12.2",
+    "text": "lbgfs2024 0.12.2\n\nTest exam:\n\nQuestions\nSolutions"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.13.0",
+    "href": "weekly_news.html#lbgfs2024-0.13.0",
+    "title": "Week 13",
     "section": "",
-    "text": "Exercise lbg_ex10"
+    "text": "OHP: ohp_l10"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.13.1",
+    "href": "weekly_news.html#lbgfs2024-0.13.1",
+    "title": "Week 13",
+    "section": "",
+    "text": "Exercise lbg_ex11"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.13.2",
+    "href": "weekly_news.html#lbgfs2024-0.13.2",
+    "title": "Week 13",
+    "section": "",
+    "text": "Solution lbg_sol08"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.13.3",
+    "href": "weekly_news.html#lbgfs2024-0.13.3",
+    "title": "Week 13",
+    "section": "",
+    "text": "Solution lbg_sol09"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.13.4",
+    "href": "weekly_news.html#lbgfs2024-0.13.4",
+    "title": "Week 13",
+    "section": "",
+    "text": "Solution lbg_sol10"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.13.5",
+    "href": "weekly_news.html#lbgfs2024-0.13.5",
+    "title": "Week 13",
+    "section": "",
+    "text": "Solution lbg_sol11"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.13.6",
+    "href": "weekly_news.html#lbgfs2024-0.13.6",
+    "title": "Week 16",
+    "section": "lbgfs2024 0.13.6",
+    "text": "lbgfs2024 0.13.6\nMaterial for week 13:\n\nSolution lbg_sol11\nSolution lbg_sol10\nSolution lbg_sol09\nSolution lbg_sol08\nExercise lbg_ex11\nOHP: ohp_l10"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.14.0",
+    "href": "weekly_news.html#lbgfs2024-0.14.0",
+    "title": "Week 16",
+    "section": "lbgfs2024 0.14.0",
+    "text": "lbgfs2024 0.14.0\n\nOHP: ohp_l11"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.14.1",
+    "href": "weekly_news.html#lbgfs2024-0.14.1",
+    "title": "Week 16",
+    "section": "lbgfs2024 0.14.1",
+    "text": "lbgfs2024 0.14.1\n\nCorrected solutions of test-exam:\n\nSolutions"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.15.0",
+    "href": "weekly_news.html#lbgfs2024-0.15.0",
+    "title": "Week 16",
+    "section": "lbgfs2024 0.15.0",
+    "text": "lbgfs2024 0.15.0\n\nLinks to exam Datasets"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.15.1",
+    "href": "weekly_news.html#lbgfs2024-0.15.1",
+    "title": "Week 16",
+    "section": "lbgfs2024 0.15.1",
+    "text": "lbgfs2024 0.15.1\n\nSlides on Digital Twin"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.16.0",
+    "href": "weekly_news.html#lbgfs2024-0.16.0",
+    "title": "Week 16",
+    "section": "",
+    "text": "Aural exam questions"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.16.1",
+    "href": "weekly_news.html#lbgfs2024-0.16.1",
+    "title": "Week 16",
+    "section": "",
+    "text": "Link to exam questions on website"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.16.2",
+    "href": "weekly_news.html#lbgfs2024-0.16.2",
+    "title": "Week 16",
+    "section": "",
+    "text": "Updated webr-live quarto extension"
   }
 ]
