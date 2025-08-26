@@ -20,6 +20,7 @@
 #'
 #' ## Example
 #' ./deploy_exercise.sh -s <source_exercise_dir> -t <deployment_target_dir>
+#' EXNAMES=$(ls -1 inst/exercises/lbgfs2024/exercises | tr '\n' ' ');for e in $EXNAMES;do echo " * Ex: $e ...";./bash/deploy_exercise.sh -e $e;sleep 2;done
 #'
 #' ## Set Directives
 #' General behavior of the script is driven by the following settings
@@ -62,7 +63,8 @@ usage () {
   echo '                                                   > default: $(date +"%Y-%m-%d") ...'
   echo '        -e <exercise_name>          --             exercise name ...'
   echo '        -h                          --  (optional) show usage message ...'
-  echo '        -l <link_title>             --             link name ...'
+  echo '        -l <link_title>             --             link name, if not specified no data table is written ...'
+  echo '                                                   > default: none ...'
   echo '        -q <quarto_yml>             --  (optional) quarto yml parameter file ...'
   echo '                                                   > default: _quarto.yml ...'
   echo '        -s <source_exercise_dir>    --             source directory from where exercise is to be deployed ...'
@@ -225,7 +227,7 @@ else
   EXC_NAME=$(basename $SRC_EXC_DIR)
 fi
 if [[ $LINK_TITLE == '' ]];then
-  usage " *** ERROR: -l <link_title> required, but not defined ..."
+  log_msg $SCRIPT " *** WARNING: -l <link_title> not defined ==> no data table written ..."
 fi
 if [[ $TRG_DPL_DIR == '' ]];then
   TRG_DPL_DIR=$EVALREPO/docs/exercises
@@ -262,6 +264,17 @@ fi
 quarto render $SRC_EXC_DIR/${EXC_NAME}.qmd --execute-params $QYMLPAR 
 
 
+#' ## Delete Existing Target Dir
+#' If target directory already exists, delete it
+#+ del-trg-dir
+TRG_DIR=$TRG_DPL_DIR/$EXC_NAME
+if [[ -d $TRG_DIR ]];then
+  log_msg $SCRIPT " * Delete existing target dir ..."
+  if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Delete $TRG_DIR ...";fi
+  rm -rf $TRG_DIR
+fi
+
+
 #' ## Copy Exercise Material
 #' Copy material from source to target
 #+ copy-material
@@ -280,8 +293,10 @@ clean_up_exc_material
 #' ## Data Table Entry
 #' The deployed exercise needs an entry in the exercise data table
 #+ add-data-table-entry
-log_msg $SCRIPT " * Write data table entry ..."
-write_data_table_entry
+if [[ $LINK_TITLE != '' ]];then
+  log_msg $SCRIPT " * Write data table entry ..."
+  write_data_table_entry
+fi
 
 
 #' ## End of Script
