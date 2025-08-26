@@ -4,7 +4,7 @@
     "href": "course_notes/course_notes.html",
     "title": "Course Notes",
     "section": "",
-    "text": "Chapters of course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-20\nBasics in Quantitative Genetics\n\n\n3\n2024-10-18\nGenetic Evaluation\n\n\n4\n2024-10-24\nBLUP\n\n\n5\n2024-11-01\nDerivation of BLUP\n\n\n6\n2024-11-07\nGenetic Covariance\n\n\n7\n2024-11-22\nAdditional Aspects of BLUP\n\n\n8\n2024-11-29\nGenomic Selection\n\n\n\n\n\nAppendix to course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nLinear Algebra\n\n\n2\n2024-10-18\nVariance Computations\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:51:54 CEST (pvr)"
+    "text": "Chapters of course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-20\nBasics in Quantitative Genetics\n\n\n3\n2024-10-18\nGenetic Evaluation\n\n\n4\n2024-10-24\nBLUP\n\n\n5\n2024-11-01\nDerivation of BLUP\n\n\n6\n2024-11-07\nGenetic Covariance\n\n\n7\n2024-11-22\nAdditional Aspects of BLUP\n\n\n8\n2024-11-29\nGenomic Selection\n\n\n\n\n\nAppendix to course notes\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nLinear Algebra\n\n\n2\n2024-10-18\nVariance Computations\n\n\n\n\n\n\nLatest Changes: 2025-08-26 15:21:48 CEST (pvr)"
   },
   {
     "objectID": "index.html",
@@ -46,21 +46,21 @@
     "href": "index.html#lecture-program",
     "title": "Livestock Breeding and Genomics",
     "section": "Lecture Program",
-    "text": "Lecture Program\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n20.09\nIntroduction to Livestock Breeding and Genomics\n\n\n2\n27.09\nReview of Quantitative Genetics/Single Locus\n\n\n3\n04.10\nGenetic Evaluation with Different Sources of Information\n\n\n4\n11.10\nGenetic Covariance Between Relatives\n\n\n5\n18.10\nBest Linear Unbiased Prediction (BLUP) - Univariate Analysis\n\n\n6\n25.10\nBLUP - Additional Aspects\n\n\n7\n01.11\nBLUP - Multiple Traits\n\n\n8\n08.11\nVariance and Inbreeding\n\n\n9\n15.11\nVariance Components Estimation\n\n\n10\n22.11\nGenomic Selection\n\n\n11\n29.11\nGenom-Wide Association Studies\n\n\n12\n06.12\nReview on Selection Index Theory\n\n\n13\n13.12\nTest-Exam and Questions\n\n\n14\n20.12\nExam\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:15 CEST (pvr)"
+    "text": "Lecture Program\n\n\n\n\n\n\n\n\n\n\nWeek\nDate\nTopic\n\n\n\n\n1\n20.09\nIntroduction to Livestock Breeding and Genomics\n\n\n2\n27.09\nReview of Quantitative Genetics/Single Locus\n\n\n3\n04.10\nGenetic Evaluation with Different Sources of Information\n\n\n4\n11.10\nGenetic Covariance Between Relatives\n\n\n5\n18.10\nBest Linear Unbiased Prediction (BLUP) - Univariate Analysis\n\n\n6\n25.10\nBLUP - Additional Aspects\n\n\n7\n01.11\nBLUP - Multiple Traits\n\n\n8\n08.11\nVariance and Inbreeding\n\n\n9\n15.11\nVariance Components Estimation\n\n\n10\n22.11\nGenomic Selection\n\n\n11\n29.11\nGenom-Wide Association Studies\n\n\n12\n06.12\nReview on Selection Index Theory\n\n\n13\n13.12\nTest-Exam and Questions\n\n\n14\n20.12\nExam\n\n\n\n\n\n\nLatest Changes: 2025-08-26 15:22:10 CEST (pvr)"
   },
   {
     "objectID": "slides/slides.html",
     "href": "slides/slides.html",
     "title": "Slides",
     "section": "",
-    "text": "List of slides documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-11\nMultiple Loci\n\n\n4\n2024-10-18\nGenetic Evaluation\n\n\n5\n2024-10-25\nBLUP\n\n\n6\n2024-11-01\nCovariance between Animals\n\n\n7\n2024-11-08\nNumerator Relationship Matrix\n\n\n8\n2024-11-15\nInverse A\n\n\n9\n2024-11-22\nHendersons Rule\n\n\n10\n2024-11-22\nAdditional Aspects of BLUP\n\n\n11\n2024-11-29\nGenomic Selection\n\n\n12\n2024-12-13\nDigital Twin\n\n\n\n\n\nSlides with annotations\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nMultiple Loci\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:21 CEST (pvr)"
+    "text": "List of slides documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-11\nMultiple Loci\n\n\n4\n2024-10-18\nGenetic Evaluation\n\n\n5\n2024-10-25\nBLUP\n\n\n6\n2024-11-01\nCovariance between Animals\n\n\n7\n2024-11-08\nNumerator Relationship Matrix\n\n\n8\n2024-11-15\nInverse A\n\n\n9\n2024-11-22\nHendersons Rule\n\n\n10\n2024-11-22\nAdditional Aspects of BLUP\n\n\n11\n2024-11-29\nGenomic Selection\n\n\n12\n2024-12-13\nDigital Twin\n\n\n\n\n\nSlides with annotations\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nMultiple Loci\n\n\n\n\n\n\nLatest Changes: 2025-08-26 15:22:16 CEST (pvr)"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About the Course",
     "section": "",
-    "text": "The following content was taken from the course catalogue\n\nAbstract\nSwiss routine breeding value estimation/genetic evaluation systems of cattle, pig, sheep and goats are presented with methods and evaluated traits. Examples will be demonstrated using the statistical software R.\n\n\nLearning objective\nThe students know the theoretical and practical application of breeding value estimation in Switzerland for cattle, pig, sheep and goats. The students are able to interpret estimated breeding values.\n\n\nContent\n\nBasic principles of genetic evaluations\nApplied genetic evaluation in cattle (data, methods, traits, national and international genetic evaluations)\nApplied genetic evaluation in pigs (data, methods, traits)\nApplied genetic evaluation in sheep and goats (data, methods, traits)\n\n\nLatest Changes: 2025-08-26 14:52:26 CEST (pvr)"
+    "text": "The following content was taken from the course catalogue\n\nAbstract\nSwiss routine breeding value estimation/genetic evaluation systems of cattle, pig, sheep and goats are presented with methods and evaluated traits. Examples will be demonstrated using the statistical software R.\n\n\nLearning objective\nThe students know the theoretical and practical application of breeding value estimation in Switzerland for cattle, pig, sheep and goats. The students are able to interpret estimated breeding values.\n\n\nContent\n\nBasic principles of genetic evaluations\nApplied genetic evaluation in cattle (data, methods, traits, national and international genetic evaluations)\nApplied genetic evaluation in pigs (data, methods, traits)\nApplied genetic evaluation in sheep and goats (data, methods, traits)\n\n\nLatest Changes: 2025-08-26 15:22:21 CEST (pvr)"
   },
   {
     "objectID": "exercises.html",
@@ -81,7 +81,7 @@
     "href": "weekly_news.html",
     "title": "Week 16",
     "section": "",
-    "text": "Updated webr-live quarto extension\n\n\n\n\n\nLink to exam questions on website\n\n\n\n\n\nAural exam questions"
+    "text": "Re-deployed exercises\n\n\n\n\n\nUpdated webr-live quarto extension\n\n\n\n\n\nLink to exam questions on website\n\n\n\n\n\nAural exam questions"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.4",
@@ -179,7 +179,7 @@
     "href": "weekly_news.html#lbgfs2024-0.0.1",
     "title": "Week 16",
     "section": "lbgfs2024 0.0.1",
-    "text": "lbgfs2024 0.0.1\n\nInitial draft version of lecture material.\n\n\nLatest Changes: 2025-08-26 14:52:15 CEST (pvr)"
+    "text": "lbgfs2024 0.0.1\n\nInitial draft version of lecture material.\n\n\nLatest Changes: 2025-08-26 15:22:09 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.1.5",
@@ -277,7 +277,7 @@
     "href": "ohp/ohp.html",
     "title": "Overhead Pictures",
     "section": "",
-    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-04\nGenotypic Values\n\n\n4\n2024-10-11\nGenotypic Value Decomposition\n\n\n5\n2024-11-01\nBLUP\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-15\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-22\nHenderson’s Rule\n\n\n9\n2024-11-29\nAdditional Aspects of BLUP\n\n\n10\n2024-12-06\nGenomic Selection\n\n\n11\n2024-12-13\nTest Exam\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:51:48 CEST (pvr)"
+    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-20\nIntroduction\n\n\n2\n2024-09-27\nBasics of Quantitative Genetics\n\n\n3\n2024-10-04\nGenotypic Values\n\n\n4\n2024-10-11\nGenotypic Value Decomposition\n\n\n5\n2024-11-01\nBLUP\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-15\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-22\nHenderson’s Rule\n\n\n9\n2024-11-29\nAdditional Aspects of BLUP\n\n\n10\n2024-12-06\nGenomic Selection\n\n\n11\n2024-12-13\nTest Exam\n\n\n\n\n\n\nLatest Changes: 2025-08-26 15:21:42 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.2.1",
@@ -312,7 +312,7 @@
     "href": "exercises/exercises.html",
     "title": "Exercises",
     "section": "",
-    "text": "List of exercises\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-10-25\nFixed linear model\n\n\n5\n2024-11-01\nSire model\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-10\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-23\nHendersons Rule\n\n\n9\n2024-11-29\nBLUP Animal Model\n\n\n10\n2024-12-06\nReliability\n\n\n11\n2024-12-06\nGenomic Breeding Values\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:32 CEST (pvr)"
+    "text": "List of exercises\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-10-25\nFixed linear model\n\n\n5\n2024-11-01\nSire model\n\n\n6\n2024-11-08\nNumerator Relationship Matrix\n\n\n7\n2024-11-10\nInverse Numerator Relationship Matrix\n\n\n8\n2024-11-23\nHendersons Rule\n\n\n9\n2024-11-29\nBLUP Animal Model\n\n\n10\n2024-12-06\nReliability\n\n\n11\n2024-12-06\nGenomic Breeding Values\n\n\n\n\n\n\nLatest Changes: 2025-08-26 15:22:27 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.2.4",
@@ -326,7 +326,7 @@
     "href": "solutions/solutions.html",
     "title": "Solutions",
     "section": "",
-    "text": "List of Solutions\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-11-15\nFixed linear model\n\n\n5\n2024-11-15\nSire Model\n\n\n6\n2024-11-15\nNumerator Relationship Matrix\n\n\n7\n2024-11-24\nInverse Numerator Relationship Matrix\n\n\n8\n2024-12-07\nHendersons Rule\n\n\n9\n2024-12-07\nBLUP Animal Model\n\n\n10\n2024-12-07\nReliability\n\n\n11\n2024-12-07\nGenomic Breeding Values\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:06 CEST (pvr)"
+    "text": "List of Solutions\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-09-27\nGenotype Data\n\n\n2\n2024-10-04\nGenotypic Values\n\n\n3\n2024-10-11\nParent-Offspring Breeding Values\n\n\n4\n2024-11-15\nFixed linear model\n\n\n5\n2024-11-15\nSire Model\n\n\n6\n2024-11-15\nNumerator Relationship Matrix\n\n\n7\n2024-11-24\nInverse Numerator Relationship Matrix\n\n\n8\n2024-12-07\nHendersons Rule\n\n\n9\n2024-12-07\nBLUP Animal Model\n\n\n10\n2024-12-07\nReliability\n\n\n11\n2024-12-07\nGenomic Breeding Values\n\n\n\n\n\n\nLatest Changes: 2025-08-26 15:22:00 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.3.0",
@@ -466,7 +466,7 @@
     "href": "video/video.html",
     "title": "Video",
     "section": "",
-    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nLecture 6\n\n\n\n\n\n\nLatest Changes: 2025-08-26 14:52:00 CEST (pvr)"
+    "text": "List of overhead picture documents\n\n\n\n\n\nNr\nDate\nTopic\n\n\n\n\n1\n2024-10-25\nLecture 6\n\n\n\n\n\n\nLatest Changes: 2025-08-26 15:21:54 CEST (pvr)"
   },
   {
     "objectID": "weekly_news.html#lbgfs2024-0.7.0",
@@ -754,5 +754,12 @@
     "title": "Week 16",
     "section": "",
     "text": "Updated webr-live quarto extension"
+  },
+  {
+    "objectID": "weekly_news.html#lbgfs2024-0.16.3",
+    "href": "weekly_news.html#lbgfs2024-0.16.3",
+    "title": "Week 16",
+    "section": "",
+    "text": "Re-deployed exercises"
   }
 ]
