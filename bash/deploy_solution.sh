@@ -20,6 +20,7 @@
 #'
 #' ## Example
 #' ./deploy_solution.sh -e <exercise_name> -l <link_text>
+#' SOLEXNAMES=$(ls -1 inst/exercises/lbgfs2024/solutions | tr '\n' ' ');for s in $SOLEXNAMES;do echo " * Sol: $s ...";./bash/deploy_solution.sh -e $s;sleep 2;done
 #'
 #' ## Set Directives
 #' General behavior of the script is driven by the following settings
