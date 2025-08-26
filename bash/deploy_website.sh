@@ -187,15 +187,22 @@ cd $EVALREPO
 #' website is served
 #+ deploy-website
 log_msg $SCRIPT " * Deploy website ..."
-for f in $(find $QWEBPROJROOT/_site -type f -name '*.html');do
-  TRGWEBPATH=$(echo $f | sed -e "s|$QWEBPROJROOT/_site|$PUBWEBDIR|")
-  # target web directory must exist, otherwise create it
-  TRGWEBDIR=$(dirname $TRGWEBPATH)
-  check_exist_create_dir $TRGWEBDIR
-  if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Copy $f to $TRGWEBPATH ...";fi
-  cp $f $TRGWEBPATH
+EXTPAT='css html json'
+for p in $EXTPAT;do
+  if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * File ext: $p ...";fi
+  for f in $(find $QWEBPROJROOT/_site -type f -name "*.$p");do
+    TRGWEBPATH=$(echo $f | sed -e "s|$QWEBPROJROOT/_site|$PUBWEBDIR|")
+    # target web directory must exist, otherwise create it
+    TRGWEBDIR=$(dirname $TRGWEBPATH)
+    check_exist_create_dir $TRGWEBDIR
+    if [[ -f $TRGWEBPATH ]];then
+      log_msg $SCRIPT " * Delete existing version of $TRGWEBPATH ..."
+      rm $TRGWEBPATH
+    fi
+    if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Copy $f to $TRGWEBPATH ...";fi
+    cp $f $TRGWEBPATH
+  done
 done
-
 
 #' ## Publish Content
 #' Directly publish content by committing all changes and by 
