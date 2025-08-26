@@ -1,4 +1,8 @@
 # Week 16 
+## lbgfs2024 0.16.3
+
+* Re-deployed exercises
+
 ## lbgfs2024 0.16.2
 
 * Updated webr-live quarto extension
@@ -372,4 +376,4 @@ Adding links to the material of week 1
 
 ---
 
- _Latest Changes: 2025-08-26 14:52:15 CEST (pvr)_
+ _Latest Changes: 2025-08-26 15:22:09 CEST (pvr)_
