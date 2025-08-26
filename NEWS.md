@@ -1,3 +1,7 @@
+# lbgfs2024 0.16.3
+
+* Re-deployed exercises
+
 # lbgfs2024 0.16.2
 
 * Updated webr-live quarto extension
