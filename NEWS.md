@@ -1,3 +1,7 @@
+# lbgfs2024 0.16.2
+
+* Updated webr-live quarto extension
+
 # lbgfs2024 0.16.1
 
 * Link to exam questions on website
