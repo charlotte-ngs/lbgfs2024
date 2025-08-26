@@ -19,7 +19,8 @@
 #' Since github has lowered the maximum size of changes to be pushed, we sometimes need to commit and push changes including many files one file after an other
 #'
 #' ## Example
-#' ./stepwise_commit_push.sh -s <source_path>
+#' ./stepwise_commit_push.sh -s <status_tag>
+#' STATUSTAGS='new modified renamed deleted';for s in $STATUSTAGS;do echo " * Status $s ...";./bash/stepwise_commit_push.sh -s $s;sleep 2;done
 #'
 #' ## Set Directives
 #' General behavior of the script is driven by the following settings
