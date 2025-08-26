@@ -264,6 +264,17 @@ fi
 quarto render $SRC_SOL_DIR/${EXC_NAME}.qmd --execute-params $QYMLPAR 
 
 
+#' ## Delete Existing Target Dir
+#' If target directory already exists, delete it
+#+ del-trg-dir
+TRG_DIR=$TRG_DPL_DIR/$EXC_NAME
+if [[ -d $TRG_DIR ]];then
+  log_msg $SCRIPT " * Delete existing target dir ..."
+  if [[ $VERBOSE == 'true' ]];then log_msg $SCRIPT " * Delete $TRG_DIR ...";fi
+  rm -rf $TRG_DIR
+fi
+
+
 #' ## Copy Exercise Material
 #' Copy material from source to target
 #+ copy-material
